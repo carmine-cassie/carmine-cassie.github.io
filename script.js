@@ -38,13 +38,15 @@ scene.add( cube );
 
 camera.position.z = 5;
 
+const clock = new THREE.Clock();
+
 function animate() {
-	cube.material.uniforms['time']['value'] += 0.01;
+	cube.material.uniforms['time']['value'] += clock.getDelta();
 	renderer.render( scene, camera );
 }
 renderer.setAnimationLoop( animate );
 
-// Update the uniforms on window resize
+// Update the uniforms on window resizea
 function onWindowResize(){
 	renderer.setPixelRatio( window.devicePixelRatio);
 	renderer.setSize(window.innerWidth, window.innerHeight);

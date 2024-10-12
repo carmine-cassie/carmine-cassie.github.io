@@ -96,7 +96,7 @@
 
         if (distortUv != vec2(0.0, 0.0)) {
           // Matrix Mult stuff to rotate the accretion disk texture
-          highp float rotation = time * -0.1;
+          highp float rotation = time * -0.05;
           highp float sin_value = sin(rotation);
           highp float cos_value = cos(rotation);
 
@@ -110,7 +110,7 @@
         }
 
         // Add the stars
-        brightness += 1.0 * texture2D(stars, fitUv).x;
+        brightness += texture2D(stars, fitUv).x;
 
         // Colorramp the brightness across our gradient
         float third = 1.0 / 3.0;
