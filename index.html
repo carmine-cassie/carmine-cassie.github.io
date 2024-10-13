@@ -24,10 +24,10 @@
     <script src="script.js" type="module"></script>
   </head>
 
-  <body style="background-color:#000">
-    <canvas id="mycanvas" style="position:fixed;top:0;left:0;width:100%;height:100%;image-rendering:pixelated"></canvas>
+  <body style="background-color:#200">
+    <canvas id="mycanvas" style="position:fixed;top:0;left:0;width:100%;height:100%"></canvas>
 
-    <div style="padding-left:1em;padding-right:1em;position:absolute;background:#0007;backdrop-filter:blur(5px);width:calc(100% - 2em);left:0px;top:0px;">
+    <div style="line-height:1.5em;padding-left:1em;padding-right:1em;position:absolute;background:#0007;backdrop-filter:blur(5px);width:calc(100% - 2em);height:3.5em;left:0px;top:0px;z-index:2;box-shadow: #9c003370 0px 0px 15px 0px">
       <h1 class="nav_element" style="color:#ff909f">carmine-cassie</h1>
       <div style="float:right;">
         <!-- <h1 class="nav_element" style="color:#ff909f">blog</h1> -->
@@ -45,7 +45,7 @@
     </script>
     <script id = "fragmentShader" type="shader">
       uniform float time;
-      uniform sampler2D grav_lens;
+      uniform highp sampler2D grav_lens;
       uniform sampler2D accretion_disk;
       uniform sampler2D stars;
       uniform float aspect;
