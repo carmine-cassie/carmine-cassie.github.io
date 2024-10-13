@@ -37,6 +37,11 @@ p {
     "wdth" 100;
 }
 
+a {
+  text-decoration: none;
+  color:inherit;
+}
+
 .nav_element {
   font-family: "Germania One", system-ui;
   font-weight: 400;

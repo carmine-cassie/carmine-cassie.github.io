@@ -1,5 +1,12 @@
-import { defineConfig } from 'vite'
-
-export default defineConfig({
+export default {
   base: '',
-})
+
+  build: {
+    rollupOptions: {
+      input: {
+        main: 'index.html'
+      }
+    }
+  }
+}
+

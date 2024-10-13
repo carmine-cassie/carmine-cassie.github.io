@@ -14,9 +14,9 @@ const scene = new THREE.Scene();
 const camera = new THREE.OrthographicCamera();
 const geometry = new THREE.PlaneGeometry( 2, 2 );
 
-const accretion_disk = new THREE.TextureLoader().load('./src/img/disk_texture_noisy.png');
-const grav_lens = new EXRLoader().load('./src/img/black_hole_uv6b.exr');
-const stars = new THREE.TextureLoader().load('./src/img/stars_distort.png');
+const accretion_disk = new THREE.TextureLoader().load('/src/img/disk_texture_noisy.png');
+const grav_lens = new EXRLoader().load('/src/img/black_hole_uv6b.exr');
+const stars = new THREE.TextureLoader().load('/src/img/stars_distort.png');
 
 const material = new THREE.ShaderMaterial(
 	{
