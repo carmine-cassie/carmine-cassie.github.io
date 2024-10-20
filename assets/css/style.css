@@ -1,4 +1,5 @@
 body {
+  color: #ff909f;
   font-family: "Open Sans", sans-serif;
   font-optical-sizing: auto;
   font-weight: 400;
@@ -18,6 +19,7 @@ h1 {
 }
 
 h2, h3, h4, h5, h6 {
+  color: #ff909f;
   margin-bottom: 0px;
   margin-top: 1em;
 
@@ -27,6 +29,7 @@ h2, h3, h4, h5, h6 {
 }
 
 p {
+  color: #ff909f;
   margin-top: 0.5em;
 
   font-family: "Open Sans", sans-serif;
@@ -38,8 +41,17 @@ p {
 }
 
 a {
+  text-decoration: dotted underline;
+  color:#ff3355;
+}
+
+.nav_element a {
   text-decoration: none;
-  color:inherit;
+  color: inherit
+}
+
+hr {
+  color: #ff909f
 }
 
 .nav_element {
@@ -52,6 +64,21 @@ a {
   float:left;
 }
 
+.f-hover {
+  visibility:hidden;
+  padding:1em;
+  border-radius:0.5em;
+  left:0px;
+  right:0px;
+  margin-top:2em;
+  margin-inline:auto;
+  max-width:35em;
+  background-color:#000;
+  text-align:center;
+  position:absolute;
+  z-index:2;
+  box-shadow: #ff909f 0px 0px 5px 5px;
+}
 
 /*
 .merriweather-light {

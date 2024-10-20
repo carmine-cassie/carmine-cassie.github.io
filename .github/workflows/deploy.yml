@@ -23,11 +23,8 @@ jobs:
       - name: Build project
         run: npx vite build
 
-      - name: Prepare src folder
-        run : mkdir dist/src
-
       - name: Copy assets
-        run : cp src/img dist/src/img -r
+        run : cp assets dist/assets -r
 
       - name: Upload production-ready build files
         uses: actions/upload-artifact@v3
