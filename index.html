@@ -10,110 +10,19 @@
     <link href="https://fonts.googleapis.com/css2?family=Germania+One&family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
 
 
-    <script type="module" crossorigin src="./assets/main-ix6OQMHn.js"></script>
-    <link rel="stylesheet" crossorigin href="./assets/main-1Ua1_sKK.css">
+    <script type="module" crossorigin src="./assets/main-D4hyFMlf.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/main-URDTC14Q.css">
   </head>
 
   <body style="background-color:#200">
-    <canvas id="mycanvas" style="position:fixed;top:0;left:0;width:100%;height:100%"></canvas>
+    <canvas id="bgcanvas" style="position:fixed;top:0;left:0;width:100%;height:100%"></canvas>
 
-    <div style="line-height:1.5em;padding-left:1em;padding-right:1em;position:absolute;background:#0007;backdrop-filter:blur(5px);width:calc(100% - 2em);height:3.5em;left:0px;top:0px;z-index:2;box-shadow: #9c003370 0px 0px 15px 0px">
+    <div style="line-height:1.5em;padding-left:1em;padding-right:1em;position:absolute;background:#0007;backdrop-filter:blur(5px);width:calc(100% - 2em);height:3.5em;left:0px;top:0px;z-index:2;box-shadow: #f357 0px 0px 15px 0px">
       <h1 class="nav_element" style="color:#ff909f"><a href="index">carmine-cassie</a></h1>
       <div style="float:right;">
         <!-- <h1 class="nav_element" style="color:#ff909f"><a href="pages/article">blog</a></h1> -->
         <!-- <h1 class="nav_element" style="color:#ff909f">about</h1> -->
       </div>
     </div>
-
-    <script id = "vertexShader" type="shader">
-      varying vec2 vUv;
-
-      void main() {
-        vUv = uv;
-        gl_Position = vec4(position, 1.0);
-      }
-    </script>
-
-    <script id = "fragmentShader" type="shader">
-      uniform float time;
-      uniform highp sampler2D grav_lens;
-      uniform sampler2D accretion_disk;
-      uniform sampler2D stars;
-      uniform float aspect;
-
-      varying highp vec2 vUv;
-
-      // Function that scales a value around 0.5
-      float scale(float value, float scale) {
-        return ((value - 0.5) * scale) + 0.5;
-      }
-
-      void main()
-      {
-        float brightness = 0.0;
-
-        // This is our colour-ramp
-        // TODO look into making this an array with a custom ramping function
-        vec4 colour1 = vec4(0.05, 0.0, 0.02, 1.0); // ##29000f
-        vec4 colour2 = vec4(0.61, 0.0, 0.2, 1.0); // #9c0033
-        vec4 colour3 = vec4(0.84, 0.61, 0.64, 1.0); // #d69ca3
-        vec4 colour4 = vec4(1.0, 1.0, 1.0, 1.0);   // 
-
-        // The textures are 4:3, so I scale our aspect ratio to be relative
-        // to 4:3s
-        float ratio = aspect * 3.0 / 4.0;
-
-        // We scale the uv to fit the images on the screen with correct aspect
-        vec2 fitUv = vUv;
-        if (ratio < 1.0) {
-          // Taller than normal
-          // So stretch out sideways
-          fitUv.x = scale(vUv.x, ratio);
-        } else if (ratio > 1.0) {
-          // Shorter than normal
-          // So stretch out upways
-          fitUv.y = scale(vUv.y, 1.0 / ratio);
-        }    
-
-        // The .exr black hole texture needs to be square to prevent weird
-        // artefacting, so I do a quick modification
-        vec2 squareUv = fitUv;
-        squareUv.y = scale(squareUv.y, 0.75);
-
-        // Read from the grav lens texture
-        // The RG channels are our UV to index the disk texture
-        highp vec3 lens_read = texture2D(grav_lens, squareUv).xyz;
-        highp vec2 distortUv = lens_read.xy;
-
-        if (distortUv != vec2(0.0, 0.0)) {
-          // Matrix Mult stuff to rotate the accretion disk texture
-          highp float rotation = time * -0.05;
-          highp float sin_value = sin(rotation);
-          highp float cos_value = cos(rotation);
-
-          distortUv = (distortUv - 0.5) * mat2(cos_value, sin_value, -sin_value, cos_value) + 0.5;
-
-          // Sample the Disk with the new rotated coords
-          brightness = texture2D(accretion_disk, distortUv).x;
-
-          // Mask with the grav lens' blue channel
-          brightness *= lens_read.z;
-        }
-
-        // Add the stars
-        brightness += texture2D(stars, fitUv).x;
-
-        // Colorramp the brightness across our gradient
-        float third = 1.0 / 3.0;
-        if (brightness < third) {
-          gl_FragColor = mix(colour1, colour2, brightness * 3.0);
-        } else if (brightness < 2.0 * third) {
-          gl_FragColor = mix(colour2, colour3, brightness * 3.0 - 1.0);
-        } else {
-          gl_FragColor = mix(colour3, colour4, brightness * 3.0 - 2.0);
-        }
-        
-      }
-    </script>
   </body>
 </html>
