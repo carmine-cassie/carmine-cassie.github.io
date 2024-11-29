@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="en">
+  <head>
+
+    <meta charset="utf-8" />
+    <meta name='viewport' content='width=device-width'/>
+    <title>carmine-cassie</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Germania+One&family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="/assets/css/style.css">
+
+    <script src="/assets/shaders/stars.js" type="module"></script>
+  </head>
+
+  <body style="background-color:#200">
+
+
+    <canvas id="mycanvas" style="position:fixed;top:0;left:0;width:100%;height:100%"></canvas>
+
+    <div style="line-height:1.5em;padding-left:1em;padding-right:1em;position:absolute;background:#0007;backdrop-filter:blur(5px);width:calc(100% - 2em);height:3.5em;left:0px;top:0px;z-index:2;box-shadow: #f357 0px 0px 15px 0px">
+      <h1 class="nav_element" style="color:#ff909f"><a href="../index">carmine-cassie</a></h1>
+      <div style="float:right;">
+        <h1 class="nav_element" style="color:#ff909f"><a href="article">blog</a></h1>
+        <!-- <h1 class="nav_element" style="color:#ff909f">about</h1> -->
+      </div>
+    </div><style>#f-body-1:hover #f-hover-1 {visibility:visible}</style>
+<style>#f-body-2:hover #f-hover-2 {visibility:visible}</style>
+<style>#f-body-3:hover #f-hover-3 {visibility:visible}</style>
+<style>#f-body-4:hover #f-hover-4 {visibility:visible}</style>
+<style>#f-body-5:hover #f-hover-5 {visibility:visible}</style>
+<style>#f-body-6:hover #f-hover-6 {visibility:visible}</style>
+<style>#f-body-7:hover #f-hover-7 {visibility:visible}</style>
+<style>#f-body-8:hover #f-hover-8 {visibility:visible}</style>
+<style>#f-body-9:hover #f-hover-9 {visibility:visible}</style>
+    <div style="max-width:45em;margin-inline:auto;margin-top:3.5em;background:#0007;backdrop-filter:blur(5px);color:#ff909f;padding:20px;box-shadow: #f357 0px 0px 15px 0px">      <h1>Super-Deferred: Rendering a Black Hole Real-Time In-Browser</h1>
+
+<h2>Motivation</h2>
+
+<p>I'm into graphics programming, so when I was putting together this website, I knew I wanted to prominently feature some artwork or shader trick. In this article, I'll break down the spinning black hole background I cooked up for my homepage!</p>
+
+<p>The reason I find graphics programming so exciting is the way it instills you with a passion for, like, the hidden beauty of the natural world, and then immediately tells you to tear it apart and rebuild it out of algorithms and "good-enough" shortcuts. It's a very rich intersection of technical problem-solving architecture and art.</p>
+
+<p>With that in mind, our strategy for creating a real-time black hole will be to analyse the optics<span id=f-body-1><sup><a href="#f-end-1">1</a></sup><span class="f-hover" id="f-hover-1">Light science.</span>
+</span> of the situation, simulate that situation inside the computer, and then use tricks and shortcuts to get it down to real-time.<span id=f-body-2><sup><a href="#f-end-2">2</a></sup><span class="f-hover" id="f-hover-2">We could totally not aim for real-time and render, like, a gif to play in the background. I chose not to do this because: a) I hate when a website is slow to load because it's downloading a video, b) I think there's something thrilling about looking at an effect and knowing it's being computed on <i>your</i> computer, and c) I'm looking for an excuse to do a cool graphics project!</span>
+</span></p>
+
+
+<h2>Gravitational Lensing</h2>
+
+<p>So. Black holes are pretty big, huh. Lot of mass going on in there.</p>
+
+<p>When you put that much mass in one spot, General Relativity says that it curves space, meaning that straight lines in a black hole's vicinity are no longer straight. I don't intuitively understand this space curving business, so I conceptualise it as "the black hole exerts a gravitational pull on the light," - a laser beam shot past a black hole will curve towards and around it.</p>
+
+<p>This curving of light is called Gravitational Lensing.</p>
+
+<p>Taking gravitational lensing into account, let's think about what the black hole would look like from a camera's perspective. I've decided to give our black hole a big glowing accretion disk, so let's place the camera a little bit above that, looking down at the black hole.</p>
+
+<p>TODO our camera position</p>
+
+<p>(A quick aside, in graphics programming we usually conceptualise light rays in reverse, originating from the camera and bouncing around in the world until they hit a light source. The maths works the same, it just means we can efficiently narrow our search to only beams of light that pass through the camera's lens and hit the sensor.)</p>
+
+<p>Light rays that give the black hole's curved space a wide berth will act basically as we expect - stars far away from the black hole will look normal, as will the parts of the accretion disk closer to the camera.</p>
+
+<p>TODO glancing rays are fine</p>
+
+<p>Light rays that graze a little closer to the black hole will curve around it, meaning that light rays we might not expect to hit the accretion disk will. Like a mirage, we'll see false images of the accretion disk above and below the black hole. (Interestingly, the mirage below the accretion disk will be inverted, with the accretion disk spinning the wrong way.)</p>
+
+<p>TODO grazing rays show us a mirage</p>
+
+<p>Finally, light rays that graze too close to the black hole will get sucked up by it, spiralling into event horizon, the black sphere around the center of the black hole. This will have the effect of magnifying the appearance of the event horizon.</p>
+
+<p>TODO closer rays magnify our event horizon</p>
+
+<p>TODO SKETCH OF WHAT BLACK HOLE LOOKS LIKE</p>
+
+<blockquote>A quick aside here! A person very close to the black hole's event horizon, close enough to be inside its magnified image, would see it rise up, <i>above the horizon</i>, enveloping them as they fell into it. Scary stuff.</blockquote>
+
+<p>TODO DIAGRAM OF FALLING IN</p>
+
+<h2>Path Tracing</h2>
+
+<p>Alrighty, we have a rudimentary understanding of gravitational lensing, we have an expectation of what the black hole should look like, so now we're looking for a computer graphics technique that can simulate these curved paths that light rays take around a black hole.</p>
+
+<p>Path-tracing is a solid contender here - it's a very common technique that simulates these light rays I've been talking about, so there's a lot of off-the-shelf software we can make use of. (I used Blender!) We just need to figure out how to bend the light.</p>
+
+<p>Now, Blender is not built to handle curved spacetime, but it does have tools for simulating simulating bent light. Specifically, Blender understands refraction - it may not be able to do gravitational lensing out of the box but it can simulate mundane lenses just fine.</p>
+
+<p>When a light ray passes into a medium with a higher index of refraction, it gets bent towards the surface normal of the boundary. Blender doesn't worry about boundaries between mediums, it just models objects by their surfaces, and will happily bend any light ray that hits a surface with a refractive material.</p>
+
+<p>TODO diagram of refraction</p>
+
+<p>This means that if we layer hundreds of concentric spheres with refractive materials, any light that passes through will progressively get bent towards the center - because the surface normal at any point on a sphere points down into it.<span id=f-body-3><sup><a href="#f-end-3">3</a></sup><span class="f-hover" id="f-hover-3">Technically the normal points up and away, but we use whichever vector (either the normal or its inverse) is closer to the vector of our ray's direction. So on entering a sphere, we'll use the inverted normal, which will point down into its center.</span>
+</span></p>
+
+<p>TODO diagram of layered spheres</p>
+
+<p>This is what we want! We've got Blender mimicking a curved space that guides light rays towards some central point. At this point I'd be worried about the accuracy of our simulation, setting up the perfect spacing and index of refraction on the spheres to correctly mimick gravitational lensing, while avoiding artefacts. Luckily for us, I found a youtube tutorial that has the physics all figured out! (TODO LINK IT)</p>
+
+<p>TODO render result</p>
+
+<p>So there we go, we've successfully rendered a black hole that looks both accurate and freaking gorgeous! Unfortunately, it took a [TODO TIME] to render a single frame on a machine with a GPU, and we're aiming for real-time, on, like, any device that is likely to load our website.</p>
+
+<p>It turns out path tracing is an expensive<span id=f-body-4><sup><a href="#f-end-4">4</a></sup><span class="f-hover" id="f-hover-4">In graphics, "expensive" means slow, because the cost we're trying to minimise is runtime.</span>
+</span> technique, and our fully volumetric accretion disk isn't doing us any favours. If we want to get this real-time, we'll want a different technique.<span id=f-body-5><sup><a href="#f-end-5">5</a></sup><span class="f-hover" id="f-hover-5">We could totally write a black hole ray-tracer or ray-marcher designed from the ground up to be real-time, but I'm aiming for a small scale project targeting abritray hardware, so I went with a different strategy.</span>
+</span></p>
+
+<h2>Deferred Rendering</h2>
+
+<p>Let's have a look at how real-time rendering is usually done, and see if we can learn something applicable to our problem.</p>
+
+<p>Path-tracing is pretty uncommon in real-time - it's an oft-recursive ray-triangle intersection for each triangle in the scene, for each pixel on the screen, it's crazy! It's only become more widespread recently with specialist hardware designed for the job, which is definitely not what we're targeting.</p>
+
+<p>Usually, real-time rendering uses a technique called rasterisation. We use a matrix multiplication to map our scene's vertices from world-coordinates to screen-coordinates, and then draw each triangle to the screen, ordered by their distance to the camera, so that closer things are drawn on top of farther things. This way, we get correct perspective and occlusion without ever having to cast a ray.</p>
+
+<p>This technique isn't super applicable to our situation, because gravitational lensing means that the mapping of world-space to screen-space is a little more complicated than one matrix multiplication. I guess we could devise a custom world-space to screen-space function that takes gravitational lensing into account, but that seems a little more involved than what I'm hoping for, so let's go back to the books.</p>
+
+<p>Rasterisation is not without its problems. Since every triangle gets drawn, one on top of the other, sometimes processing power is wasted doing shading calculations for fully occluded objects. To avoid this, many modern rasterisation engines use a technique called Deferred Rendering.<span id=f-body-6><sup><a href="#f-end-6">6</a></sup><span class="f-hover" id="f-hover-6">In contrast to our previous rasterisation workflow, which is called Forward Rendering.</span>
+</span></p>
+
+<p>Rather than doing all the shading calculations for each triangle as we go, we instead just record some information about each triangle as we draw it not onto the screen but into a buffer called the gbuffer<span id=f-body-7><sup><a href="#f-end-7">7</a></sup><span class="f-hover" id="f-hover-7">Gbuffer is short for "geometry buffer".</span>
+</span>. We can keep track of information like each pixel's distance to the camera, surface normal, UV coordinates<span id=f-body-8><sup><a href="#f-end-8">8</a></sup><span class="f-hover" id="f-hover-8">I recognise that usually UV details aren't written into the gbuffer, and that it would in fact be a bad idea to do so, but bear with me here - it's relevant to my strategy.</span>
+</span>, etc. Then, once we've finished rasterising, we can use the data in the gbuffer to perform our shading calculations only for the geometry that will actually make it into the finished image.</p>
+
+<p>This technique gives me an idea...</p>
+
+
+<h2>Super-Deferred</h2>
+
+<p>Using our accurate but slow Blender model of a gravitational lens from earlier, I've constructed my own faux-gbuffer.</p>
+
+<p>(TODO IMAGE!)</p>
+
+<p>The red and green channels display the accretion disk's UV coordinates - coordinates in the disk's texture space. This means that we can use the red and green channels as indexes<span id=f-body-9><sup><a href="#f-end-9">9</a></sup><span class="f-hover" id="f-hover-9">Not indices! According to Microsoft's style guide, at least.</span>
+</span> to sample an accretion disk texture.</p>
+
+<p>We can also apply a matrix multiplication to the red and green channels to rotate them around the point (0.5, 0.5) - this is how we make the accretion disk spin!</p>
+
+<p>The blue channel is a mask that we multiply onto our render, just to soften edges and avoid aliasing artefacts.</p>
+
+<p>So that's the strategy! We've essentially deferred our rendering so far that the gbuffer and final image are being computed on different machines, so the only computation happening on the end machine is, like, two texture lookups.</p>
+
+<p>Does this count as rendering a black hole in real-time? It's certainly not a very flexible system, as it requires a static camera angle and a completely flat and opaque accretion disk. This wouldn't be a very useful general-purpose black hole rendering tool.</p>
+
+<p>But as set dressing? As a magic trick? I think it fulfills the requirements of the situation - it looks great, runs well, and I learned a lot in the process of making it.</p>
+
+<p>I think it's beautiful!</p>
+<hr><ol>
+<li id=f-end-1>Light science. <a href="#f-body-1">↩</a></li>
+<li id=f-end-2>We could totally not aim for real-time and render, like, a gif to play in the background. I chose not to do this because: a) I hate when a website is slow to load because it's downloading a video, b) I think there's something thrilling about looking at an effect and knowing it's being computed on <i>your</i> computer, and c) I'm looking for an excuse to do a cool graphics project! <a href="#f-body-2">↩</a></li>
+<li id=f-end-3>Technically the normal points up and away, but we use whichever vector (either the normal or its inverse) is closer to the vector of our ray's direction. So on entering a sphere, we'll use the inverted normal, which will point down into its center. <a href="#f-body-3">↩</a></li>
+<li id=f-end-4>In graphics, "expensive" means slow, because the cost we're trying to minimise is runtime. <a href="#f-body-4">↩</a></li>
+<li id=f-end-5>We could totally write a black hole ray-tracer or ray-marcher designed from the ground up to be real-time, but I'm aiming for a small scale project targeting abritray hardware, so I went with a different strategy. <a href="#f-body-5">↩</a></li>
+<li id=f-end-6>In contrast to our previous rasterisation workflow, which is called Forward Rendering. <a href="#f-body-6">↩</a></li>
+<li id=f-end-7>Gbuffer is short for "geometry buffer". <a href="#f-body-7">↩</a></li>
+<li id=f-end-8>I recognise that usually UV details aren't written into the gbuffer, and that it would in fact be a bad idea to do so, but bear with me here - it's relevant to my strategy. <a href="#f-body-8">↩</a></li>
+<li id=f-end-9>Not indices! According to Microsoft's style guide, at least. <a href="#f-body-9">↩</a></li>
+</ol>
+    </div>
+
+    <script id = "vertexShader" type="shader">
+      varying vec2 vUv;
+
+      void main() {
+        vUv = uv;
+        gl_Position = vec4(position, 1.0);
+      }
+    </script>
+    <script id = "fragmentShader" type="shader">
+      uniform float time;
+      uniform sampler2D grav_lens;
+      uniform sampler2D accretion_disk;
+      uniform sampler2D stars;
+      uniform float aspect;
+
+      varying highp vec2 vUv;
+
+      // Function that scales a value around 0.5
+      float scale(float value, float scale) {
+        return ((value - 0.5) * scale) + 0.5;
+      }
+
+      void main()
+      {
+
+        // This is our colour-ramp
+        // TODO look into making this an array with a custom ramping function
+        vec4 colour1 = vec4(0.05, 0.0, 0.02, 1.0); // ##29000f
+        vec4 colour2 = vec4(0.61, 0.0, 0.2, 1.0); // #9c0033
+        vec4 colour3 = vec4(0.84, 0.61, 0.64, 1.0); // #d69ca3
+        vec4 colour4 = vec4(1.0, 1.0, 1.0, 1.0);   // 
+
+        // The textures are 4:3, so I scale our aspect ratio to be relative
+        // to 4:3s
+        float ratio = aspect * 3.0 / 4.0;
+
+        // We scale the uv to fit the images on the screen with correct aspect
+        vec2 fitUv = vUv;
+        if (ratio < 1.0) {
+          // Taller than normal
+          // So stretch out sideways
+          fitUv.x = scale(vUv.x, ratio);
+        } else if (ratio > 1.0) {
+          // Shorter than normal
+          // So stretch out upways
+          fitUv.y = scale(vUv.y, 1.0 / ratio);
+        }    
+        // Add the stars
+        float brightness = texture2D(stars, fitUv).x;
+
+        // Colorramp the brightness across our gradient
+        float third = 1.0 / 3.0;
+        if (brightness < third) {
+          gl_FragColor = mix(colour1, colour2, brightness * 3.0);
+        } else if (brightness < 2.0 * third) {
+          gl_FragColor = mix(colour2, colour3, brightness * 3.0 - 1.0);
+        } else {
+          gl_FragColor = mix(colour3, colour4, brightness * 3.0 - 2.0);
+        }
+        
+      }
+    </script>
+  </body>
+</html>
