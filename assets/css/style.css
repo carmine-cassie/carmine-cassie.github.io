@@ -13,23 +13,57 @@ html, body {
   height: 100%;
 }
 
+h1 {
+  font-size: 3em;
+  margin-bottom: 0.25em;
+}
+
+h2 {
+  font-size: 2em;
+  margin-bottom: 0.25em;
+}
+
+h3 {
+  font-size: 1em;
+  margin-bottom: 0.25em;
+  text-decoration: underline;
+}
+
+p {
+  margin-bottom: 0.25em;
+}
+
+ul {
+  margin-top: 0.25em;
+}
+
 body {
-  line-height: 100%;
   background-color: #eee;
+}
+
+.compact {
+  margin-top: 0.25em;
 }
 
 .preserve-whitespace {
   white-space: pre;
   overflow-x: scroll;
+  line-height: 100%;
+}
+
+.inverted {
+  background-color: #933;
+  color: #fff;
+  font-weight: bold;
 }
 
 @font-face {
   font-family: "toshibatx";
-  src: url("/assets/fonts/Web437_ToshibaTxL2_8x16.woff") format('woff');
+  src: url("/assets/fonts/WebPlus_ToshibaTxL2_8x16.woff") format('woff');
 }
 
 @font-face {
   font-family: "toshibatx";
-  src: url("/assets/fonts/Web437_ToshibaTxL1_8x16.woff") format('woff');
+  src: url("/assets/fonts/WebPlus_ToshibaTxL1_8x16.woff") format('woff');
   font-weight: bold;
 }
