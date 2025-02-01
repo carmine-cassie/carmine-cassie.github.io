@@ -20,6 +20,7 @@ body {
 
 .preserve-whitespace {
   white-space: pre;
+  overflow-x: scroll;
 }
 
 @font-face {
