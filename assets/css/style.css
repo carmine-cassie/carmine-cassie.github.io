@@ -1,145 +1,34 @@
+.main-paper {
+  max-width: 40em;
+  background-color: #fff;
+  margin-left: auto;
+  margin-right: auto;
+  font-family: toshibatx;
+  padding: 2.5em;
+  padding-top: 1em;
+}
+
+html, body {
+  margin: 0;
+  height: 100%;
+}
+
 body {
-  color: #ff909f;
-  font-family: "Open Sans", sans-serif;
-  font-optical-sizing: auto;
-  font-weight: 400;
-  font-style: normal;
-  font-variation-settings:
-    "wdth" 100;
-  margin: 0px;
+  line-height: 100%;
+  background-color: #eee;
 }
 
-h1 {
-  margin:0px;
-
-  font-family: "Germania One", system-ui;
-  font-weight: 400;
-  font-style: normal;
-  font-size: 2.5em;
+.preserve-whitespace {
+  white-space: pre;
 }
 
-h2, h3, h4, h5, h6 {
-  color: #ff909f;
-  margin-bottom: 0px;
-  margin-top: 1em;
-
-  font-family: "Merriweather", serif;
-  font-weight: 600;
-  font-style: normal;
+@font-face {
+  font-family: "toshibatx";
+  src: url("/assets/fonts/Web437_ToshibaTxL2_8x16.woff") format('woff');
 }
 
-p {
-  color: #ff909f;
-  margin-top: 0.5em;
-
-  font-family: "Open Sans", sans-serif;
-  font-optical-sizing: auto;
-  font-weight: 400;
-  font-style: normal;
-  font-variation-settings:
-    "wdth" 100;
+@font-face {
+  font-family: "toshibatx";
+  src: url("/assets/fonts/Web437_ToshibaTxL1_8x16.woff") format('woff');
+  font-weight: bold;
 }
-
-a {
-  text-decoration: dotted underline;
-  color:#ff3355;
-}
-
-.nav_element a {
-  text-decoration: none;
-  color: inherit
-}
-
-hr {
-  color: #ff909f
-}
-
-.nav_element {
-  font-family: "Germania One", system-ui;
-  font-weight: 400;
-  font-style: normal;
-  font-size: 2em;
-  margin: 0.5em;
-  display:block;
-  float:left;
-}
-
-.f-hover {
-  visibility:hidden;
-  padding:1em;
-  border-radius:0.5em;
-  left:0px;
-  right:0px;
-  margin-top:2em;
-  margin-inline:auto;
-  max-width:35em;
-  background-color:#000;
-  text-align:center;
-  position:absolute;
-  z-index:2;
-  box-shadow: #ff909f 0px 0px 5px 5px;
-}
-
-/*
-.merriweather-light {
-  font-family: "Merriweather", serif;
-  font-weight: 300;
-  font-style: normal;
-}
-
-.merriweather-regular {
-  font-family: "Merriweather", serif;
-  font-weight: 400;
-  font-style: normal;
-}
-
-.merriweather-bold {
-  font-family: "Merriweather", serif;
-  font-weight: 700;
-  font-style: normal;
-}
-
-.merriweather-black {
-  font-family: "Merriweather", serif;
-  font-weight: 900;
-  font-style: normal;
-}
-
-.merriweather-light-italic {
-  font-family: "Merriweather", serif;
-  font-weight: 300;
-  font-style: italic;
-}
-
-.merriweather-regular-italic {
-  font-family: "Merriweather", serif;
-  font-weight: 400;
-  font-style: italic;
-}
-
-.merriweather-bold-italic {
-  font-family: "Merriweather", serif;
-  font-weight: 700;
-  font-style: italic;
-}
-
-.merriweather-black-italic {
-  font-family: "Merriweather", serif;
-  font-weight: 900;
-  font-style: italic;
-}
-
-.germania-one-regular {
-  font-family: "Germania One", system-ui;
-  font-weight: 400;
-  font-style: normal;
-}
-
-.open-sans-regular {
-  font-family: "Open Sans", sans-serif;
-  font-optical-sizing: auto;
-  font-weight: 400;
-  font-style: normal;
-  font-variation-settings:
-    "wdth" 100;
-}*/
