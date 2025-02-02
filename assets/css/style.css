@@ -26,6 +26,7 @@ body {
 h1 {
   font-size: 3em;
   margin-bottom: 0.25em;
+  text-shadow: 0.0625em 0.0625em #9339;
 }
 
 h2 {
@@ -49,6 +50,12 @@ ul {
 
 body {
   background-color: #eee;
+}
+
+a {
+  color: #933;
+  font-weight: bold;
+  text-decoration-thickness: calc(1em / 8);
 }
 
 .compact {
