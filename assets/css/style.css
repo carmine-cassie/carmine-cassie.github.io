@@ -84,3 +84,24 @@ a {
   src: url("/assets/fonts/WebPlus_ToshibaTxL1_8x16.woff") format('woff');
   font-weight: bold;
 }
+
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+  text-align: center;
+}
+
+table {
+  margin: auto;
+  margin-top: 1em;
+  margin-bottom: 0.25em;
+}
+
+th, td {
+  padding-left: 1em;
+  padding-right: 1em;
+}
+
+.scroll-container {
+  overflow: scroll;
+}
