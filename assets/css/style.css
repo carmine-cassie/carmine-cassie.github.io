@@ -166,7 +166,7 @@ th, td {
 
 code {
   font-family: "toshibatx";
-  border-radius: 8px;
+  border-radius: 4px;
 }
 
 pre code.hljs.compact {
@@ -182,4 +182,8 @@ hr {
   background-color: var(--color-fg);
   border-width:0;
   height:1px;
+}
+
+p code.hljs {
+  padding:2px 4px 2px 4px;
 }
