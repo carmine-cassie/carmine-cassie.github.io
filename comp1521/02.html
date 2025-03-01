@@ -75,48 +75,50 @@
 
       <p>Here's a table of registers, arranged by purpose rather than by index. Contrast it to the <a href="https://cgi.cse.unsw.edu.au/~cs1521/current/resources/mips-guide.html#registers">Registers</a> section of our MIPS Documentation page.</p>
 
-      <table>
-        <tr>
-          <th style="width:2.5em">Index</th>
-          <th style="width:2.5em">Name</th>
-          <th>Description</th>
-        </tr>
-        <tr>
-          <td>8-15, 24-25</td>
-          <td>$t0-$t9</td>
-          <td class="left"><b>T</b> for <b>T</b>emporary. These are general purpose, and will probably be the first place you go for storing a value. (We'll touch more on why they're temporary in Week 4).</td>
-        </tr>
-        <tr>
-          <td>4-7</td>
-          <td>$a0-$a3</td>
-          <td class="left"><b>A</b> for <b>A</b>rguments. When you're passing values into a function, put the function's arguments here.</td>
-        </tr>
-        <tr>
-          <td>2, 3</td>
-          <td>$v0, $v1</td>
-          <td class="left"><b>V</b> for Return <b>V</b>alues. After you call a function, look here to get the value the function returned.</td>
-        </tr>
-        <tr>
-          <td>16-23</td>
-          <td>$s0-$s7</td>
-          <td class="left"><b>S</b> for <b>S</b>aved. These are general purpose registers that <b>aren't</b> temporary. We won't touch them until Week 4.</td>
-        </tr>
-        <tr>
-          <td>0</td>
-          <td>$zero</td>
-          <td class="left">Zero register, always contains a value of 0, and if you try to change it nothing will happen. Sometimes useful<b>!</b></td>
-        </tr>
-        <tr>
-          <td>28, 29, 30</td>
-          <td>$gp, $sp, $fp</td>
-          <td class="left"><b>G</b>lobal <b>P</b>ointer, <b>S</b>tack <b>P</b>ointer, <b>F</b>rame <b>P</b>ointer, these define where those parts of memory are. If you're curious about these, check out the lectures, but you should never need to use them directly in this course.</td>
-        </tr>
-        <tr>
-          <td>1, 26, 27</td>
-          <td>$at, $k0, $k1</td>
-          <td class="left">Used by the operating system and the assembler for some pseudoinstructions: things a little lower-level than Mipsy. Not for us to touch, don't worry about them<b>!</b></td>
-        </tr>
-      </table>
+      <div class="scroll-container">
+        <table>
+          <tr>
+            <th style="width:2.5em">Index</th>
+            <th style="width:2.5em">Name</th>
+            <th>Description</th>
+          </tr>
+          <tr>
+            <td>8-15, 24-25</td>
+            <td>$t0-$t9</td>
+            <td class="left"><b>T</b> for <b>T</b>emporary. These are general purpose, and will probably be the first place you go for storing a value. (We'll touch more on why they're temporary in Week 4).</td>
+          </tr>
+          <tr>
+            <td>4-7</td>
+            <td>$a0-$a3</td>
+            <td class="left"><b>A</b> for <b>A</b>rguments. When you're passing values into a function, put the function's arguments here.</td>
+          </tr>
+          <tr>
+            <td>2, 3</td>
+            <td>$v0, $v1</td>
+            <td class="left"><b>V</b> for Return <b>V</b>alues. After you call a function, look here to get the value the function returned.</td>
+          </tr>
+          <tr>
+            <td>16-23</td>
+            <td>$s0-$s7</td>
+            <td class="left"><b>S</b> for <b>S</b>aved. These are general purpose registers that <b>aren't</b> temporary. We won't touch them until Week 4.</td>
+          </tr>
+          <tr>
+            <td>0</td>
+            <td>$zero</td>
+            <td class="left">Zero register, always contains a value of 0, and if you try to change it nothing will happen. Sometimes useful<b>!</b></td>
+          </tr>
+          <tr>
+            <td>28, 29, 30</td>
+            <td>$gp, $sp, $fp</td>
+            <td class="left"><b>G</b>lobal <b>P</b>ointer, <b>S</b>tack <b>P</b>ointer, <b>F</b>rame <b>P</b>ointer, these define where those parts of memory are. If you're curious about these, check out the lectures, but you should never need to use them directly in this course.</td>
+          </tr>
+          <tr>
+            <td>1, 26, 27</td>
+            <td>$at, $k0, $k1</td>
+            <td class="left">Used by the operating system and the assembler for some pseudoinstructions: things a little lower-level than Mipsy. Not for us to touch, don't worry about them<b>!</b></td>
+          </tr>
+        </table>
+      </div>
 
       <h2>Q1: Basics</h2>
 
