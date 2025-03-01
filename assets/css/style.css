@@ -1,9 +1,13 @@
 [data-theme="light"] {
-  --color-bg: #fff;
-  --color-bg-faint: #fffb;
+  --color-bg: #fee;
+  --color-bg-faint: #feed;
+  --color-raised: #dcc;
   --color-fg: #000;
-  --color-accent: #900;
-  --color-accent-faint: #9339;
+  --color-fg-faint: #000d;
+  --color-accent-fg: #900;
+  --color-accent-fg-faint: #9339;
+  --color-accent-bg: #f66;
+  --color-accent-bg-faint: #f779;
 
   & .light-icon {
     display: block;
@@ -14,10 +18,15 @@
 }
 
 [data-theme="dark"] {
-  --color-bg-faint: #000b;
+  --color-bg: #200;
+  --color-bg-faint: #200d;
+  --color-raised: #433;
   --color-fg: #fff;
-  --color-accent: #f66;
-  --color-accent-faint: #f779;
+  --color-fg-faint: #fffd;
+  --color-accent-fg: #f66;
+  --color-accent-fg-faint: #f779;
+  --color-accent-bg: #900;
+  --color-accent-bg-faint: #9339;
 
   & .light-icon {
     display: none;
@@ -66,7 +75,7 @@ body {
 h1 {
   font-size: 3em;
   margin-bottom: 0.25em;
-  text-shadow: 0.0625em 0.0625em var(--color-accent-faint);
+  text-shadow: 0.0625em 0.0625em var(--color-accent-fg-faint);
 }
 
 h2 {
@@ -89,7 +98,7 @@ ul {
 }
 
 a {
-  color: var(--color-accent);
+  color: var(--color-accent-fg);
   font-weight: bold;
   text-decoration-thickness: calc(1em / 8);
 }
@@ -105,7 +114,7 @@ a {
 }
 
 .inverted {
-  background-color: var(--color-accent);
+  background-color: var(--color-accent-fg);
   color: var(--color-bg);
   font-weight: bold;
 }
@@ -127,6 +136,10 @@ table, th, td {
   text-align: center;
 }
 
+.left {
+  text-align: left;
+}
+
 table {
   margin: auto;
   margin-top: 1em;
@@ -134,10 +147,39 @@ table {
 }
 
 th, td {
-  padding-left: 1em;
-  padding-right: 1em;
+  padding-left: 0.5em;
+  padding-right: 0.5em;
 }
 
 .scroll-container {
   overflow: scroll;
+}
+
+.code-inline{
+  background-color: var(--color-raised);
+  border-radius:5px;
+  color: var(--color-fg);
+  border-color: var(--color-raised);
+  border-style: solid;
+  border-width: 2px;
+}
+
+code {
+  font-family: "toshibatx";
+  border-radius: 8px;
+}
+
+pre code.hljs.compact {
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+}
+
+pre code b{
+  font-weight:bold;
+}
+
+hr {
+  background-color: var(--color-fg);
+  border-width:0;
+  height:1px;
 }
