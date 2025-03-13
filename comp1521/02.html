@@ -5,6 +5,7 @@
     <meta name='viewport' content='width=device-width'/>
     <title>COMP1521/02</title>
     
+    <!-- We use highlight.js for syntax highlighting! -->
     <link rel="stylesheet" href="https://unpkg.com/@highlightjs/cdn-assets@11.11.1/styles/dark.min.css">
     <script src="https://unpkg.com/@highlightjs/cdn-assets@11.11.1/highlight.min.js"></script>
     <script src="https://unpkg.com/@highlightjs/cdn-assets@11.11.1/languages/c.min.js"></script>
@@ -246,28 +247,366 @@ main:
 prompt_str:
 	.asciiz "Enter a number: "</code></pre>
 
+      <p>Note that the comments are all aligned on the right. That way, we don't have to puzzle out what each line of assembly means - we can just read the C code in the comments instead<b>!</b></p>
+
       <p>Now we can run it on a CSE machine (or in TigerVNC or an SSH terminal) like so:</p>
 
       <pre><code class="language-shell">$ 1521 mipsy q1.s
 Enter a number: 42
 1764</code></pre>
 
-      <hr>
-
-      <p>The rest of the page is still WIP!</p>
-
       <h2>Logic & Flow in MIPS</h2>
+
+      <p>Something that we definitely want to figure out how to do in MIPS is <q>control flow</q> - a way to tell the CPU to take different paths through our code instead of just executing it top-to-bottom. We want to learn how to do if statements and loops.</p>
+
+      <p>In C, there's this idea of nesting - you can put code inside curly brackets to create a <q>code block</q>, and then execute different code blocks in different circumstances. MIPS doesn't have this concept.</p>
+      
+      <p>In MIPS, the closest equivalent we have to code blocks is labels, like we used for <code class="language-mipsasm">main:</code> and <code class="language-mipsasm">prompt_str:</code>. The only tools we have for control flow in MIPS are <q>branch instructions</q>, which tell the CPU to jump to a label, and start executing code from that point onwards.</p>
+      
+      <p>C actually has some features similar to these<b>!</b> You can write labels into your C code, same as MIPS, and you can use statements called <code class="language-c">goto</code>s as an equivalent for MIPS branch instructions. For this reason, people often like to first convert their C code to <q>Simple C</q>, using labels and <code class="language-c">goto</code>s, before converting their Simple C to MIPS.</p>
 
       <h2>Q2: <code class="language-c">goto</code>s & If Statements</h2>
 
+      <p>Let's say we've been asked to translate the C program below, <code class="language-plaintext">q2.c</code> into MIPS. This is pretty similar to Q1, but with an if-statement, so we won't need to make too many changes to our MIPS code.</p>
+
+      <pre><code class="language-c">// Squares a number, unless its square is too big for a 32-bit integer.
+// If it is too big, prints an error message instead.
+
+#include <stdio.h>
+
+#define SQUARE_MAX 46340
+
+int main(void) {
+    int x, y;
+
+    printf("Enter a number: ");
+    scanf("%d", &x);
+
+    if (x > SQUARE_MAX) {
+        printf("square too big for 32 bits\n");
+    } else {
+        y = x * x;
+        printf("%d\n", y);
+    }
+
+    return 0;
+}</code></pre>
+
+      <p>Let's start by converting it to simple C, using labels and <code class="language-c">goto</code>s rather than an if-else statement. Here's <code class="language-plaintext">q2.simple.c</code>:</p>
+
+      <pre><code class="language-c">// Squares a number, unless its square is too big for a 32-bit integer.
+// If it is too big, prints an error message instead.
+
+#include <stdio.h>
+
+#define SQUARE_MAX 46340
+
+int main(void) {
+    int x, y;
+
+    printf("Enter a number: ");
+    scanf("%d", &x);
+    
+    if (x <= SQUARE_MAX) goto x_is_ok;
+x_is_too_big:
+        printf("square too big for 32 bits\n");
+        goto end_if;
+x_is_ok:
+        y = x * x;
+        printf("%d\n", y);
+end_if:
+
+    return 0;
+}</code></pre>
+
+      <p>I want you to note 3 things here:</p>
+      <ul>
+        <li>Instead of our condition telling us whether to <b>execute</b> the <q>true</q> branch, it must now tell us whether to <b>skip</b> it, as our only tool is <code class="language-c">goto</code>s, so it's been inverted from <code class="language-c">x > SQUARE_MAX:</code> to <code class="language-c">x <= SQUARE_MAX</code>.</li>
+        <li>Under the <code class="language-c">x_is_too_big:</code> label, we have a <code class="language-c">goto end_if;</code> Think about what would happen if we didn't have this: the CPU would just continue going line-by-line, and would execute <b>both</b> branches of the if statement<b>!</b></li>
+        <li>Our label names are descriptive, and we have more than we need. <code class="language-c">x_is_too_big:</code> is not actually used by our code, but it's descriptive and helps us understand what's going on.</li>
+      </ul>
+
+      <p>Now that we've converted our original C code to Simple C, it's easy enough to convert it over to MIPS:</p>
+
+      <pre><code class="language-mipsasm"># Squares a number, unless its square is too big for a 32-bit integer.
+# If it is too big, prints an error message instead.
+
+SQUARE_MAX = 46340
+
+main:
+	# x in $t0
+	# y in $t1
+
+	la	$a0, prompt_str			# printf("Enter a number: ")
+	li	$v0, 4				# mode 4: print_str
+	syscall
+
+	li	$v0, 5				# scanf("%d", &x)
+	syscall					# mode 5: read_int
+	move	$t0, $v0
+	
+	ble	$t0, SQUARE_MAX, x_is_ok	# if (x <= SQUARE_MAX) goto x_is_ok
+
+x_is_too_big:
+	la	$a0, error_str			# printf("square too big for 32 bits\n")
+	li	$v0, 4				# mode 4: print_str
+	syscall
+
+	b	end_if				# goto end_if
+
+x_is_ok:
+	mul	$t1, $t0, $t0			# y = x * x
+
+	move	$a0, $t1			# printf("%d", y)
+	li	$v0, 1				# mode 1: print_int
+	syscall
+
+	li	$a0, '\n'			# printf("\n")
+	li	$v0, 11				# mode 11: print_char
+	syscall
+
+end_if:
+	jr	$ra				# return
+
+	.data
+prompt_str:
+	.asciiz "Enter a number: "
+error_str:
+	.asciiz "square too big for 32 bits\n"</code></pre>
+
+      <p>We can use the same labels as our simple C code, and replace the <code class="language-c">goto</code>s with branch instructions:</p>
+
+      <ul>
+        <li>The <code class="language-c">goto</code> with no condition gets replaced with <q>Unconditional Branch</q>: <code class="language-mipsasm">b</code>.</li>
+        <li>The <code class="language-c">goto</code> with the if condition gets replaced with <q>Branch on Less Than or Equal</q>: <code class="language-mipsasm">ble</code>.</li>
+      </ul>
+
+      <p>There's a whole family of different branch instructions with different conditions. Check out the <a href="https://cgi.cse.unsw.edu.au/~cs1521/current/resources/mips-guide.html#insn-brjmp">Branch and Jump Instructions</a> section of the MIPS documentation to check out the rest.</p>
+
       <h2>Q3: Combining Conditions</h2>
+
+      Although there are many branch instructions in MIPS, there are still only a limited number of options. When you encounter a C program with a more complex condition, like the one below, you'll have to figure out how to recreate it using only the branch instructions available to you.
+
+      <pre><code class="language-c">#include <stdio.h>
+
+int main(void) {
+    int x;
+    printf("Enter a number: ");
+    scanf("%d", &x);
+
+    if (x > 100 && x < 1000) {
+        printf("medium\n");
+    } else {
+        printf("small/big\n");
+    }
+
+    return;
+}</code></pre>
+
+      <p>Because this is an <q>and</q> condition, the statement will only be true if both halves are true. So if either half is false, we want to jump to the else block.</p>
+
+      <p>We can simplify this like so:</p>
+
+      <pre><code class="language-c">#include <stdio.h>
+
+int main(void) {
+    int x;
+    printf("Enter a number: ");
+    scanf("%d", &x);
+
+    if (x <= 100) goto x_is_small_or_big;
+    if (x >= 1000) goto x_is_small_or_big;
+
+x_is_medium:
+    printf("medium\n");
+    goto end_if;
+
+x_is_small_or_big:
+    printf("small/big\n");
+
+end_if:
+    return;
+}</code></pre>
+
+      <p>Make sure you understand why this works before moving on. Think through what this code would do in a couple of scenarios.</p>
 
       <h2>Q4: Loops!</h2>
 
+      <p>Let's move onto loops<b>!</b> The program below uses a <q>for loop</q>, which is a lot like a while loop but compacted into one line - this makes it easier to avoid infinite loops, because you'll never forget the <code class="language-c">i++;</code>.</p>
+
+      <pre><code class="language-c">// Print every third number from 24 to 42.
+#include <stdio.h>
+
+int main(void) {
+    // This 'for' loop is effectively equivalent to a while loop.
+    // i.e. it is a while loop with a counter built in.
+    for (int x = 24; x < 42; x += 3) {
+        printf("%d\n", x);
+    }
+
+}</code></pre>
+
+      <p>We can create a loop in MIPS by having an unconditional branch at the end of the loop that jumps back up to the top, and a condition branch at the top of the loop that makes sure we exit the loop when the loop's condition stops being true.</p>
+
+      <p>But, like a while loop in C, it's easy to forget things this way, and a broken loop in MIPS is much harder to debug than one in C, so I recommend using 5 labels, rather than the bare minimum 2:</p>
+
+      <pre><code class="language-mipsasm">loop_init: # initialise our loop variable
+loop_cond: # check whether we need to exit the loop
+loop_body: # the contents of the loop
+loop_incr: # increment our loop variable, and jump back to the condition
+loop_end:  # the label we jump to to exit our loop</code></pre>
+
+      <p>Accordingly, here's what our MIPS code looks like<b>!</b> I would advise to use more descriptive label names than this, </p>
+
+      <pre><code class="language-mipsasm"># Print every third number from 24 to 42.
+
+main:
+	# x in $t0
+
+loop_init:
+	li	$t0, 24			# int x = 24
+
+loop_cond:
+	bge	$t0, 42, loop_end	# while x < 42 {
+
+loop_body:
+	move	$a0, $t0		#     printf("%d", x)
+	li	$v0, 1			#     mode 1: print_int
+	syscall
+
+	li	$a0, '\n'		#     printf("\n")
+	li	$v0, 11			#     mode 11: print_char
+	syscall
+
+loop_step:
+	add	$t0, $t0, 3		#     x += 3
+	b	loop_cond		# }
+
+loop_end:
+	jr	$ra			# return</code></pre>
+
       <h2>Q5: Nested Loops</h2>
+
+      <pre><code class="language-c">// Prints a right - angled triangle of asterisks, 10 rows high.
+
+#include <stdio.h>
+
+int main(void) {
+    for (int i = 1; i <= 10; i++) {
+        for (int j = 0; j < i; j++) {
+            printf("*");
+        }
+        printf("\n");
+    }
+    return 0;
+}</code></pre>
+
+      <pre><code class="language-mipsasm"># Prints a right - angled triangle of asterisks, 10 rows high.
+
+main:
+	# i in $t0
+	# j in $t1
+
+row_init:
+	li	$t0, 1			# i = 1
+
+row_cond:
+	bgt	$t0, 10, row_end	# while i <= 10 {
+
+row_body:
+col_init:
+	li	$t1, 0			# j = 0
+
+col_cond:
+	bge	$t1, $t0, col_end	# while j <= i {
+
+col_body:
+	li	$a0, '*'		# printf("*")
+	li	$v0, 11			# mode 11: print_char
+	syscall
+
+col_step:
+	add	$t1, $t1, 1		# j++
+	b	col_cond		# }
+
+col_end:
+	li	$a0, '\n'		# printf("\n")
+	li	$v0, 11			# mode 11: print_char
+	syscall
+
+row_step:
+	add	$t0, $t0, 1		# i++
+	b	row_cond		# }
+
+row_end:
+	jr	$ra			# return</code></pre>
 
       <h2>Q6: Factorial</h2>
 
+      <pre><code class="language-c">// Simple factorial calculator - without error checking
+
+#include <stdio.h>
+
+int main(void) {
+    int n;
+    printf("n  = ");
+    scanf("%d", &n);
+
+    int fac = 1;
+    for (int i = 1; i <= n; i++) {
+        fac *= i;
+    }
+
+    printf("n! = %d\n", fac);
+    return 0;
+}</code></pre>
+
+      <pre><code class="language-mipsasm"># Simple factorial calculator - without error checking
+
+main:
+	# n in $t0
+	# fac in $t1
+	# i in $t2
+
+	la	$a0, prompt_str		# printf("n  = ")
+	li	$v0, 4			# mode 4: print_str
+	syscall
+
+	li	$v0, 5			# scanf("%d", &n)
+	syscall				# mode 5: read_int
+	move	$t0, $v0
+
+fac_init:
+	li	$t1, 1			# fac = 1
+	li	$t2, 1			# i = 1
+fac_cond:
+	bgt	$t2, $t0, fac_end	# while i <= n {
+fac_body:
+	mul	$t1, $t1, $t2		#     fac *= i
+fac_step:
+	add	$t2, $t2, 1		#     i += 1
+	b	fac_cond		# }
+fac_end:
+
+	la	$a0, result_str		# printf("n! = ")
+	li	$v0, 4			# mode 4: print_str
+	syscall
+
+	move	$a0, $t1		# printf("%d", fac)
+	li	$v0, 1			# mode 1: print_int
+	syscall
+
+	li	$a0, '\n'		# printf("\n")
+	li	$v0, 11			# mode 11: print_char
+	syscall
+
+	jr	$ra			# return
+
+	.data
+prompt_str:
+	.asciiz "n  = "
+result_str:
+	.asciiz "n! = "</code></pre>
 
     </div></div>
   </body>
