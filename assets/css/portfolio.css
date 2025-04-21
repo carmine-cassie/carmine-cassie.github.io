@@ -34,6 +34,15 @@
   & .dark-icon {
     display: block;
   }
+  & img {
+    filter:invert()
+  }
+}
+
+img {
+  display:block;
+  margin-left:auto;
+  margin-right:auto;
 }
 
 [data-theme-toggle] {
