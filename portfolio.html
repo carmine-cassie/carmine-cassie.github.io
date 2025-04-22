@@ -34,6 +34,8 @@
           <i class="devicon-go-original-wordmark"></i>
           <i class="devicon-react-original"></i>
           <i class="devicon-typescript-plain"></i>
+          <i class="devicon-mysql-original"></i>
+          <i class="devicon-redis-plain"></i>
           <i class="devicon-terraform-plain"></i>
           <i class="devicon-amazonwebservices-plain-wordmark"></i>
           <i class="devicon-github-original"></i>
@@ -41,7 +43,7 @@
         <br style="clear:both">
       </div>
           
-      <img src="/assets/img/data_butler_layout.png" style="min-width:55%"/>
+      <img src="/assets/img/data_butler_layout.png" style="width:55%"/>
       <p>During my internship at Canva, I worked with another intern to develop and deploy a proof-of-concept database access platform called Data-Butler. The project would improve security, as rather than requesting up-front permission to tunnel into a data store with coarse-grained permissions, an engineer can request approval through a web interface to run a specific, fine-grained query.</p>
       <p>The tech stack on Data-Butler had a lot going on - best explained by breaking down what happens when a user requests an operation. The frontend, written in React, makes a POST request to the API of the backend HTTP server, which is written in Go. The backend persists information about the operation in an AWS RDS, and then enqueues the operation in an AWS ElastiCache queue. Then, an asynchronous worker, also written in Go, dequeues the operation from the ElastiCache queue, retrieves information from the RDS, assumes the appropriate AWS roles to reach the target database, and performs the operation! The project was deployed using a combination of Bazel, Terraform, and in-house tooling.</p>
 
@@ -54,7 +56,7 @@
           <i class="devicon-github-original"></i>
         </h2>
       </div>
-      <img src="/assets/img/ttgsoc_pipeline_layout.png" style="min-width:50%"/>
+      <img src="/assets/img/ttgsoc_pipeline_layout.png" style="width:50%"/>
       <p>The UNSW Tabletop Games Society runs a lot of events, which means that their executive team has a lot of paperwork to do! As part of my role on the IT Subcommittee at TTGSoc, I worked to develop a system to ease the workload. Working in a small team, we took an agile approach to get our systems up and running as soon as possible.</p>
       <p>The project is built in Python, containerised and deployed using Docker, with a PostgreSQL backend. It functions by interacting with a couple APIs, performing tasks that previously would be done by hand. When an event is created on Discord, the system creates a Google Form to track attendance for the event. When the event starts on Discord, the system uses a link-shortening service's API to point our pre-existing link to the attendance form for that event. This means we can show the same QR code at every event</p>
 
