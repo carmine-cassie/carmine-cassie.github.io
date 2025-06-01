@@ -1,3 +1,9 @@
+const latitude = -33.8688;
+const longitude = 151.2093;
+const elevation = 3;
+
+let globalPhase = 0;
+
 const hourHand = document.getElementById("hour-hand");
 const minuteHand = document.getElementById("minute-hand");
 const sunTimesFace = document.getElementById("sun-times-face");
@@ -22,6 +28,9 @@ const spokeADusk = document.getElementById("spoke-a-dusk")
 
 const spokeMidday = document.getElementById("spoke-midday")
 const spokeMidnight = document.getElementById("spoke-midnight")
+
+const moonShadow = document.getElementById("moon-shadow")
+
 
 function timeToDegree(date) {
     let hh = date.getHours();
@@ -58,25 +67,49 @@ function createSector(startDegree, endDegree) {
     return `M ${start[0]} ${start[1]} A 50 50 0 0 0 ${end[0]} ${end[1]} L 50 50`;
 }
 
+function createMoon(phase) {
+    let x = Math.cos(phase * Math.PI / 180) * 50
+
+    
+    // TODO if we're close to a phase, snap to it and edge case it
+    // as is we might get 4 frames a month of zero division errors
+    let a;
+    let b;
+    if (phase < 90) {
+        a = 1;
+        b = 1;
+    } else if (phase < 180) {
+        a = 0;
+        b = 1;
+    } else if (phase < 270) {
+        a = 1;
+        b = 0;
+    } else {
+        a = 0;
+        b = 0;
+    }
+    return `M 50 0 A ${x} 50 0 0 ${a} 50 100 A 50 50 0 0 ${b} 50 0`
+}
+
 function createSpoke(degree) {
     let point = degreeToPoint(50, 50, 50, degree)
     return `M 50 50 L ${point[0]} ${point[1]}`
 }
 
 function daySectors() {
-    let sunTimes = SunCalc.getTimes(new Date(), -33.8688, 151.2093, 3);
+    let observer = new Astronomy.Observer(latitude, longitude, elevation)
     
-    let dayStart = ((timeToDegree(sunTimes.sunrise) + timeToDegree(sunTimes.sunriseEnd)) / 2);
-    let cDawnStart = timeToDegree(sunTimes.dawn);
-    let nDawnStart = timeToDegree(sunTimes.nauticalDawn);
-    let aDawnStart = timeToDegree(sunTimes.nightEnd);
-    let nightStart = timeToDegree(sunTimes.night);
-    let aDuskStart = timeToDegree(sunTimes.nauticalDusk);
-    let nDuskStart = timeToDegree(sunTimes.dusk);
-    let cDuskStart = (timeToDegree(sunTimes.sunset) + timeToDegree(sunTimes.sunsetStart)) / 2;
+    let dayStart = timeToDegree(Astronomy.SearchAltitude('Sun', observer, +1, new Date(), 1, 0).date)
+    let cDawnStart = timeToDegree(Astronomy.SearchAltitude('Sun', observer, +1, new Date(), 1, -6).date)
+    let nDawnStart = timeToDegree(Astronomy.SearchAltitude('Sun', observer, +1, new Date(), 1, -12).date)
+    let aDawnStart = timeToDegree(Astronomy.SearchAltitude('Sun', observer, +1, new Date(), 1, -18).date)
+    let nightStart = timeToDegree(Astronomy.SearchAltitude('Sun', observer, -1, new Date(), 1, -18).date)
+    let aDuskStart = timeToDegree(Astronomy.SearchAltitude('Sun', observer, -1, new Date(), 1, -12).date)
+    let nDuskStart = timeToDegree(Astronomy.SearchAltitude('Sun', observer, -1, new Date(), 1, -6).date)
+    let cDuskStart = timeToDegree(Astronomy.SearchAltitude('Sun', observer, -1, new Date(), 1, 0).date)
 
-    let midday = timeToDegree(sunTimes.solarNoon);
-    let midnight = timeToDegree(sunTimes.nadir);
+    let midday = timeToDegree(Astronomy.SearchHourAngle('Sun', observer, 0, new Date(), 1).time.date);
+    let midnight = timeToDegree(Astronomy.SearchHourAngle('Sun', observer, 12, new Date(), 1).time.date);
 
     sectorDay.setAttribute('d', createSector(dayStart, cDuskStart))
     sectorNight.setAttribute('d', createSector(nightStart, aDawnStart))
@@ -101,9 +134,8 @@ function daySectors() {
 }
 
 function moonPhase() {
-    let moonPhase = SunCalc.getMoonIllumination(new Date())
-
-    console.log(moonPhase.fraction)
+    let phase = Astronomy.MoonPhase(new Date())
+    moonShadow.setAttribute('d', createMoon(phase))
 }
 
 daySectors()

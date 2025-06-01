@@ -149,6 +149,11 @@ body {
     stroke-width: 2px;
 }
 
+.moon-light {
+    fill: #fff;
+}
+
+
 .daySpoke {
     stroke-width: 0.5px;
     stroke: #555e66;
@@ -211,6 +216,11 @@ body {
     position: absolute;
     width: 200px;
     height: 200px;
-    background: #fff;
+    background: #555e66;
     border-radius: 50%;
+    border: solid 5px #555e66;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }

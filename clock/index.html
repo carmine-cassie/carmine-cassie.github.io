@@ -4,6 +4,7 @@
         <title>Clock</title>
         <link rel="stylesheet" href="style.css"/>
         <script src="suncalc.js"></script>
+        <script src="astronomy.browser.min.js"></script>
     </head>
     <body>
         <main class="container">
@@ -87,7 +88,12 @@
                 <div class="hands" id="hour-hand"><i></i></div>
 
                 <div class="moon-frame">
-                    <div class="moon"></div>
+                    <div class="moon">
+                        <svg class="svg moon-svg" viewBox="0 0 100 100">
+                            <circle cx="50" cy="50" r="50" class="moon-light"/>
+                            <path class="moon-shadow" id="moon-shadow"/>
+                        </svg>
+                    </div>
                 </div>
             </section>
         </main>
