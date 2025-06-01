@@ -208,10 +208,12 @@ body {
 
 #spoke-midday {
     stroke: #dea363;
+    stroke-width: 0.75px;
 }
 
 #spoke-midnight {
     stroke: #dea363;
+    stroke-width: 0.75px;
 }
 
 .moon-frame {

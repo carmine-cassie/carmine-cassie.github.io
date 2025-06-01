@@ -42,6 +42,7 @@ const jupiterSky = document.getElementById("jupiter-sky")
 const saturnSky = document.getElementById("saturn-sky")
 
 function timeToDegree(date) {
+    date = new Date(date)
     let hh = date.getHours();
     let mm = date.getMinutes();
     let ss = date.getSeconds();
@@ -50,9 +51,11 @@ function timeToDegree(date) {
 }
 
 function displayTime(){
-    let hh = date.getHours();
-    let mm = date.getMinutes();
-    let ss = date.getSeconds();
+    let localDate = new Date(date)
+
+    let hh = localDate.getHours();
+    let mm = localDate.getMinutes();
+    let ss = localDate.getSeconds();
 
     let hRotate = 180 - (15 * hh + 0.25 * mm);
     let mRotate = 6 * mm + 0.1 * ss;
@@ -68,6 +71,11 @@ function degreeToPoint(cx, cy, cr, degree) {
 }
 
 function createSector(startDegree, endDegree) {
+    startDegree = timeToDegree(startDegree.date)
+    endDegree = timeToDegree(endDegree.date)
+
+    // Todo add a case for start equals end
+
     while (endDegree < startDegree) {
         endDegree += 360;
     }
@@ -108,6 +116,7 @@ function createMoon(phase) {
 }
 
 function createSpoke(degree) {
+    degree = timeToDegree(degree.date)
     let point = degreeToPoint(50, 50, 50, degree)
     return `M 50 50 L ${point[0]} ${point[1]}`
 }
@@ -115,34 +124,125 @@ function createSpoke(degree) {
 function daySectors() {
     let observer = new Astronomy.Observer(latitude, longitude, elevation)
     
-    let dayStart = timeToDegree(Astronomy.SearchAltitude('Sun', observer, +1, date, 1, 0).date)
-    let cDawnStart = timeToDegree(Astronomy.SearchAltitude('Sun', observer, +1, date, 1, -6).date)
-    let nDawnStart = timeToDegree(Astronomy.SearchAltitude('Sun', observer, +1, date, 1, -12).date)
-    let aDawnStart = timeToDegree(Astronomy.SearchAltitude('Sun', observer, +1, date, 1, -18).date)
-    let nightStart = timeToDegree(Astronomy.SearchAltitude('Sun', observer, -1, date, 1, -18).date)
-    let aDuskStart = timeToDegree(Astronomy.SearchAltitude('Sun', observer, -1, date, 1, -12).date)
-    let nDuskStart = timeToDegree(Astronomy.SearchAltitude('Sun', observer, -1, date, 1, -6).date)
-    let cDuskStart = timeToDegree(Astronomy.SearchAltitude('Sun', observer, -1, date, 1, 0).date)
+    let midday = Astronomy.SearchHourAngle('Sun', observer, 0, date, 1);
+    let midnight = Astronomy.SearchHourAngle('Sun', observer, 12, date, 1);
 
-    let midday = timeToDegree(Astronomy.SearchHourAngle('Sun', observer, 0, date, 1).time.date);
-    let midnight = timeToDegree(Astronomy.SearchHourAngle('Sun', observer, 12, date, 1).time.date);
+    let sunHigh = midday.hor.altitude;
+    let sunLow = midnight.hor.altitude;
 
-    sectorDay.setAttribute('d', createSector(dayStart, cDuskStart))
-    sectorNight.setAttribute('d', createSector(nightStart, aDawnStart))
-    sectorCDawn.setAttribute('d', createSector(cDawnStart, dayStart))
-    sectorNDawn.setAttribute('d', createSector(nDawnStart, cDawnStart))
-    sectorADawn.setAttribute('d', createSector(aDawnStart, nDawnStart))
-    sectorCDusk.setAttribute('d', createSector(cDuskStart, nDuskStart))
-    sectorNDusk.setAttribute('d', createSector(nDuskStart, aDuskStart))
-    sectorADusk.setAttribute('d', createSector(aDuskStart, nightStart))
+    midday = midday.time;
+    midnight = midnight.time;
 
+    let longDay = 0;
+    let longNight = 0;
+
+    if (sunLow > -0.75) { longDay = 4; }
+    else if (sunLow > -6.75) { longDay = 3; }
+    else if (sunLow > -12.75) { longDay = 2; }
+    else if (sunLow > -18.75) { longDay = 1; }
+
+    if (sunHigh < -17.25) { longNight = 4; }
+    else if (sunHigh < -11.15) { longNight = 3; }
+    else if (sunHigh < -5.25) { longNight = 2; }
+    else if (sunHigh < 0.75) { longNight = 1; }
+
+    let dayStart = Astronomy.SearchAltitude('Sun', observer, +1, date, 1, 0)
+    let cDuskStart = Astronomy.SearchAltitude('Sun', observer, -1, date, 1, 0)
+    let cDawnStart = Astronomy.SearchAltitude('Sun', observer, +1, date, 1, -6)
+    let nDuskStart = Astronomy.SearchAltitude('Sun', observer, -1, date, 1, -6)
+    let nDawnStart = Astronomy.SearchAltitude('Sun', observer, +1, date, 1, -12)
+    let aDuskStart = Astronomy.SearchAltitude('Sun', observer, -1, date, 1, -12)
+    let aDawnStart = Astronomy.SearchAltitude('Sun', observer, +1, date, 1, -18)
+    let nightStart = Astronomy.SearchAltitude('Sun', observer, -1, date, 1, -18)
+
+    let dayEnd = cDuskStart;
+    let cDuskEnd = nDuskStart;
+    let cDawnEnd = dayStart;
+    let nDuskEnd = aDuskStart;
+    let nDawnEnd = cDawnStart;
+    let aDuskEnd = nightStart;
+    let aDawnEnd = nDawnStart;
+    let nightEnd = aDawnStart;
+
+    console.log(nDawnStart)
+    console.log(aDuskStart)
+    console.log(sunHigh)
+    console.log(sunLow)
+
+    if (longDay >= 1) {
+        nightStart = midnight;
+        nightEnd = midnight;
+        aDawnStart = aDuskStart;
+        aDuskStart = midnight;
+        aDuskEnd = midnight;
+    } if (longDay >= 2) {
+        aDawnStart = midnight;
+        aDawnEnd = midnight;
+        nDawnStart = nDuskStart;
+        nDuskStart = midnight;
+        nDuskEnd = midnight;
+        console.log("wah")
+    } if (longDay >= 3) {
+        nDawnStart = midnight;
+        nDawnEnd = midnight;
+        cDawnStart = cDuskStart;
+        cDuskStart = midnight;
+        cDuskEnd = midnight;
+    } if (longDay >= 4) {
+        cDawnStart = midnight;
+        cDawnEnd = midnight;
+        dayStart = midday;
+        dayEnd = midday;
+        sunTimesFace.style.setProperty("background", "#dceaff")
+    }
+
+    console.log(longNight)
+
+    if (longNight >= 1) {
+        dayStart = midday;
+        dayEnd = midday;
+        cDawnEnd = cDuskEnd;
+        cDuskStart = midday;
+        cDuskEnd = midday;
+    } if (longNight >= 2) {
+        cDawnStart = midday;
+        cDawnEnd = midday;
+        nDawnEnd = nDuskEnd;
+        nDuskStart = midday;
+        nDuskEnd = midday;
+    } if (longNight >= 3) {
+        nDawnStart = midday;
+        nDawnEnd = midday;
+        aDawnEnd = aDuskEnd;
+        aDuskStart = midday;
+        aDuskEnd = midday;
+    } if (longNight >= 4) {
+        aDawnStart = midday;
+        aDawnEnd = midday;
+        nightStart = midnight;
+        nightEnd = midnight;
+        sunTimesFace.style.setProperty("background", "#192029")
+    }
+
+    sectorDay.setAttribute('d', createSector(dayStart, dayEnd))
     spokeDay.setAttribute('d', createSpoke(dayStart))
+
+    sectorNight.setAttribute('d', createSector(nightStart, nightEnd))
     spokeNight.setAttribute('d', createSpoke(nightStart))
+
+    sectorCDawn.setAttribute('d', createSector(cDawnStart, cDawnEnd))
+    sectorCDusk.setAttribute('d', createSector(cDuskStart, cDuskEnd))
     spokeCDawn.setAttribute('d', createSpoke(cDawnStart))
-    spokeNDawn.setAttribute('d', createSpoke(nDawnStart))
-    spokeADawn.setAttribute('d', createSpoke(aDawnStart))
     spokeCDusk.setAttribute('d', createSpoke(cDuskStart))
+
+    sectorNDawn.setAttribute('d', createSector(nDawnStart, nDawnEnd))
+    sectorNDusk.setAttribute('d', createSector(nDuskStart, nDuskEnd))
+    spokeNDawn.setAttribute('d', createSpoke(nDawnStart))
     spokeNDusk.setAttribute('d', createSpoke(nDuskStart))
+
+    sectorADawn.setAttribute('d', createSector(aDawnStart, aDawnEnd))
+    sectorADusk.setAttribute('d', createSector(aDuskStart, aDuskEnd))
+    spokeADawn.setAttribute('d', createSpoke(aDawnStart))
     spokeADusk.setAttribute('d', createSpoke(aDuskStart))
 
     spokeMidday.setAttribute('d', createSpoke(midday))
@@ -204,7 +304,7 @@ function celestialBodies() {
 }
 
 function render() {
-    date = new Date()
+    // date = new Date()
     // date = new Date(date.getTime() + 600000)
 
     daySectors()
