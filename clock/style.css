@@ -1,0 +1,216 @@
+
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+html {
+    height: 100%
+}
+
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    background: #283747;
+    color: #fff;
+}
+
+.container {
+    position: relative;
+}
+
+.clock {
+    width: 500px;
+    height: 500px;
+    border-radius: 50%;
+    background: #1c2833;
+    border: 5px solid #555e66;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.9);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    transform:scale(100%);
+}
+
+.clock .hour-label {
+    position: absolute;
+    transform: rotate(calc(180deg - 15deg * var(--i)));
+    inset: 24px;
+    text-align: center;
+    font-size:  24px;
+}
+
+.clock .minute-label {
+    position: absolute;
+    transform: rotate(calc(30deg * var(--i)));
+    inset: 0px;
+    text-align: center;
+    font-size:  15px;
+}
+
+.clock span b {
+    /* transform: rotate(calc(-30deg * var(--i))); */
+    display: inline-block;
+}
+
+.hands {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-items: flex-end;
+}
+
+.hands i {
+    position: absolute;
+    width: 5px;
+    border-radius: 70px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+#hour-hand i {
+    background: #dea363;
+    height: 205px
+}
+
+#minute-hand i {
+    background: #63a3de;
+    height: 235px
+}
+
+.minute-border{
+    position:absolute;
+    width: 450px;
+    height: 450px;
+    border-radius: 50%;
+    border: 2px solid #555e66;
+}
+
+.minute-face{
+    position:absolute;
+    width: 435px;
+    height: 435px;
+    border-radius: 50%;
+    border: 2px solid #555e66;
+    background: #1c2833;
+}
+
+.sun-times-face{
+    --day-start: 75;
+    --c-dawn-start: 10;
+    --n-dawn-start: 20;
+    --a-dawn-start: 30;
+    --night-start: 180;
+    --a-dusk-start: 190;
+    --n-dusk-start: 200;
+    --c-dusk-start: 210;
+
+    position:absolute;
+    width: 375px;
+    height: 375px;
+    border-radius: 50%;
+    border: 5px solid #555e66;
+    background: #555e66;
+}
+
+.svg {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.hour-ticks {
+    transform: rotate(0deg);
+}
+
+.minute-ticks {
+    transform: rotate(3deg);
+}
+
+.minute-ticks-circle {
+    fill: transparent;
+    stroke: #555e66;
+    stroke-width: 2.5px;
+}
+
+.hour-big-ticks-circle {
+    fill: transparent;
+    stroke: #555e66;
+    stroke-width: 3.5px;
+}
+
+.hour-small-ticks-circle {
+    fill: transparent;
+    stroke: #555e66;
+    stroke-width: 2px;
+}
+
+.daySpoke {
+    stroke-width: 0.5px;
+    stroke: #555e66;
+}
+
+#sector-day {
+    fill: #dceaff
+}
+
+#sector-night {
+    fill: #192029
+}
+
+#sector-c-dawn {
+    fill: #88a6d4
+}
+
+#sector-n-dawn {
+    fill: #4574bc
+}
+
+#sector-a-dawn {
+    fill: #213c66
+}
+
+#sector-c-dusk {
+    fill: #88a6d4
+}
+
+#sector-n-dusk {
+    fill: #4574bc
+}
+
+#sector-a-dusk {
+    fill: #213c66
+}
+
+#spoke-midday {
+    stroke: #dea363;
+}
+
+#spoke-midnight {
+    stroke: #dea363;
+}
+
+.moon-frame {
+    position: absolute;
+    width: 250px;
+    height: 250px;
+    border: 5px solid #555e66;
+    background: #1c2833;
+    border-radius: 50%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.moon {
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    background: #fff;
+    border-radius: 50%;
+}

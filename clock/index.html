@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Clock</title>
+        <link rel="stylesheet" href="style.css"/>
+        <script src="suncalc.js"></script>
+    </head>
+    <body>
+        <main class="container">
+            <section class="clock">
+                <div class="minute-border">
+                    <svg class="svg minute-ticks" viewBox="0 0 100 100">
+                        <circle class="minute-ticks-circle" cx="50" cy="50" r="49" stroke-dasharray="5.13126366667"/>
+                    </svg>
+                </div>
+                <div class="minute-face">
+                    <svg class="svg hour-ticks" viewBox="0 0 100 100">
+                        <circle class="hour-big-ticks-circle" cx="50" cy="50" r="43" stroke-dasharray="0.5 10.2573641667 0.5 0"/>
+                        <circle class="hour-small-ticks-circle" cx="50" cy="50" r="43" stroke-dasharray="0.5 1.81434104167 0.5 0"/>
+                    </svg>
+                </div>
+
+                <div class="sun-times-face" id="sun-times-face">
+                    <svg class="svg" viewBox="0 0 100 100">
+                        <path class="daySector" id="sector-day"/>
+                        <path class="daySector" id="sector-night"/>
+                        <path class="daySector" id="sector-c-dawn"/>
+                        <path class="daySector" id="sector-n-dawn"/>
+                        <path class="daySector" id="sector-a-dawn"/>
+                        <path class="daySector" id="sector-c-dusk"/>
+                        <path class="daySector" id="sector-n-dusk"/>
+                        <path class="daySector" id="sector-a-dusk"/>
+
+                        <path class="daySpoke" id="spoke-day"/>
+                        <path class="daySpoke" id="spoke-night"/>
+                        <path class="daySpoke" id="spoke-c-dawn"/>
+                        <path class="daySpoke" id="spoke-n-dawn"/>
+                        <path class="daySpoke" id="spoke-a-dawn"/>
+                        <path class="daySpoke" id="spoke-c-dusk"/>
+                        <path class="daySpoke" id="spoke-n-dusk"/>
+                        <path class="daySpoke" id="spoke-a-dusk"/>
+
+                        <path class="daySpoke" id="spoke-midday"/>
+                        <path class="daySpoke" id="spoke-midnight"/>
+                    </svg>
+                </div>
+
+                <span class="hour-label" style="--i: 1"><b>Ⅰ</b></span>
+                <span class="hour-label" style="--i: 2"><b>Ⅱ</b></span>
+                <span class="hour-label" style="--i: 3"><b>Ⅲ</b></span>
+                <span class="hour-label" style="--i: 4"><b>Ⅳ</b></span>
+                <span class="hour-label" style="--i: 5"><b>Ⅴ</b></span>
+                <span class="hour-label" style="--i: 6"><b>Ⅵ</b></span>
+                <span class="hour-label" style="--i: 7"><b>Ⅶ</b></span>
+                <span class="hour-label" style="--i: 8"><b>Ⅷ</b></span>
+                <span class="hour-label" style="--i: 9"><b>Ⅸ</b></span>
+                <span class="hour-label" style="--i: 10"><b>Ⅹ</b></span>
+                <span class="hour-label" style="--i: 11"><b>Ⅺ</b></span>
+                <span class="hour-label" style="--i: 12"><b>Ⅻ</b></span>
+                <span class="hour-label" style="--i: 13"><b>Ⅰ</b></span>    
+                <span class="hour-label" style="--i: 14"><b>Ⅱ</b></span>
+                <span class="hour-label" style="--i: 15"><b>Ⅲ</b></span>
+                <span class="hour-label" style="--i: 16"><b>Ⅳ</b></span>
+                <span class="hour-label" style="--i: 17"><b>Ⅴ</b></span>
+                <span class="hour-label" style="--i: 18"><b>Ⅵ</b></span>
+                <span class="hour-label" style="--i: 19"><b>Ⅶ</b></span>
+                <span class="hour-label" style="--i: 20"><b>Ⅷ</b></span>
+                <span class="hour-label" style="--i: 21"><b>Ⅸ</b></span>
+                <span class="hour-label" style="--i: 22"><b>Ⅹ</b></span>
+                <span class="hour-label" style="--i: 23"><b>Ⅺ</b></span>
+                <span class="hour-label" style="--i: 24"><b>Ⅻ</b></span>
+
+                <span class="minute-label" style="--i: 0"><b>0</b></span>
+                <span class="minute-label" style="--i: 1"><b>5</b></span>
+                <span class="minute-label" style="--i: 2"><b>10</b></span>
+                <span class="minute-label" style="--i: 3"><b>15</b></span>
+                <span class="minute-label" style="--i: 4"><b>20</b></span>
+                <span class="minute-label" style="--i: 5"><b>25</b></span>
+                <span class="minute-label" style="--i: 6"><b>30</b></span>
+                <span class="minute-label" style="--i: 7"><b>35</b></span>
+                <span class="minute-label" style="--i: 8"><b>40</b></span>
+                <span class="minute-label" style="--i: 9"><b>45</b></span>
+                <span class="minute-label" style="--i: 10"><b>50</b></span>
+                <span class="minute-label" style="--i: 11"><b>55</b></span>
+
+                <div class="hands" id="minute-hand"><i></i></div>
+                <div class="hands" id="hour-hand"><i></i></div>
+
+                <div class="moon-frame">
+                    <div class="moon"></div>
+                </div>
+            </section>
+        </main>
+        <script src="script.js"></script>
+    </body>
+</html>
