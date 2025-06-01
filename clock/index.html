@@ -3,7 +3,6 @@
     <head>
         <title>Clock</title>
         <link rel="stylesheet" href="style.css"/>
-        <script src="suncalc.js"></script>
         <script src="astronomy.browser.min.js"></script>
     </head>
     <body>
@@ -16,8 +15,8 @@
                 </div>
                 <div class="minute-face">
                     <svg class="svg hour-ticks" viewBox="0 0 100 100">
-                        <circle class="hour-big-ticks-circle" cx="50" cy="50" r="43" stroke-dasharray="0.5 10.2573641667 0.5 0"/>
-                        <circle class="hour-small-ticks-circle" cx="50" cy="50" r="43" stroke-dasharray="0.5 1.81434104167 0.5 0"/>
+                        <circle class="hour-big-ticks-circle" cx="50" cy="50" r="43" stroke-dasharray="1 10.2573641667"/>
+                        <circle class="hour-small-ticks-circle" cx="50" cy="50" r="43" stroke-dasharray="1 1.81434104167"/>
                     </svg>
                 </div>
 
@@ -46,48 +45,68 @@
                     </svg>
                 </div>
 
-                <span class="hour-label" style="--i: 1"><b>Ⅰ</b></span>
-                <span class="hour-label" style="--i: 2"><b>Ⅱ</b></span>
-                <span class="hour-label" style="--i: 3"><b>Ⅲ</b></span>
-                <span class="hour-label" style="--i: 4"><b>Ⅳ</b></span>
-                <span class="hour-label" style="--i: 5"><b>Ⅴ</b></span>
-                <span class="hour-label" style="--i: 6"><b>Ⅵ</b></span>
-                <span class="hour-label" style="--i: 7"><b>Ⅶ</b></span>
-                <span class="hour-label" style="--i: 8"><b>Ⅷ</b></span>
-                <span class="hour-label" style="--i: 9"><b>Ⅸ</b></span>
-                <span class="hour-label" style="--i: 10"><b>Ⅹ</b></span>
-                <span class="hour-label" style="--i: 11"><b>Ⅺ</b></span>
-                <span class="hour-label" style="--i: 12"><b>Ⅻ</b></span>
-                <span class="hour-label" style="--i: 13"><b>Ⅰ</b></span>    
-                <span class="hour-label" style="--i: 14"><b>Ⅱ</b></span>
-                <span class="hour-label" style="--i: 15"><b>Ⅲ</b></span>
-                <span class="hour-label" style="--i: 16"><b>Ⅳ</b></span>
-                <span class="hour-label" style="--i: 17"><b>Ⅴ</b></span>
-                <span class="hour-label" style="--i: 18"><b>Ⅵ</b></span>
-                <span class="hour-label" style="--i: 19"><b>Ⅶ</b></span>
-                <span class="hour-label" style="--i: 20"><b>Ⅷ</b></span>
-                <span class="hour-label" style="--i: 21"><b>Ⅸ</b></span>
-                <span class="hour-label" style="--i: 22"><b>Ⅹ</b></span>
-                <span class="hour-label" style="--i: 23"><b>Ⅺ</b></span>
-                <span class="hour-label" style="--i: 24"><b>Ⅻ</b></span>
+                <span class="hour-label" style="--i: 1">Ⅰ</span>
+                <span class="hour-label" style="--i: 2">Ⅱ</span>
+                <span class="hour-label" style="--i: 3">Ⅲ</span>
+                <span class="hour-label" style="--i: 4">Ⅳ</span>
+                <span class="hour-label" style="--i: 5">Ⅴ</span>
+                <span class="hour-label" style="--i: 6">Ⅵ</span>
+                <span class="hour-label" style="--i: 7">Ⅶ</span>
+                <span class="hour-label" style="--i: 8">Ⅷ</span>
+                <span class="hour-label" style="--i: 9">Ⅸ</span>
+                <span class="hour-label" style="--i: 10">Ⅹ</span>
+                <span class="hour-label" style="--i: 11">Ⅺ</span>
+                <span class="hour-label" style="--i: 12">Ⅻ</span>
+                <span class="hour-label" style="--i: 13">Ⅰ</span>    
+                <span class="hour-label" style="--i: 14">Ⅱ</span>
+                <span class="hour-label" style="--i: 15">Ⅲ</span>
+                <span class="hour-label" style="--i: 16">Ⅳ</span>
+                <span class="hour-label" style="--i: 17">Ⅴ</span>
+                <span class="hour-label" style="--i: 18">Ⅵ</span>
+                <span class="hour-label" style="--i: 19">Ⅶ</span>
+                <span class="hour-label" style="--i: 20">Ⅷ</span>
+                <span class="hour-label" style="--i: 21">Ⅸ</span>
+                <span class="hour-label" style="--i: 22">Ⅹ</span>
+                <span class="hour-label" style="--i: 23">Ⅺ</span>
+                <span class="hour-label" style="--i: 24">Ⅻ</span>
 
-                <span class="minute-label" style="--i: 0"><b>0</b></span>
-                <span class="minute-label" style="--i: 1"><b>5</b></span>
-                <span class="minute-label" style="--i: 2"><b>10</b></span>
-                <span class="minute-label" style="--i: 3"><b>15</b></span>
-                <span class="minute-label" style="--i: 4"><b>20</b></span>
-                <span class="minute-label" style="--i: 5"><b>25</b></span>
-                <span class="minute-label" style="--i: 6"><b>30</b></span>
-                <span class="minute-label" style="--i: 7"><b>35</b></span>
-                <span class="minute-label" style="--i: 8"><b>40</b></span>
-                <span class="minute-label" style="--i: 9"><b>45</b></span>
-                <span class="minute-label" style="--i: 10"><b>50</b></span>
-                <span class="minute-label" style="--i: 11"><b>55</b></span>
+                <span class="minute-label" style="--i: 0">0</span>
+                <span class="minute-label" style="--i: 1">5</span>
+                <span class="minute-label" style="--i: 2">10</span>
+                <span class="minute-label" style="--i: 3">15</span>
+                <span class="minute-label" style="--i: 4">20</span>
+                <span class="minute-label" style="--i: 5">25</span>
+                <span class="minute-label" style="--i: 6">30</span>
+                <span class="minute-label" style="--i: 7">35</span>
+                <span class="minute-label" style="--i: 8">40</span>
+                <span class="minute-label" style="--i: 9">45</span>
+                <span class="minute-label" style="--i: 10">50</span>
+                <span class="minute-label" style="--i: 11">55</span>
 
                 <div class="hands" id="minute-hand"><i></i></div>
                 <div class="hands" id="hour-hand"><i></i></div>
 
                 <div class="moon-frame">
+                    <div class="celestial-bodies">
+                        <div class="celestial-obj saturn-sky" id="saturn-sky"></div>
+                        <div class="celestial-obj jupiter-sky" id="jupiter-sky"></div>
+                        <div class="celestial-obj mars-sky" id="mars-sky"></div>
+                        <div class="celestial-obj venus-sky" id="venus-sky"></div>
+                        <div class="celestial-obj mercury-sky" id="mercury-sky"></div>
+
+                        <div class="celestial-obj sun-sky" id="sun-sky"></div>
+                        <div class="celestial-obj moon-sky" id="moon-sky"></div>
+
+                        <span class="compass-label big-label" style="--i: 0">N</span>
+                        <span class="compass-label" style="--i: 2">NE</span>
+                        <span class="compass-label big-label" style="--i: 4">E</span>
+                        <span class="compass-label" style="--i: 6">SE</span>
+                        <span class="compass-label big-label" style="--i: 8">S</span>
+                        <span class="compass-label" style="--i: 10">SW</span>
+                        <span class="compass-label big-label" style="--i: 12">W</span>
+                        <span class="compass-label" style="--i: 14">NW</span>
+                    </div>
+                    
                     <div class="moon">
                         <svg class="svg moon-svg" viewBox="0 0 100 100">
                             <circle cx="50" cy="50" r="50" class="moon-light"/>
@@ -95,6 +114,7 @@
                         </svg>
                     </div>
                 </div>
+
             </section>
         </main>
         <script src="script.js"></script>

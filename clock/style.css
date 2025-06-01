@@ -53,9 +53,19 @@ body {
     font-size:  15px;
 }
 
-.clock span b {
-    /* transform: rotate(calc(-30deg * var(--i))); */
-    display: inline-block;
+.compass-label {
+    position: absolute;
+    transform: rotate(calc(22.5deg * var(--i)));
+    inset: 2px;
+    text-align: center;
+    font-size:  14px;
+
+    text-shadow: 0 0 5px #192029;
+}
+
+.big-label {
+    inset: -4px;
+    font-size: 125%;
 }
 
 .hands {
@@ -78,7 +88,7 @@ body {
 }
 
 #minute-hand i {
-    background: #63a3de;
+    background: #4574bc;
     height: 235px
 }
 
@@ -97,6 +107,8 @@ body {
     border-radius: 50%;
     border: 2px solid #555e66;
     background: #1c2833;
+    transform: rotate(-0.66623deg)
+
 }
 
 .sun-times-face{
@@ -150,9 +162,12 @@ body {
 }
 
 .moon-light {
-    fill: #fff;
+    fill: #dceaff;
 }
 
+.moon-shadow {
+    fill: #192029
+}
 
 .daySpoke {
     stroke-width: 0.5px;
@@ -201,10 +216,10 @@ body {
 
 .moon-frame {
     position: absolute;
-    width: 250px;
-    height: 250px;
+    width: 300px;
+    height: 300px;
     border: 5px solid #555e66;
-    background: #1c2833;
+    background: #192029;
     border-radius: 50%;
 
     display: flex;
@@ -212,10 +227,17 @@ body {
     justify-content: center;
 }
 
+.celestial-bodies {
+    width: 100%;
+    height: 100%;
+
+    clip-path: circle(50%);
+}
+
 .moon {
     position: absolute;
-    width: 200px;
-    height: 200px;
+    width: 150px;
+    height: 150px;
     background: #555e66;
     border-radius: 50%;
     border: solid 5px #555e66;
@@ -223,4 +245,86 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.celestial-obj {
+    position: absolute;
+    border-radius: 50%;
+}
+
+.sun-sky {
+    width: 25px;
+    height:25px;
+    background: #dea363;
+
+    box-shadow: 0px 0px 15px #dea363;
+
+    top: calc(var(--y) * 290px - 12.5px);
+    left: calc(var(--x) * 290px - 12.5px);
+}
+
+.moon-sky {
+    width: 25px;
+    height:25px;
+    background: #dceaff;
+
+    box-shadow: 0px 0px 15px #dceaff;
+
+    top: calc(var(--y) * 290px - 12.5px);
+    left: calc(var(--x) * 290px - 12.5px);
+}
+
+.mercury-sky {
+    width: 10px;
+    height:10px;
+    background: #8d7cc3;
+
+    box-shadow: 0px 0px 15px #8d7cc3;
+
+    top: calc(var(--y) * 290px - 5px);
+    left: calc(var(--x) * 290px - 5px);
+}
+
+.venus-sky {
+    width: 10px;
+    height:10px;
+    background: #6aa84f;
+
+    box-shadow: 0px 0px 15px #6aa84f;
+
+    top: calc(var(--y) * 290px - 5px);
+    left: calc(var(--x) * 290px - 5px);
+}
+
+.mars-sky {
+    width: 10px;
+    height:10px;
+    background: #cb0000;
+
+    box-shadow: 0px 0px 15px #cb0000;
+
+    top: calc(var(--y) * 290px - 5px);
+    left: calc(var(--x) * 290px - 5px);
+}
+
+.jupiter-sky {
+    width: 10px;
+    height:10px;
+    background: #e69138;
+
+    box-shadow: 0px 0px 15px #e69138;
+
+    top: calc(var(--y) * 290px - 5px);
+    left: calc(var(--x) * 290px - 5px);
+}
+
+.saturn-sky {
+    width: 10px;
+    height:10px;
+    background: #434343;
+
+    box-shadow: 0px 0px 15px #434343;
+
+    top: calc(var(--y) * 290px - 5px);
+    left: calc(var(--x) * 290px - 5px);
 }
