@@ -4,6 +4,8 @@ const elevation = 3;
 
 let globalPhase = 0;
 
+let date = new Date();
+
 const hourHand = document.getElementById("hour-hand");
 const minuteHand = document.getElementById("minute-hand");
 const sunTimesFace = document.getElementById("sun-times-face");
@@ -31,6 +33,13 @@ const spokeMidnight = document.getElementById("spoke-midnight")
 
 const moonShadow = document.getElementById("moon-shadow")
 
+const sunSky = document.getElementById("sun-sky")
+const moonSky = document.getElementById("moon-sky")
+const mercurySky = document.getElementById("mercury-sky")
+const venusSky = document.getElementById("venus-sky")
+const marsSky = document.getElementById("mars-sky")
+const jupiterSky = document.getElementById("jupiter-sky")
+const saturnSky = document.getElementById("saturn-sky")
 
 function timeToDegree(date) {
     let hh = date.getHours();
@@ -41,9 +50,6 @@ function timeToDegree(date) {
 }
 
 function displayTime(){
-
-    let date = new Date();
-
     let hh = date.getHours();
     let mm = date.getMinutes();
     let ss = date.getSeconds();
@@ -62,9 +68,19 @@ function degreeToPoint(cx, cy, cr, degree) {
 }
 
 function createSector(startDegree, endDegree) {
+    while (endDegree < startDegree) {
+        endDegree += 360;
+    }
+
+    let long = 0;
+
+    if (endDegree - startDegree > 180) {
+        long = 1;
+    }
+
     let start = degreeToPoint(50, 50, 50, startDegree)
     let end = degreeToPoint(50, 50, 50, endDegree)
-    return `M ${start[0]} ${start[1]} A 50 50 0 0 0 ${end[0]} ${end[1]} L 50 50`;
+    return `M ${start[0]} ${start[1]} A 50 50 0 ${long} 0 ${end[0]} ${end[1]} L 50 50`;
 }
 
 function createMoon(phase) {
@@ -99,17 +115,17 @@ function createSpoke(degree) {
 function daySectors() {
     let observer = new Astronomy.Observer(latitude, longitude, elevation)
     
-    let dayStart = timeToDegree(Astronomy.SearchAltitude('Sun', observer, +1, new Date(), 1, 0).date)
-    let cDawnStart = timeToDegree(Astronomy.SearchAltitude('Sun', observer, +1, new Date(), 1, -6).date)
-    let nDawnStart = timeToDegree(Astronomy.SearchAltitude('Sun', observer, +1, new Date(), 1, -12).date)
-    let aDawnStart = timeToDegree(Astronomy.SearchAltitude('Sun', observer, +1, new Date(), 1, -18).date)
-    let nightStart = timeToDegree(Astronomy.SearchAltitude('Sun', observer, -1, new Date(), 1, -18).date)
-    let aDuskStart = timeToDegree(Astronomy.SearchAltitude('Sun', observer, -1, new Date(), 1, -12).date)
-    let nDuskStart = timeToDegree(Astronomy.SearchAltitude('Sun', observer, -1, new Date(), 1, -6).date)
-    let cDuskStart = timeToDegree(Astronomy.SearchAltitude('Sun', observer, -1, new Date(), 1, 0).date)
+    let dayStart = timeToDegree(Astronomy.SearchAltitude('Sun', observer, +1, date, 1, 0).date)
+    let cDawnStart = timeToDegree(Astronomy.SearchAltitude('Sun', observer, +1, date, 1, -6).date)
+    let nDawnStart = timeToDegree(Astronomy.SearchAltitude('Sun', observer, +1, date, 1, -12).date)
+    let aDawnStart = timeToDegree(Astronomy.SearchAltitude('Sun', observer, +1, date, 1, -18).date)
+    let nightStart = timeToDegree(Astronomy.SearchAltitude('Sun', observer, -1, date, 1, -18).date)
+    let aDuskStart = timeToDegree(Astronomy.SearchAltitude('Sun', observer, -1, date, 1, -12).date)
+    let nDuskStart = timeToDegree(Astronomy.SearchAltitude('Sun', observer, -1, date, 1, -6).date)
+    let cDuskStart = timeToDegree(Astronomy.SearchAltitude('Sun', observer, -1, date, 1, 0).date)
 
-    let midday = timeToDegree(Astronomy.SearchHourAngle('Sun', observer, 0, new Date(), 1).time.date);
-    let midnight = timeToDegree(Astronomy.SearchHourAngle('Sun', observer, 12, new Date(), 1).time.date);
+    let midday = timeToDegree(Astronomy.SearchHourAngle('Sun', observer, 0, date, 1).time.date);
+    let midnight = timeToDegree(Astronomy.SearchHourAngle('Sun', observer, 12, date, 1).time.date);
 
     sectorDay.setAttribute('d', createSector(dayStart, cDuskStart))
     sectorNight.setAttribute('d', createSector(nightStart, aDawnStart))
@@ -134,11 +150,68 @@ function daySectors() {
 }
 
 function moonPhase() {
-    let phase = Astronomy.MoonPhase(new Date())
+    let phase = Astronomy.MoonPhase(date)
     moonShadow.setAttribute('d', createMoon(phase))
 }
 
-daySectors()
-moonPhase()
-displayTime()
-setInterval(displayTime, 50);
+function calculateAltitude(altitude) {
+    return altitude * -0.5 / 90.0 + 1
+}
+
+function celestialPos(body) {
+    let observer = new Astronomy.Observer(latitude, longitude, elevation)
+
+    let bodyEqu = Astronomy.Equator(body, date, observer, true, true)
+    bodyHor = Astronomy.Horizon(date, observer, bodyEqu.ra, bodyEqu.dec, "normal")
+
+    let visualAltitude = calculateAltitude(Math.max(-20, bodyHor.altitude))
+
+    let x = Math.sin(bodyHor.azimuth * Math.PI / 180.0) * visualAltitude * 0.5 + 0.5
+    let y = -Math.cos(bodyHor.azimuth * Math.PI / 180.0) * visualAltitude * 0.5 + 0.5
+
+    return {x: x, y: y}
+}
+
+function celestialBodies() {
+    let sun = celestialPos("Sun")
+    sunSky.style.setProperty('--x', sun.x)
+    sunSky.style.setProperty('--y', sun.y)
+
+    let moon = celestialPos("Moon")
+    moonSky.style.setProperty('--x', moon.x)
+    moonSky.style.setProperty('--y', moon.y)
+
+    let mercury = celestialPos("Mercury")
+    mercurySky.style.setProperty('--x', mercury.x)
+    mercurySky.style.setProperty('--y', mercury.y)
+
+    let venus = celestialPos("Venus")
+    venusSky.style.setProperty('--x', venus.x)
+    venusSky.style.setProperty('--y', venus.y)
+
+    let mars = celestialPos("Mars")
+    marsSky.style.setProperty('--x', mars.x)
+    marsSky.style.setProperty('--y', mars.y)
+
+    let jupiter = celestialPos("Jupiter")
+    jupiterSky.style.setProperty('--x', jupiter.x)
+    jupiterSky.style.setProperty('--y', jupiter.y)
+
+    let saturn = celestialPos("Saturn")
+    saturnSky.style.setProperty('--x', saturn.x)
+    saturnSky.style.setProperty('--y', saturn.y)
+
+}
+
+function render() {
+    date = new Date()
+    // date = new Date(date.getTime() + 600000)
+
+    daySectors()
+    moonPhase()
+    celestialBodies()
+    displayTime()
+}
+
+render()
+setInterval(render, 1000);
