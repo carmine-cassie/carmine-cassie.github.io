@@ -1,10 +1,13 @@
 const latitude = -33.8688;
+// const latitude = 60;
 const longitude = 151.2093;
 const elevation = 3;
 
 let globalPhase = 0;
 
 let date = new Date();
+
+const container = document.getElementById("container")
 
 const hourHand = document.getElementById("hour-hand");
 const minuteHand = document.getElementById("minute-hand");
@@ -41,6 +44,9 @@ const marsSky = document.getElementById("mars-sky")
 const jupiterSky = document.getElementById("jupiter-sky")
 const saturnSky = document.getElementById("saturn-sky")
 
+const normalYear = document.getElementById("normal-year")
+const solstice = document.getElementById("solstice")
+
 function timeToDegree(date) {
     date = new Date(date)
     let hh = date.getHours();
@@ -48,6 +54,10 @@ function timeToDegree(date) {
     let ss = date.getSeconds();
 
     return 360 * (hh + (mm + ss/60)/60)/24;
+}
+
+function dateToDegree(newDate) {
+    return (newDate - date) / 86400000;
 }
 
 function displayTime(){
@@ -64,10 +74,16 @@ function displayTime(){
     minuteHand.style.transform = `rotate(${mRotate}deg)`;
 }
 
-function degreeToPoint(cx, cy, cr, degree) {
+function degreeToPointAntiClockwise(cx, cy, cr, degree) {
     let x = Math.sin((degree * Math.PI) / 180.0)*cr + cx
     let y = Math.cos((degree * Math.PI) / 180.0)*cr + cy
-    return [x, y]
+    return {x: x, y: y}
+}
+
+function degreeToPointClockwise(cx, cy, cr, degree) {
+    let x = Math.sin((degree * Math.PI) / 180.0)*cr + cx
+    let y = -Math.cos((degree * Math.PI) / 180.0)*cr + cy
+    return {x: x, y: y}
 }
 
 function createSector(startDegree, endDegree) {
@@ -86,9 +102,9 @@ function createSector(startDegree, endDegree) {
         long = 1;
     }
 
-    let start = degreeToPoint(50, 50, 50, startDegree)
-    let end = degreeToPoint(50, 50, 50, endDegree)
-    return `M ${start[0]} ${start[1]} A 50 50 0 ${long} 0 ${end[0]} ${end[1]} L 50 50`;
+    let start = degreeToPointAntiClockwise(50, 50, 50, startDegree)
+    let end = degreeToPointAntiClockwise(50, 50, 50, endDegree)
+    return `M ${start.x} ${start.y} A 50 50 0 ${long} 0 ${end.x} ${end.y} L 50 50`;
 }
 
 function createMoon(phase) {
@@ -115,10 +131,10 @@ function createMoon(phase) {
     return `M 50 0 A ${x} 50 0 0 ${a} 50 100 A 50 50 0 0 ${b} 50 0`
 }
 
-function createSpoke(degree) {
-    degree = timeToDegree(degree.date)
-    let point = degreeToPoint(50, 50, 50, degree)
-    return `M 50 50 L ${point[0]} ${point[1]}`
+function createSpoke(date) {
+    let degree = timeToDegree(date.date)
+    let point = degreeToPointAntiClockwise(50, 50, 50, degree)
+    return `M 50 50 L ${point.x} ${point.y}`
 }
 
 function daySectors() {
@@ -164,11 +180,6 @@ function daySectors() {
     let aDawnEnd = nDawnStart;
     let nightEnd = aDawnStart;
 
-    console.log(nDawnStart)
-    console.log(aDuskStart)
-    console.log(sunHigh)
-    console.log(sunLow)
-
     if (longDay >= 1) {
         nightStart = midnight;
         nightEnd = midnight;
@@ -181,7 +192,6 @@ function daySectors() {
         nDawnStart = nDuskStart;
         nDuskStart = midnight;
         nDuskEnd = midnight;
-        console.log("wah")
     } if (longDay >= 3) {
         nDawnStart = midnight;
         nDawnEnd = midnight;
@@ -195,8 +205,6 @@ function daySectors() {
         dayEnd = midday;
         sunTimesFace.style.setProperty("background", "#dceaff")
     }
-
-    console.log(longNight)
 
     if (longNight >= 1) {
         dayStart = midday;
@@ -255,7 +263,7 @@ function moonPhase() {
 }
 
 function calculateAltitude(altitude) {
-    return altitude * -0.5 / 90.0 + 1
+    return altitude * -0.667 / 90.0 + 1
 }
 
 function celestialPos(body) {
@@ -269,49 +277,115 @@ function celestialPos(body) {
     let x = Math.sin(bodyHor.azimuth * Math.PI / 180.0) * visualAltitude * 0.5 + 0.5
     let y = -Math.cos(bodyHor.azimuth * Math.PI / 180.0) * visualAltitude * 0.5 + 0.5
 
-    return {x: x, y: y}
+    return {x: x, y: y, az: bodyHor.azimuth}
 }
 
 function celestialBodies() {
     let sun = celestialPos("Sun")
     sunSky.style.setProperty('--x', sun.x)
     sunSky.style.setProperty('--y', sun.y)
+    sunSky.style.setProperty('--az', sun.az)
 
     let moon = celestialPos("Moon")
     moonSky.style.setProperty('--x', moon.x)
     moonSky.style.setProperty('--y', moon.y)
+    moonSky.style.setProperty('--az', moon.az)
 
     let mercury = celestialPos("Mercury")
     mercurySky.style.setProperty('--x', mercury.x)
     mercurySky.style.setProperty('--y', mercury.y)
+    mercurySky.style.setProperty('--az', mercury.az)
 
     let venus = celestialPos("Venus")
     venusSky.style.setProperty('--x', venus.x)
     venusSky.style.setProperty('--y', venus.y)
+    venusSky.style.setProperty('--az', venus.az)
 
     let mars = celestialPos("Mars")
     marsSky.style.setProperty('--x', mars.x)
     marsSky.style.setProperty('--y', mars.y)
+    marsSky.style.setProperty('--az', mars.az)
 
     let jupiter = celestialPos("Jupiter")
     jupiterSky.style.setProperty('--x', jupiter.x)
     jupiterSky.style.setProperty('--y', jupiter.y)
+    jupiterSky.style.setProperty('--az', jupiter.az)
 
     let saturn = celestialPos("Saturn")
     saturnSky.style.setProperty('--x', saturn.x)
     saturnSky.style.setProperty('--y', saturn.y)
+    saturnSky.style.setProperty('--az', saturn.az)
+}
 
+function squish(angle) {
+    angle = ((angle + 180) % 360 - 180) / 180// * Math.PI / 360;
+    if (angle >= 0) {
+        angle = Math.pow(angle, 0.75)
+    } else {
+        angle = -Math.pow(-angle, 0.75)
+    }
+    angle *= 180;
+    return angle;
+}
+
+function drawYearLines(numYears) {
+    let text = "";
+    for (let i = 0; i < numYears; i++) {
+        let angle = (i - 0.5) * 360 / numYears;
+        let point = degreeToPointClockwise(50, 50, 50, squish(angle))
+        text += `M 50 50 L ${point.x} ${point.y} `
+    }
+    return text;
+}
+
+function drawSolstices() {
+    seasons = Astronomy.Seasons(date)
+
+    let mar = dateToDegree(seasons.mar_equinox.date);
+    let jun = dateToDegree(seasons.jun_solstice.date);
+    let sep = dateToDegree(seasons.sep_equinox.date);
+    let dec = dateToDegree(seasons.dec_solstice.date);
+
+    console.log(seasons.jun_solstice)
+    console.log(jun)
+
+    let point
+    let text = "";
+
+    point = degreeToPointClockwise(50, 50, 50, squish(mar))
+    text += `M 50 50 L ${point.x} ${point.y} `
+    point = degreeToPointClockwise(50, 50, 50, squish(jun))
+    text += `M 50 50 L ${point.x} ${point.y} `
+    point = degreeToPointClockwise(50, 50, 50, squish(sep))
+    text += `M 50 50 L ${point.x} ${point.y} `
+    point = degreeToPointClockwise(50, 50, 50, squish(dec))
+    text += `M 50 50 L ${point.x} ${point.y} `
+
+    return text;
+}
+
+function setUpYears() {
+    normalYear.setAttribute("d", drawYearLines(365))
+    solstice.setAttribute("d", drawSolstices(365))
 }
 
 function render() {
-    // date = new Date()
-    // date = new Date(date.getTime() + 600000)
+    date = new Date()
+    // date = new Date(date.getTime() + 60000000)
 
+    let observer = new Astronomy.Observer(latitude, longitude, elevation)
+
+    // Janky responsiveness, should be on a window resize event listener
+    container.style.setProperty("--scale", Math.min(window.innerHeight, window.innerWidth) / 575)
+
+    setUpYears()
     daySectors()
     moonPhase()
     celestialBodies()
     displayTime()
-}
 
+}
+// date = new Date(date.getTime() + 60000000)
+// date = new Date("July 22, 2028 13:40:00")
 render()
-setInterval(render, 1000);
+setInterval(render, 1000)
