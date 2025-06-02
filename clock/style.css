@@ -1,3 +1,8 @@
+@font-face {
+    font-family: "newton";
+    src: url("./NewtonSans-2015-11-04.ttf") format("truetype");
+}
+
 
 *{
     padding: 0;
@@ -19,12 +24,14 @@ body {
 }
 
 .container {
+    --scale: 1;
+    transform: scale(var(--scale));
     position: relative;
 }
 
 .clock {
-    width: 500px;
-    height: 500px;
+    width: 550px;
+    height: 550px;
     border-radius: 50%;
     background: #1c2833;
     border: 5px solid #555e66;
@@ -40,7 +47,7 @@ body {
 .clock .hour-label {
     position: absolute;
     transform: rotate(calc(180deg - 15deg * var(--i)));
-    inset: 24px;
+    inset: 49px;
     text-align: center;
     font-size:  24px;
 }
@@ -48,7 +55,7 @@ body {
 .clock .minute-label {
     position: absolute;
     transform: rotate(calc(30deg * var(--i)));
-    inset: 0px;
+    inset: 25px;
     text-align: center;
     font-size:  15px;
 }
@@ -60,7 +67,7 @@ body {
     text-align: center;
     font-size:  14px;
 
-    text-shadow: 0 0 5px #192029;
+    text-shadow: 0 0 2.5px #192029;
 }
 
 .big-label {
@@ -98,6 +105,15 @@ body {
     height: 450px;
     border-radius: 50%;
     border: 2px solid #555e66;
+}
+
+.calendar-border{
+    position:absolute;
+    width: 500px;
+    height: 500px;
+    border-radius: 50%;
+    border: 5px solid #555e66;
+    background: #1c2833;
 }
 
 .minute-face{
@@ -147,6 +163,18 @@ body {
     fill: transparent;
     stroke: #555e66;
     stroke-width: 2.5px;
+}
+
+.solstice-ticks-circle {
+    fill: transparent;
+    stroke: #dea363;
+    stroke-width: 0.25px;
+}
+
+.day-ticks-circle {
+    fill: transparent;
+    stroke: #555e66;
+    stroke-width: 0.125px;
 }
 
 .hour-big-ticks-circle {
@@ -238,8 +266,8 @@ body {
 
 .moon {
     position: absolute;
-    width: 150px;
-    height: 150px;
+    width: 100px;
+    height: 100px;
     background: #555e66;
     border-radius: 50%;
     border: solid 5px #555e66;
@@ -252,81 +280,64 @@ body {
 .celestial-obj {
     position: absolute;
     border-radius: 50%;
+
+    width:  var(--size);
+    height: var(--size);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-size: var(--size);
+
+    background: transparent;
+    color: var(--color);
+    text-shadow: 0px 0px 15px var(--color);
+
+    top: calc(var(--y) * 290px - var(--size)/2);
+    left: calc(var(--x) * 290px - var(--size)/2);
+
+    font-family: "newton";
+
+    transform: rotate(calc(var(--az)* 1deg));
 }
 
 .sun-sky {
-    width: 25px;
-    height:25px;
-    background: #dea363;
-
-    box-shadow: 0px 0px 15px #dea363;
-
-    top: calc(var(--y) * 290px - 12.5px);
-    left: calc(var(--x) * 290px - 12.5px);
+    --size:40px;
+    --color: #dea363;
 }
 
 .moon-sky {
-    width: 25px;
-    height:25px;
-    background: #dceaff;
-
-    box-shadow: 0px 0px 15px #dceaff;
-
-    top: calc(var(--y) * 290px - 12.5px);
-    left: calc(var(--x) * 290px - 12.5px);
+    --size:25px;
+    --color: #dceaff;
 }
 
 .mercury-sky {
-    width: 10px;
-    height:10px;
-    background: #8d7cc3;
-
-    box-shadow: 0px 0px 15px #8d7cc3;
-
-    top: calc(var(--y) * 290px - 5px);
-    left: calc(var(--x) * 290px - 5px);
+    --size: 15px;
+    --color: #8d7cc3;
 }
 
 .venus-sky {
     width: 10px;
     height:10px;
-    background: #6aa84f;
-
-    box-shadow: 0px 0px 15px #6aa84f;
-
-    top: calc(var(--y) * 290px - 5px);
-    left: calc(var(--x) * 290px - 5px);
+    --color: #6aa84f;
 }
 
 .mars-sky {
-    width: 10px;
-    height:10px;
-    background: #cb0000;
-
-    box-shadow: 0px 0px 15px #cb0000;
-
-    top: calc(var(--y) * 290px - 5px);
-    left: calc(var(--x) * 290px - 5px);
+    --size: 15px;
+    --color: #cb0000;
 }
 
 .jupiter-sky {
-    width: 10px;
-    height:10px;
-    background: #e69138;
-
-    box-shadow: 0px 0px 15px #e69138;
-
-    top: calc(var(--y) * 290px - 5px);
-    left: calc(var(--x) * 290px - 5px);
+    --size: 15px;
+    --color: #e69138;
 }
 
 .saturn-sky {
-    width: 10px;
-    height:10px;
-    background: #434343;
+    --size: 15px;
+    --color: #434343;
+}
 
-    box-shadow: 0px 0px 15px #434343;
-
-    top: calc(var(--y) * 290px - 5px);
-    left: calc(var(--x) * 290px - 5px);
+.year-arrow{
+    fill: #dea363;
 }

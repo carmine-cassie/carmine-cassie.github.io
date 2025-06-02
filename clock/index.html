@@ -6,8 +6,18 @@
         <script src="astronomy.browser.min.js"></script>
     </head>
     <body>
-        <main class="container">
+        <main class="container" id="container">
             <section class="clock">
+                <svg class="svg day-ticks" viewBox="0 0 100 100">
+                        <path class="day-ticks-circle" id="normal-year"/>
+                        <path class="solstice-ticks-circle" id="solstice"/>
+                        <!-- <path class="day-ticks-circle" id="leap-year"/> -->
+                     <path class="year-arrow" d="M 49.25 4 L 50.75 4 L 50 2.5 Z"/>
+                     <path class="year-arrow" d="M 49.25 0 L 50.75 0 L 50 1.5 Z"/>
+                </svg>
+                
+                <div class="calendar-border"></div>
+
                 <div class="minute-border">
                     <svg class="svg minute-ticks" viewBox="0 0 100 100">
                         <circle class="minute-ticks-circle" cx="50" cy="50" r="49" stroke-dasharray="5.13126366667"/>
@@ -88,14 +98,14 @@
 
                 <div class="moon-frame">
                     <div class="celestial-bodies">
-                        <div class="celestial-obj saturn-sky" id="saturn-sky"></div>
-                        <div class="celestial-obj jupiter-sky" id="jupiter-sky"></div>
-                        <div class="celestial-obj mars-sky" id="mars-sky"></div>
-                        <div class="celestial-obj venus-sky" id="venus-sky"></div>
-                        <div class="celestial-obj mercury-sky" id="mercury-sky"></div>
+                        <div class="celestial-obj saturn-sky" id="saturn-sky">♄</div>
+                        <div class="celestial-obj jupiter-sky" id="jupiter-sky">♃</div>
+                        <div class="celestial-obj mars-sky" id="mars-sky">♂</div>
+                        <div class="celestial-obj venus-sky" id="venus-sky">♀</div>
+                        <div class="celestial-obj mercury-sky" id="mercury-sky">☿</div>
 
-                        <div class="celestial-obj sun-sky" id="sun-sky"></div>
-                        <div class="celestial-obj moon-sky" id="moon-sky"></div>
+                        <div class="celestial-obj sun-sky" id="sun-sky">🌞︎︎</div>
+                        <div class="celestial-obj moon-sky" id="moon-sky">🌚︎</div>
 
                         <span class="compass-label big-label" style="--i: 0">N</span>
                         <span class="compass-label" style="--i: 2">NE</span>
