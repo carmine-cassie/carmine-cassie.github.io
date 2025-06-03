@@ -1,7 +1,17 @@
 @font-face {
     font-family: "newton";
-    src: url("./NewtonSans-2015-11-04.ttf") format("truetype");
+    /* src: url("./NewtonSans-2015-11-04.ttf") format("truetype"); */
+    src: url("./nishiki-teki.ttf") format("truetype");
 }
+
+.merriweather {
+    font-family: "Merriweather", serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+    font-variation-settings:
+      "wdth" 100;
+  }
 
 
 *{
@@ -11,7 +21,10 @@
 }
 
 html {
-    height: 100%
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 body {
@@ -19,60 +32,60 @@ body {
     align-items: center;
     justify-content: center;
     height: 100%;
+    width: 100vw;
     background: #283747;
     color: #fff;
+
+    overflow:hidden;
 }
 
 .container {
-    --scale: 1;
-    transform: scale(var(--scale));
-    position: relative;
-}
+    position: relative;}
 
 .clock {
-    width: 550px;
-    height: 550px;
+    width: calc(var(--scale) * 550px);
+    height: calc(var(--scale) * 550px);
     border-radius: 50%;
     background: #1c2833;
-    border: 5px solid #555e66;
-    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.9);
+    border: calc(var(--scale) * 5px) solid #555e66;
+    box-shadow: 0px 0px calc(var(--scale) * 15px) rgba(0, 0, 0, 0.9);
 
     display: flex;
     align-items: center;
     justify-content: center;
 
-    transform:scale(100%);
+    /* transform: scale(var(--scale)); */
 }
 
 .clock .hour-label {
     position: absolute;
     transform: rotate(calc(180deg - 15deg * var(--i)));
-    inset: 49px;
+    inset: calc(var(--scale) * 57px);
     text-align: center;
-    font-size:  24px;
+    font-size:  calc(var(--scale) * 24px);
 }
 
 .clock .minute-label {
     position: absolute;
     transform: rotate(calc(30deg * var(--i)));
-    inset: 25px;
+    inset: calc(var(--scale) * 31px);
     text-align: center;
-    font-size:  15px;
+    font-size:  calc(var(--scale) * 15px);
 }
 
 .compass-label {
     position: absolute;
     transform: rotate(calc(22.5deg * var(--i)));
-    inset: 2px;
+    inset: calc(var(--scale) * 2px);
     text-align: center;
-    font-size:  14px;
+    font-size:  calc(var(--scale) * 14px);
 
-    text-shadow: 0 0 2.5px #192029;
+    text-shadow: 0 0 calc(var(--scale) * 2.5px) #192029;
 }
 
 .big-label {
-    inset: -4px;
-    font-size: 125%;
+    inset: calc(var(--scale) * -2px);
+    font-size: calc(var(--scale) * 125%);
 }
 
 .hands {
@@ -84,44 +97,44 @@ body {
 
 .hands i {
     position: absolute;
-    width: 5px;
-    border-radius: 70px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    width: calc(var(--scale) * 5px);
+    border-radius: calc(var(--scale) * 70px);
+    box-shadow: 0 0 calc(var(--scale) * 10px) rgba(0, 0, 0, 0.5);
 }
 
 #hour-hand i {
     background: #dea363;
-    height: 205px
+    height: calc(var(--scale) * 205px)
 }
 
 #minute-hand i {
     background: #4574bc;
-    height: 235px
+    height: calc(var(--scale) * 235px)
 }
 
 .minute-border{
     position:absolute;
-    width: 450px;
-    height: 450px;
+    width: calc(var(--scale) * 450px);
+    height: calc(var(--scale) * 450px);
     border-radius: 50%;
-    border: 2px solid #555e66;
+    border: calc(var(--scale) * 2px) solid #555e66;
 }
 
 .calendar-border{
     position:absolute;
-    width: 500px;
-    height: 500px;
+    width: calc(var(--scale) * 500px);
+    height: calc(var(--scale) * 500px);
     border-radius: 50%;
-    border: 5px solid #555e66;
+    border: calc(var(--scale) * 5px) solid #555e66;
     background: #1c2833;
 }
 
 .minute-face{
     position:absolute;
-    width: 435px;
-    height: 435px;
+    width: calc(var(--scale) * 435px);
+    height: calc(var(--scale) * 435px);
     border-radius: 50%;
-    border: 2px solid #555e66;
+    border: calc(var(--scale) * 2px) solid #555e66;
     background: #1c2833;
     transform: rotate(-0.66623deg)
 
@@ -138,10 +151,10 @@ body {
     --c-dusk-start: 210;
 
     position:absolute;
-    width: 375px;
-    height: 375px;
+    width: calc(var(--scale) * 375px);
+    height: calc(var(--scale) * 375px);
     border-radius: 50%;
-    border: 5px solid #555e66;
+    border: calc(var(--scale) * 5px) solid #555e66;
     background: #555e66;
 }
 
@@ -169,6 +182,11 @@ body {
     fill: transparent;
     stroke: #dea363;
     stroke-width: 0.25px;
+}
+
+.day-ticks {
+    height: calc(var(--scale) * 540px);
+    width: calc(var(--scale) * 540px);
 }
 
 .day-ticks-circle {
@@ -246,9 +264,9 @@ body {
 
 .moon-frame {
     position: absolute;
-    width: 300px;
-    height: 300px;
-    border: 5px solid #555e66;
+    width: calc(var(--scale) * 300px);
+    height: calc(var(--scale) * 300px);
+    border: calc(var(--scale) * 5px) solid #555e66;
     background: #192029;
     border-radius: 50%;
 
@@ -266,11 +284,11 @@ body {
 
 .moon {
     position: absolute;
-    width: 100px;
-    height: 100px;
+    width: calc(var(--scale) * 100px);
+    height: calc(var(--scale) * 100px);
     background: #555e66;
     border-radius: 50%;
-    border: solid 5px #555e66;
+    border: solid calc(var(--scale) * 5px) #555e66;
 
     display: flex;
     align-items: center;
@@ -285,17 +303,17 @@ body {
     height: var(--size);
 
     display: flex;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
     text-align: center;
     font-size: var(--size);
 
     background: transparent;
     color: var(--color);
-    text-shadow: 0px 0px 15px var(--color);
+    text-shadow: 0px 0px calc(var(--scale) * 15px) var(--color);
 
-    top: calc(var(--y) * 290px - var(--size)/2);
-    left: calc(var(--x) * 290px - var(--size)/2);
+    top: calc(var(--scale) * (var(--y) * 290.0px) - var(--size)/2);
+    left: calc(var(--scale) * (var(--x) * 290.0px) - var(--size)/2);
 
     font-family: "newton";
 
@@ -303,17 +321,17 @@ body {
 }
 
 .sun-sky {
-    --size:40px;
+    --size:calc(var(--scale) * 50px);
     --color: #dea363;
 }
 
 .moon-sky {
-    --size:25px;
+    --size:calc(var(--scale) * 25px);
     --color: #dceaff;
 }
 
 .mercury-sky {
-    --size: 15px;
+    --size: calc(var(--scale) * 15px);
     --color: #8d7cc3;
 }
 
@@ -324,17 +342,17 @@ body {
 }
 
 .mars-sky {
-    --size: 15px;
+    --size: calc(var(--scale) * 15px);
     --color: #cb0000;
 }
 
 .jupiter-sky {
-    --size: 15px;
+    --size: calc(var(--scale) * 15px);
     --color: #e69138;
 }
 
 .saturn-sky {
-    --size: 15px;
+    --size: calc(var(--scale) * 15px);
     --color: #434343;
 }
 
