@@ -7,7 +7,7 @@ let globalPhase = 0;
 
 let date = new Date();
 
-const container = document.getElementById("container")
+const clock = document.getElementById("clock")
 
 const hourHand = document.getElementById("hour-hand");
 const minuteHand = document.getElementById("minute-hand");
@@ -272,7 +272,7 @@ function celestialPos(body) {
     let bodyEqu = Astronomy.Equator(body, date, observer, true, true)
     bodyHor = Astronomy.Horizon(date, observer, bodyEqu.ra, bodyEqu.dec, "normal")
 
-    let visualAltitude = calculateAltitude(Math.max(-20, bodyHor.altitude))
+    let visualAltitude = calculateAltitude(Math.max(-50, bodyHor.altitude))
 
     let x = Math.sin(bodyHor.azimuth * Math.PI / 180.0) * visualAltitude * 0.5 + 0.5
     let y = -Math.cos(bodyHor.azimuth * Math.PI / 180.0) * visualAltitude * 0.5 + 0.5
@@ -320,9 +320,9 @@ function celestialBodies() {
 function squish(angle) {
     angle = ((angle + 180) % 360 - 180) / 180// * Math.PI / 360;
     if (angle >= 0) {
-        angle = Math.pow(angle, 0.75)
+        angle = Math.pow(angle, 0.85)
     } else {
-        angle = -Math.pow(-angle, 0.75)
+        angle = -Math.pow(-angle, 0.85)
     }
     angle *= 180;
     return angle;
@@ -369,23 +369,27 @@ function setUpYears() {
     solstice.setAttribute("d", drawSolstices(365))
 }
 
+function resize() {
+    clock.style.setProperty("--scale", Math.min(window.innerHeight, window.innerWidth) / 575)
+}
+
 function render() {
     date = new Date()
-    // date = new Date(date.getTime() + 60000000)
-
-    let observer = new Astronomy.Observer(latitude, longitude, elevation)
-
-    // Janky responsiveness, should be on a window resize event listener
-    container.style.setProperty("--scale", Math.min(window.innerHeight, window.innerWidth) / 575)
-
+    // date = new Date(date.getTime() + 60000)
+    
     setUpYears()
     daySectors()
+    
     moonPhase()
     celestialBodies()
     displayTime()
-
+    
 }
-// date = new Date(date.getTime() + 60000000)
+// date = new Date(date.getTime() + 12000000)
 // date = new Date("July 22, 2028 13:40:00")
+
+resize()
 render()
 setInterval(render, 1000)
+
+addEventListener("resize", (_) => {resize()})
