@@ -336,8 +336,7 @@ body {
 }
 
 .venus-sky {
-    width: 10px;
-    height:10px;
+    --size: calc(var(--scale) * 15px);
     --color: #6aa84f;
 }
 
