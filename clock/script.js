@@ -1,5 +1,4 @@
-// const latitude = -33.8688;
-const latitude = 64;
+const latitude = -33.8688;
 const longitude = 151.2093;
 const elevation = 3;
 
