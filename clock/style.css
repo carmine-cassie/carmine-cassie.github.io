@@ -59,7 +59,7 @@ body {
 
 .clock .hour-label {
     position: absolute;
-    transform: rotate(calc(180deg - 15deg * var(--i)));
+    transform: rotate(calc(180deg + 15deg * var(--i)));
     inset: calc(var(--scale) * 57px);
     text-align: center;
     font-size:  calc(var(--scale) * 24px);
@@ -75,7 +75,7 @@ body {
 
 .compass-label {
     position: absolute;
-    transform: rotate(calc(22.5deg * var(--i)));
+    transform: rotate(calc(-22.5deg * var(--i)));
     inset: calc(var(--scale) * 2px);
     text-align: center;
     font-size:  calc(var(--scale) * 14px);
@@ -318,6 +318,25 @@ body {
     font-family: "newton";
 
     transform: rotate(calc(var(--az)* 1deg));
+}
+
+.celestial-star {
+    position: absolute;
+    border-radius: 50%;
+
+    width:  var(--size);
+    height: var(--size);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-size: var(--size);
+
+    background: var(--color);
+
+    top: calc(var(--scale) * (var(--y) * 290.0px) - var(--size)/2);
+    left: calc(var(--scale) * (var(--x) * 290.0px) - var(--size)/2);
 }
 
 .sun-sky {
