@@ -1,0 +1,265 @@
+[{
+  "abbr": "And",
+  "name": "Andromeda"
+}, {
+  "abbr": "Ant",
+  "name": "Antlia"
+}, {
+  "abbr": "Aps",
+  "name": "Apus"
+}, {
+  "abbr": "Aqr",
+  "name": "Aquarius"
+}, {
+  "abbr": "Aql",
+  "name": "Aquila"
+}, {
+  "abbr": "Ara",
+  "name": "Ara"
+}, {
+  "abbr": "Ari",
+  "name": "Aries"
+}, {
+  "abbr": "Aur",
+  "name": "Auriga"
+}, {
+  "abbr": "Boo",
+  "name": "Bo\u00f6tes"
+}, {
+  "abbr": "Cae",
+  "name": "Caelum"
+}, {
+  "abbr": "Cam",
+  "name": "Camelopardalis"
+}, {
+  "abbr": "Cnc",
+  "name": "Cancer"
+}, {
+  "abbr": "CVn",
+  "name": "Canes Venatici"
+}, {
+  "abbr": "CMa",
+  "name": "Canis Major"
+}, {
+  "abbr": "CMi",
+  "name": "Canis Minor"
+}, {
+  "abbr": "Cap",
+  "name": "Capricornus"
+}, {
+  "abbr": "Car",
+  "name": "Carina"
+}, {
+  "abbr": "Cas",
+  "name": "Cassiopeia"
+}, {
+  "abbr": "Cen",
+  "name": "Centaurus"
+}, {
+  "abbr": "Cep",
+  "name": "Cepheus"
+}, {
+  "abbr": "Cet",
+  "name": "Cetus"
+}, {
+  "abbr": "Cha",
+  "name": "Chamaeleon"
+}, {
+  "abbr": "Cir",
+  "name": "Circinus"
+}, {
+  "abbr": "Col",
+  "name": "Columba"
+}, {
+  "abbr": "Com",
+  "name": "Coma Berenices"
+}, {
+  "abbr": "CrA",
+  "name": "Corona Australis"
+}, {
+  "abbr": "CrB",
+  "name": "Corona Borealis"
+}, {
+  "abbr": "Crv",
+  "name": "Corvus"
+}, {
+  "abbr": "Crt",
+  "name": "Crater"
+}, {
+  "abbr": "Cru",
+  "name": "Crux"
+}, {
+  "abbr": "Cyg",
+  "name": "Cygnus"
+}, {
+  "abbr": "Del",
+  "name": "Delphinus"
+}, {
+  "abbr": "Dor",
+  "name": "Dorado"
+}, {
+  "abbr": "Dra",
+  "name": "Draco"
+}, {
+  "abbr": "Equ",
+  "name": "Equuleus"
+}, {
+  "abbr": "Eri",
+  "name": "Eridanus"
+}, {
+  "abbr": "For",
+  "name": "Fornax"
+}, {
+  "abbr": "Gem",
+  "name": "Gemini"
+}, {
+  "abbr": "Gru",
+  "en": "Crane"
+}, {
+  "abbr": "Her",
+  "name": "Hercules"
+}, {
+  "abbr": "Hor",
+  "name": "Horologium"
+}, {
+  "abbr": "Hya",
+  "name": "Hydra"
+}, {
+  "abbr": "Hyi",
+  "name": "Hydrus"
+}, {
+  "abbr": "Ind",
+  "name": "Indus"
+}, {
+  "abbr": "Lac",
+  "name": "Lacerta"
+}, {
+  "abbr": "Leo",
+  "name": "Leo"
+}, {
+  "abbr": "LMi",
+  "name": "Leo Minor"
+}, {
+  "abbr": "Lep",
+  "name": "Lepus"
+}, {
+  "abbr": "Lib",
+  "name": "Libra"
+}, {
+  "abbr": "Lup",
+  "name": "Lupus"
+}, {
+  "abbr": "Lyn",
+  "name": "Lynx"
+}, {
+  "abbr": "Lyr",
+  "name": "Lyra"
+}, {
+  "abbr": "Men",
+  "name": "Mensa"
+}, {
+  "abbr": "Mic",
+  "name": "Microscopium"
+}, {
+  "abbr": "Mon",
+  "name": "Monoceros"
+}, {
+  "abbr": "Mus",
+  "name": "Musca"
+}, {
+  "abbr": "Nor",
+  "name": "Norma"
+}, {
+  "abbr": "Oct",
+  "name": "Octans"
+}, {
+  "abbr": "Oph",
+  "name": "Ophiuchus"
+}, {
+  "abbr": "Ori",
+  "name": "Orion"
+}, {
+  "abbr": "Pav",
+  "name": "Pavo"
+}, {
+  "abbr": "Peg",
+  "name": "Pegasus"
+}, {
+  "abbr": "Per",
+  "name": "Perseus"
+}, {
+  "abbr": "Phe",
+  "name": "Phoenix"
+}, {
+  "abbr": "Pic",
+  "name": "Pictor"
+}, {
+  "abbr": "Psc",
+  "name": "Pisces"
+}, {
+  "abbr": "PsA",
+  "name": "Piscis Austrinus"
+}, {
+  "abbr": "Pup",
+  "name": "Puppis"
+}, {
+  "abbr": "Pyx",
+  "name": "Pyxis"
+}, {
+  "abbr": "Ret",
+  "name": "Reticulum"
+}, {
+  "abbr": "Sge",
+  "name": "Sagitta"
+}, {
+  "abbr": "Sgr",
+  "name": "Sagittarius"
+}, {
+  "abbr": "Sco",
+  "name": "Scorpius"
+}, {
+  "abbr": "Scl",
+  "name": "Sculptor"
+}, {
+  "abbr": "Sct",
+  "name": "Scutum"
+}, {
+  "abbr": "Ser",
+  "name": "Serpens"
+}, {
+  "abbr": "Sex",
+  "name": "Sextans"
+}, {
+  "abbr": "Tau",
+  "name": "Taurus"
+}, {
+  "abbr": "Tel",
+  "name": "Telescopium"
+}, {
+  "abbr": "Tri",
+  "name": "Triangulum"
+}, {
+  "abbr": "TrA",
+  "name": "Triangulum Australe"
+}, {
+  "abbr": "Tuc",
+  "name": "Tucana"
+}, {
+  "abbr": "UMa",
+  "name": "Ursa Major"
+}, {
+  "abbr": "UMi",
+  "name": "Ursa Minor"
+}, {
+  "abbr": "Vel",
+  "name": "Vela"
+}, {
+  "abbr": "Vir",
+  "name": "Virgo"
+}, {
+  "abbr": "Vol",
+  "name": "Volans"
+}, {
+  "abbr": "Vul",
+  "name": "Vulpecula"
+}]

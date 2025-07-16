@@ -46,6 +46,49 @@ const saturnSky = document.getElementById("saturn-sky")
 const normalYear = document.getElementById("normal-year")
 const solstice = document.getElementById("solstice")
 
+function degMinSec(degrees, minutes, seconds) {
+    return degrees + (minutes / 60) + (seconds / 3600)
+}
+
+const stars = [
+    {
+        name: "crucis-a",
+        magnitude: 0.76,
+        ra: degMinSec(12, 26, 35.89522),
+        dec: degMinSec(-63, 5, 56.7343)
+    },
+    {
+        name: "crucis-b",
+        magnitude: 1.25,
+        ra: degMinSec(12, 47, 43.26877),
+        dec: degMinSec(-59, 41, 19.5792)
+    },
+    {
+        name: "crucis-c",
+        magnitude: 1.64,
+        ra: degMinSec(12, 31, 9.960),
+        dec: degMinSec(-57, 6, 47.57)
+    },
+    {
+        name: "crucis-d",
+        magnitude: 2.81,
+        ra: degMinSec(12, 15, 8.71673),
+        dec: degMinSec(-58, 44, 56.1369)
+    },
+    {
+        name: "centauri-a",
+        magnitude: -0.27,
+        ra: degMinSec(14, 39, 36),
+        dec: degMinSec(-60, 50, 10)
+    },
+    {
+        name: "centauri-b",
+        magnitude: 0.61,
+        ra: degMinSec(14, 3, 49.40535),
+        dec: degMinSec(-60, 22, 22.9266)
+    }
+]
+
 function timeToDegree(date) {
     date = new Date(date)
     let hh = date.getHours();
@@ -66,7 +109,7 @@ function displayTime(){
     let mm = localDate.getMinutes();
     let ss = localDate.getSeconds();
 
-    let hRotate = 180 - (15 * hh + 0.25 * mm);
+    let hRotate = 180 + (15 * hh + 0.25 * mm);
     let mRotate = 6 * mm + 0.1 * ss;
 
     hourHand.style.transform = `rotate(${hRotate}deg)`;
@@ -80,8 +123,8 @@ function degreeToPointAntiClockwise(cx, cy, cr, degree) {
 }
 
 function degreeToPointClockwise(cx, cy, cr, degree) {
-    let x = Math.sin((degree * Math.PI) / 180.0)*cr + cx
-    let y = -Math.cos((degree * Math.PI) / 180.0)*cr + cy
+    let x = -Math.sin((degree * Math.PI) / 180.0)*cr + cx
+    let y = Math.cos((degree * Math.PI) / 180.0)*cr + cy
     return {x: x, y: y}
 }
 
@@ -101,9 +144,9 @@ function createSector(startDegree, endDegree) {
         long = 1;
     }
 
-    let start = degreeToPointAntiClockwise(50, 50, 50, startDegree)
-    let end = degreeToPointAntiClockwise(50, 50, 50, endDegree)
-    return `M ${start.x} ${start.y} A 50 50 0 ${long} 0 ${end.x} ${end.y} L 50 50`;
+    let start = degreeToPointClockwise(50, 50, 50, startDegree)
+    let end = degreeToPointClockwise(50, 50, 50, endDegree)
+    return `M ${end.x} ${end.y} A 50 50 0 ${long} 0 ${start.x} ${start.y} L 50 50`;
 }
 
 function createMoon(phase) {
@@ -132,7 +175,7 @@ function createMoon(phase) {
 
 function createSpoke(date) {
     let degree = timeToDegree(date.date)
-    let point = degreeToPointAntiClockwise(50, 50, 50, degree)
+    let point = degreeToPointClockwise(50, 50, 50, degree)
     return `M 50 50 L ${point.x} ${point.y}`
 }
 
@@ -265,18 +308,23 @@ function calculateAltitude(altitude) {
     return altitude * -0.667 / 90.0 + 1
 }
 
+function skyPos(ra, dec) {
+    let observer = new Astronomy.Observer(latitude, longitude, elevation)
+    
+    bodyHor = Astronomy.Horizon(date, observer, ra, dec, "normal")
+    
+    let visualAltitude = calculateAltitude(Math.max(-50, bodyHor.altitude))
+    
+    let x = -Math.sin(bodyHor.azimuth * Math.PI / 180.0) * visualAltitude * 0.5 + 0.5
+    let y = -Math.cos(bodyHor.azimuth * Math.PI / 180.0) * visualAltitude * 0.5 + 0.5
+    
+    return {x: x, y: y, az: bodyHor.azimuth}
+}
+
 function celestialPos(body) {
     let observer = new Astronomy.Observer(latitude, longitude, elevation)
-
     let bodyEqu = Astronomy.Equator(body, date, observer, true, true)
-    bodyHor = Astronomy.Horizon(date, observer, bodyEqu.ra, bodyEqu.dec, "normal")
-
-    let visualAltitude = calculateAltitude(Math.max(-50, bodyHor.altitude))
-
-    let x = Math.sin(bodyHor.azimuth * Math.PI / 180.0) * visualAltitude * 0.5 + 0.5
-    let y = -Math.cos(bodyHor.azimuth * Math.PI / 180.0) * visualAltitude * 0.5 + 0.5
-
-    return {x: x, y: y, az: bodyHor.azimuth}
+    return skyPos(bodyEqu.ra, bodyEqu.dec)
 }
 
 function celestialBodies() {
@@ -314,6 +362,16 @@ function celestialBodies() {
     saturnSky.style.setProperty('--x', saturn.x)
     saturnSky.style.setProperty('--y', saturn.y)
     saturnSky.style.setProperty('--az', saturn.az)
+
+    stars.forEach((star) => {
+        let starElement = document.getElementById(star.name)
+        starElement.style.setProperty('--size', (4 - star.magnitude) + "px")
+        starElement.style.setProperty('--color', 'white')
+        let starCoords = skyPos(star.ra, star.dec)
+        starElement.style.setProperty('--x', starCoords.x)
+        starElement.style.setProperty('--y', starCoords.y)
+        starElement.style.setProperty('--az', starCoords.az)
+    });
 }
 
 function squish(angle) {
@@ -331,7 +389,7 @@ function drawYearLines(numYears) {
     let text = "";
     for (let i = 0; i < numYears; i++) {
         let angle = (i - 0.5) * 360 / numYears;
-        let point = degreeToPointClockwise(50, 50, 50, squish(angle))
+        let point = degreeToPointClockwise(50, 50, 50, angle)
         text += `M 50 50 L ${point.x} ${point.y} `
     }
     return text;
@@ -345,19 +403,19 @@ function drawSolstices() {
     let sep = dateToDegree(seasons.sep_equinox.date);
     let dec = dateToDegree(seasons.dec_solstice.date);
 
-    console.log(seasons.jun_solstice)
-    console.log(jun)
+    // console.log(seasons.jun_solstice)
+    // console.log(jun)
 
     let point
     let text = "";
 
-    point = degreeToPointClockwise(50, 50, 50, squish(mar))
+    point = degreeToPointClockwise(50, 50, 50, mar)
     text += `M 50 50 L ${point.x} ${point.y} `
-    point = degreeToPointClockwise(50, 50, 50, squish(jun))
+    point = degreeToPointClockwise(50, 50, 50, jun)
     text += `M 50 50 L ${point.x} ${point.y} `
-    point = degreeToPointClockwise(50, 50, 50, squish(sep))
+    point = degreeToPointClockwise(50, 50, 50, sep)
     text += `M 50 50 L ${point.x} ${point.y} `
-    point = degreeToPointClockwise(50, 50, 50, squish(dec))
+    point = degreeToPointClockwise(50, 50, 50, dec)
     text += `M 50 50 L ${point.x} ${point.y} `
 
     return text;
