@@ -50,44 +50,44 @@ function degMinSec(degrees, minutes, seconds) {
     return degrees + (minutes / 60) + (seconds / 3600)
 }
 
-const stars = [
-    {
-        name: "crucis-a",
-        magnitude: 0.76,
-        ra: degMinSec(12, 26, 35.89522),
-        dec: degMinSec(-63, 5, 56.7343)
-    },
-    {
-        name: "crucis-b",
-        magnitude: 1.25,
-        ra: degMinSec(12, 47, 43.26877),
-        dec: degMinSec(-59, 41, 19.5792)
-    },
-    {
-        name: "crucis-c",
-        magnitude: 1.64,
-        ra: degMinSec(12, 31, 9.960),
-        dec: degMinSec(-57, 6, 47.57)
-    },
-    {
-        name: "crucis-d",
-        magnitude: 2.81,
-        ra: degMinSec(12, 15, 8.71673),
-        dec: degMinSec(-58, 44, 56.1369)
-    },
-    {
-        name: "centauri-a",
-        magnitude: -0.27,
-        ra: degMinSec(14, 39, 36),
-        dec: degMinSec(-60, 50, 10)
-    },
-    {
-        name: "centauri-b",
-        magnitude: 0.61,
-        ra: degMinSec(14, 3, 49.40535),
-        dec: degMinSec(-60, 22, 22.9266)
-    }
-]
+// const stars = [
+//     {
+//         name: "crucis-a",
+//         magnitude: 0.76,
+//         ra: degMinSec(12, 26, 35.89522),
+//         dec: degMinSec(-63, 5, 56.7343)
+//     },
+//     {
+//         name: "crucis-b",
+//         magnitude: 1.25,
+//         ra: degMinSec(12, 47, 43.26877),
+//         dec: degMinSec(-59, 41, 19.5792)
+//     },
+//     {
+//         name: "crucis-c",
+//         magnitude: 1.64,
+//         ra: degMinSec(12, 31, 9.960),
+//         dec: degMinSec(-57, 6, 47.57)
+//     },
+//     {
+//         name: "crucis-d",
+//         magnitude: 2.81,
+//         ra: degMinSec(12, 15, 8.71673),
+//         dec: degMinSec(-58, 44, 56.1369)
+//     },
+//     {
+//         name: "centauri-a",
+//         magnitude: -0.27,
+//         ra: degMinSec(14, 39, 36),
+//         dec: degMinSec(-60, 50, 10)
+//     },
+//     {
+//         name: "centauri-b",
+//         magnitude: 0.61,
+//         ra: degMinSec(14, 3, 49.40535),
+//         dec: degMinSec(-60, 22, 22.9266)
+//     }
+// ]
 
 function timeToDegree(date) {
     date = new Date(date)
@@ -364,10 +364,10 @@ function celestialBodies() {
     saturnSky.style.setProperty('--az', saturn.az)
 
     stars.forEach((star) => {
-        let starElement = document.getElementById(star.name)
-        starElement.style.setProperty('--size', (4 - star.magnitude) + "px")
-        starElement.style.setProperty('--color', 'white')
-        let starCoords = skyPos(star.ra, star.dec)
+        let starElement = document.getElementById(star.id)
+        starElement.style.setProperty('--size', (4 - star.mag) + "px")
+        starElement.style.setProperty('--color', star.color)
+        let starCoords = skyPos(parseFloat(star.ra), parseFloat(star.dec))
         starElement.style.setProperty('--x', starCoords.x)
         starElement.style.setProperty('--y', starCoords.y)
         starElement.style.setProperty('--az', starCoords.az)
@@ -402,9 +402,6 @@ function drawSolstices() {
     let jun = dateToDegree(seasons.jun_solstice.date);
     let sep = dateToDegree(seasons.sep_equinox.date);
     let dec = dateToDegree(seasons.dec_solstice.date);
-
-    // console.log(seasons.jun_solstice)
-    // console.log(jun)
 
     let point
     let text = "";
@@ -444,6 +441,19 @@ function render() {
 }
 // date = new Date(date.getTime() + 12000000)
 // date = new Date("July 22, 2028 13:40:00")
+
+function setUpStars() {
+    let star_container = document.getElementById("stars")
+    stars.forEach((star) => {
+        let starElem = document.createElement("div")
+        starElem.setAttribute('id', star.id)
+        starElem.setAttribute('class', "celestial-star")
+        star_container.append(starElem)
+    })
+    return
+}
+
+setUpStars()
 
 resize()
 render()
