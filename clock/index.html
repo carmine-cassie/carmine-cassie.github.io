@@ -4,6 +4,8 @@
         <title>Clock</title>
         <link rel="stylesheet" href="style.css"/>
         <script src="astronomy.browser.min.js"></script>
+        <!-- Star data adapted from frostoven/BSC5P-JSON and frostoven/BSC5P-JSON-XYZ -->
+        <script src="stars.min.js"></script>
 
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -111,12 +113,8 @@
                         <div class="celestial-obj sun-sky" id="sun-sky">🌞︎︎</div>
                         <div class="celestial-obj moon-sky" id="moon-sky">🌚︎</div>
 
-                        <div class="celestial-star" id="crucis-a"></div>
-                        <div class="celestial-star" id="crucis-b"></div>
-                        <div class="celestial-star" id="crucis-c"></div>
-                        <div class="celestial-star" id="crucis-d"></div>
-                        <div class="celestial-star" id="centauri-a"></div>
-                        <div class="celestial-star" id="centauri-b"></div>
+                        <div id="stars">
+                        </div>
 
                         <span class="compass-label big-label" style="--i: 0">N</span>
                         <span class="compass-label" style="--i: 2">NE</span>
