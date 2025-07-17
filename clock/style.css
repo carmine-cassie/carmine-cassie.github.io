@@ -284,8 +284,8 @@ body {
 
 .moon {
     position: absolute;
-    width: calc(var(--scale) * 100px);
-    height: calc(var(--scale) * 100px);
+    width: calc(var(--scale) * 80px);
+    height: calc(var(--scale) * 80px);
     background: #555e66;
     border-radius: 50%;
     border: solid calc(var(--scale) * 5px) #555e66;
