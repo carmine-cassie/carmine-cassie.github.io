@@ -305,7 +305,7 @@ function moonPhase() {
 }
 
 function calculateAltitude(altitude) {
-    return altitude * -0.667 / 90.0 + 1
+    return altitude * -((300-80)/300) / 90.0 + 1
 }
 
 function skyPos(ra, dec) {
