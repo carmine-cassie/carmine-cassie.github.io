@@ -317,7 +317,7 @@ body {
 
     font-family: "newton";
 
-    transform: rotate(calc(var(--az)* 1deg));
+    transform: rotate(calc(var(--az)* -1deg));
 }
 
 .celestial-star {
