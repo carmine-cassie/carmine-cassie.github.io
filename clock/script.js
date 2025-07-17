@@ -365,7 +365,7 @@ function celestialBodies() {
 
     stars.forEach((star) => {
         let starElement = document.getElementById(star.id)
-        starElement.style.setProperty('--size', (4 - star.mag) + "px")
+        starElement.style.setProperty('--size', "calc(var(--scale) * " + (4 - star.mag) + "px)")
         starElement.style.setProperty('--color', star.color)
         let starCoords = skyPos(parseFloat(star.ra), parseFloat(star.dec))
         starElement.style.setProperty('--x', starCoords.x)
