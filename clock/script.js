@@ -52,7 +52,7 @@ function degMinSec(degrees, minutes, seconds) {
 
 // const stars = [
 //     {
-//         name: "crucis-a",
+//         name: "crus-a",
 //         magnitude: 0.76,
 //         ra: degMinSec(12, 26, 35.89522),
 //         dec: degMinSec(-63, 5, 56.7343)
@@ -98,6 +98,7 @@ function timeToDegree(date) {
     return 360 * (hh + (mm + ss/60)/60)/24;
 }
 
+// TODO consider leap years
 function dateToDegree(newDate) {
     return (newDate - date) / 86400000;
 }
@@ -384,6 +385,7 @@ function squish(angle) {
     angle *= 180;
     return angle;
 }
+
 
 function drawYearLines(numYears) {
     let text = "";
