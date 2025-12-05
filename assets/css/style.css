@@ -262,3 +262,7 @@ ul {
 li {
   margin-bottom: 0.5em;
 }
+
+.solid {
+  fill: var(--color-fg)
+}
