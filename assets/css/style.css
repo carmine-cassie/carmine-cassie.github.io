@@ -264,6 +264,7 @@ li {
   margin-bottom: 0.5em;
 }
 
-.solid {
-  background: var(--color-fg)
+.hatched {
+  background-image: url("/assets/img/hatch.png");
+  image-rendering: pixelated
 }
