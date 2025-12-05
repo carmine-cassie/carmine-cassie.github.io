@@ -203,6 +203,7 @@ table, th, td {
 }
 
 table {
+  transform: translateZ(0);
   margin: auto;
   margin-top: 1em;
   margin-bottom: 0.25em;
@@ -264,5 +265,5 @@ li {
 }
 
 .solid {
-  fill: var(--color-fg)
+  background: var(--color-fg)
 }
