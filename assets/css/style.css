@@ -1,4 +1,4 @@
-[data-theme="light"] {
+:root {
   --color-bg: #fee;
   --color-bg-faint: #feed;
   --color-raised: #dcc;
@@ -8,84 +8,6 @@
   --color-accent-fg-faint: #9339;
   --color-accent-bg: #f66;
   --color-accent-bg-faint: #f779;
-
-  & .light-icon {
-    display: block;
-  }
-  & .dark-icon {
-    display: none;
-  }
-}
-
-[data-theme="dark"] {
-  --color-bg: #200;
-  --color-bg-faint: #200d;
-  --color-raised: #433;
-  --color-fg: #fff;
-  --color-fg-faint: #fffd;
-  --color-accent-fg: #f66;
-  --color-accent-fg-faint: #f779;
-  --color-accent-bg: #900;
-  --color-accent-bg-faint: #9339;
-
-  & .light-icon {
-    display: none;
-  }
-  & .dark-icon {
-    display: block;
-  }
-}
-
-[data-theme-toggle] {
-  width: 24px;
-  margin-left:6px;
-  margin-right:6px;
-  height: 24px;
-  padding: 0px;
-  border: 0px;
-  background-color: #0000;
-  color: var(--color-fg);
-  float: right;
-}
-
-[data-lang="en"] {
-  & .en-icon {
-    display: block;
-  }
-  & .tp-icon {
-    display: none;
-  }
-  & .tp {
-    display: none;
-  }
-}
-
-[data-lang="tp"] {
-  & .en-icon {
-    display: none;
-  }
-  & .tp-icon {
-    display: block;
-    font-family: fairfax;
-  }
-  & .en {
-    display: none;
-  }
-}
-
-[data-lang-toggle] {
-  width: 24px;
-  margin-left:6px;
-  margin-right:6px;
-  height: 24px;
-  padding: 0px;
-  border: 0px;
-  background-color: #0000;
-  color: var(--color-fg);
-  float: right;
-  font-family: fairfax;
-  font-size: 24px;
-  line-height: 0;
 }
 
 .main-paper {
@@ -170,11 +92,6 @@ a {
   font-family: "toshibatx";
   src: url("/assets/fonts/WebPlus_ToshibaTxL1_8x16.woff") format('woff');
   font-weight: bold;
-}
-
-@font-face {
-  font-family: "fairfax";
-  src: url("/assets/fonts/Fairfax.ttf") format('truetype');
 }
 
 @font-face {
