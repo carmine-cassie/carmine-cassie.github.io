@@ -25,7 +25,7 @@
   --color-fg: #000;
   --color-fg-faint: #000d;
   --color-accent-fg: #900;
-  --color-accent-fg-faint: #9339;
+  --color-accent-fg-faint: #9337;
   --color-accent-bg: #f66;
   --color-accent-bg-faint: #f779;
 }
@@ -75,6 +75,16 @@ h3 {
 p {
   margin: 0px;
   margin-bottom: 5px;
+}
+
+p b {
+  text-shadow: 2px 2px var(--color-accent-fg-faint);
+  font-weight: normal;
+}
+
+.sitelen-pona b {
+  text-shadow: 3px 3px var(--color-accent-fg-faint);
+  font-weight: normal;
 }
 
 ul {
