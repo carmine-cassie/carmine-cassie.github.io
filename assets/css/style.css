@@ -30,14 +30,37 @@
   --color-accent-bg-faint: #f779;
 }
 
-.main-paper {
-  max-width: 620px;
-  background-color: var(--color-bg-faint);
-  color: var(--color-fg);
+.main-window {
+  max-width: 710px;
+  padding: 5px;
   margin-left: auto;
   margin-right: auto;
+  background-color: var(--color-accent-bg);
+  color: var(--color-bg);
   font-family: cozette;
-  font-size: 26px;
+  font-size: 13px;
+}
+
+.window-header {
+  font-size: 13px;
+  display:flex;
+  justify-content: space-between;
+  padding: 5px 5px;
+  margin-bottom: 5px;
+  background-color: var(--color-accent-fg);
+  box-shadow:
+    -2px -2px #fff,
+    2px 2px #000
+  ;
+  p {
+    margin: 0px;
+  }
+}
+
+.main-paper {
+  width: auto;
+  background-color: var(--color-bg-faint);
+  color: var(--color-fg);
   padding: 20px 50px;
 }
 
@@ -54,16 +77,27 @@ body {
 }
 
 h1 {
-  font-size: 64px;
+  font-size: 48px;
   font-family: kiwisoda;
   font-weight: normal;
-  text-shadow: 4px 4px var(--color-accent-fg-faint);
+  text-shadow: 3px 3px 1px var(--color-accent-fg-faint);
   margin: 0px;
+  margin-bottom: 6px;
+  text-decoration: underline;
 }
 
 h2 {
-  font-size: 2em;
-  margin-bottom: 0.25em;
+  font-size: 32px;
+  font-family: kiwisoda;
+  font-weight: normal;
+  text-shadow: 2px 2px 1px var(--color-accent-fg-faint);
+  margin: 0px;
+  margin-bottom: 4px;
+}
+
+h2.sitelen-pona {
+  font-family: lekomajuna;
+  font-size: 24px;
 }
 
 h3 {
@@ -75,16 +109,10 @@ h3 {
 p {
   margin: 0px;
   margin-bottom: 5px;
-}
-
-p b {
-  text-shadow: 2px 2px var(--color-accent-fg-faint);
-  font-weight: normal;
-}
-
-.sitelen-pona b {
-  text-shadow: 3px 3px var(--color-accent-fg-faint);
-  font-weight: normal;
+  b {
+    text-shadow: 1px 1px 1px var(--color-accent-fg-faint);
+    font-weight: normal;
+  }
 }
 
 ul {
@@ -115,12 +143,16 @@ a {
 
 .sitelen-pona {
   font-family: lekomajuna;
-  font-size: 24px;
+  font-size: 16px;
   a {
     text-decoration: none;
   }
   ul {
     list-style-type: "\F199C"
+  }
+  b {
+    text-shadow: 2px 2px var(--color-accent-fg-faint);
+    font-weight: normal;
   }
 }
 
