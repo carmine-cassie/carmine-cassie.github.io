@@ -1,0 +1,550 @@
+<!-- add more information (shortcomings (lack of tales, explaineds, jokes, international, and GoI)) -->
+<!--  -->
+<!-- add export and import jsons -->
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="/projects/scp_browser/style.css">
+    </head>
+    <body>
+        <div style="display:flex;align-items: center;gap: 2px">
+            <h1>SCiPNET/</h1>
+            <p style="line-height: 11px;margin-top:-5px"><span>SECURE</span><br><span style="margin-left: -3px;">ACCESS</span><br><span style="margin-left: -6px;">TERMINAL</span></p>
+        </div>
+        <div style="display:flex;align-items: flex-start;gap:18px;margin:auto;width:fit-content">
+            <table id="linkTable"></table>
+            <table id="001Table">
+                <tr height="15px"></tr>
+                <tr>
+                    <td colspan="3" style="padding-top: 13px;padding-bottom: 13px;">
+                        <p style="padding-left: 12px; padding-right: 12px; padding-bottom: 13px;">
+                            Items you have READ are shown in WHITE.<br><br>
+                            Items on your LIST are shown in RED.<br><br>
+                            Hover over a cell and press Z or X to toggle whether it is marked as READ.
+                        </p>
+                        <button onclick = "localStorage.clear();window.location.reload();">Clear All Data</button>
+                    </td>
+                </tr>
+                <tr height="15px"></tr>
+                <tr>
+                    <td colspan="3" style="padding-top: 13px;padding-bottom: 13px;">
+                        <p style="padding-left: 12px; padding-right: 12px;">
+                            Header font: <a href="https://fontenddev.com/fonts/digital-disco/">Digital Disco</a> (<a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>)<br>
+                            Body font: <a href="https://github.com/the-moonwitch/Cozette">Cozette</a> (<a href="https://github.com/the-moonwitch/Cozette/blob/main/LICENSE">MIT</a>)<br><br>
+                            At present, the reading list is simply the top 50 articles of each year. In future, I intend to add a few options to select from.<br><br>
+                            Due to the format, this page only shows mainline SCP articles, not -Js, -EXs, GoI formats, hubs, or tales.<br>Perhaps peruse the <a href="https://scp-wiki.wikidot.com/top-rated-pages">Top Rated Pages</a> listing if those strike your fancy.
+                        </p>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </body>
+</html>
+
+<script>
+    // Track the mouse position so we can see what we're hovering
+    let positionHovered = []
+    document.addEventListener('mousemove', (e) => {
+        positionHovered = [e.clientX, e.clientY];
+    })
+
+    // If we hit Z or X while hovering the div within the anchor within the cell, toggle that cell!
+    document.addEventListener('keydown', (e) => {
+        if (e.keyCode == 90 || e.keyCode == 88) {
+            let element = document.elementFromPoint(positionHovered[0], positionHovered[1]).parentElement.parentElement
+            if (element.className.includes("cell")) {
+                // toggle the dang cell
+                if (localStorage.getItem(element.id)) {
+                    // Untick it!
+                    localStorage.removeItem(element.id)
+                    element.style = ""
+                } else {
+                    // Tick it!
+                    localStorage.setItem(element.id, true)
+                    element.style = "background-color: white"
+                }
+            }
+        }
+    });
+
+    // Get a reference to the tables
+    let table = document.getElementById("linkTable")
+    let proposalTable = document.getElementById("001Table")
+
+    let recommendations = [
+        "scp-173", "scp-055", "scp-682", "scp-093", "scp-914", "scp-231", "dr-clef-s-proposal", "scp-294", "scp-002", "scp-035", "scp-076", "scp-079", "scp-507", "scp-085", "scp-529", "scp-184", "scp-073", "scp-004", "scp-028", "scp-343", "scp-500", "scp-015", "scp-105", "scp-963", "scp-008", "scp-131", "scp-169", "scp-882", "scp-033", "scp-053", "scp-261", "scp-066", "scp-012", "jonathan-ball-s-proposal", "scp-017", "scp-217", "scp-006", "scp-058", "scp-447", "scp-005", "scp-239", "scp-342", "dr-gears-s-proposal", "scp-082", "scp-011", "scp-166", "scp-168", "scp-113",
+        "scp-049", "scp-087", "scp-999", "scp-701", "scp-610", "scp-048", "scp-354", "scp-990", "scp-504", "scp-662", "scp-586", "scp-009", "scp-423", "scp-835", "scp-738", "scp-024", "scp-014", "scp-387", "scp-016", "scp-804", "scp-439", "scp-811", "scp-524", "scp-978", "scp-650", "scp-020", "scp-823", "scp-027", "scp-019", "scp-572", "scp-108", "scp-674", "scp-826", "scp-745",
+        "scp-096", "scp-106", "scp-426", "scp-895", "scp-001-o5", "scp-140", "scp-513", "scp-303", "scp-966", "scp-176", "scp-191", "scp-163", "scp-069", "scp-321", "scp-026", "scp-451", "scp-152", "scp-023", "scp-860", "scp-084", "scp-052", "scp-483", "scp-205", "scp-315", "qntm-s-proposal", "scp-411", "scp-025", "scp-247", "scp-517", "scp-370", "scp-752", "scp-372", "scp-752", "scp-198", "scp-973",
+        "scp-1000", "sandrewswann-s-proposal", "scp-902", "scp-993", "scp-871", "scp-939", "scp-003", "scp-1025", "dr-manns-proposal", "scp-022", "scp-1959", "scp-1111", "scp-1006", "scp-962", "scp-884", "scp-178", "scp-970", "scp-890", "scp-946", "scp-072", "scp-216", "scp-216", "mackenzie-s-proposal", "scantron-s-proposal", "scp-097", "scp-956", "scp-1004", "scp-711", "scp-931", "scp-112", "scp-846", "scp-870", "scp-536", "scp-435", "scp-920", "scp-557", "scp-1033",
+        "scp-1981", "scp-1171", "scp-1733", "scp-1230", "scp-348", "scp-1048", "scp-1440", "scp-1425", "scp-1437", "scp-1370", "scp-1983", "scp-1867", "scp-1893", "scp-1867", "scp-1893", "scp-1609", "scp-1678", "scp-1322", "scp-1875", "scp-1193", "scp-1173", "scp-089", "scp-1470", "scp-1057", "scp-111", "scp-1958", "scp-1295", "scp-1545", "scp-1499", "scp-1055", "scp-086", "scp-1032", "scp-1050", "scp-013", "scp-1192", "scp-1539", "scp-1968", "scp-1128", "scp-1845", "scp-1986", "scp-1529",
+        "scp-2000", "scp-000", "scp-1471", "scp-2998", "scp-1342", "scp-1504", "scp-1689", "scp-1459", "scp-2682", "scp-1422", "scp-1936", "scp-1281", "djoric-dmatix-proposal", "scp-2700", "scp-1522", "scp-1562", "scp-1715", "scp-2085", "scp-1915", "scp-1384", "scp-1312", "scp-1293", "scp-2999", "scp-1903", "scp-1442", "scp-2001", "scp-1921", "scp-2020", "scp-1485", "scp-1780", "scp-1472", "scp-1972", "scp-1884", "scp-1296", "scp-1584", "scp-319", "scp-2063", "scp-1754", "scp-2002", "scp-1846", "scp-400",
+        "scp-2317", "scp-2006", "scp-2718", "scp-1762", "scp-2030", "scp-2662", "scp-179", "kate-mctiriss-s-proposal", "scp-2399", "scp-2950", "scp-2599", "scp-2740", "scp-2845", "scp-1861", "scp-2557", "scp-2480", "scp-2217", "scp-2357", "scp-1739", "scp-2932", "scp-2137", "scp-2053", "scp-1160", "scp-2800", "scp-2598", "scp-2075", "scp-032", "scp-1152", "scp-2021", "scp-2200", "scp-1659", "scp-2300", "scp-2078", "scp-2072",
+        "scp-2521", "scp-1730", "scp-2602", "scp-2295", "scp-2256", "scp-2719", "scp-2264", "scp-2852", "scp-2111", "scp-2337", "scp-2875", "scp-2273", "scp-245", "scp-2614", "scp-2922", "scp-2207", "scp-2406", "scp-2206", "scp-2165", "scp-2343", "scp-2851", "scp-2771", "scp-2140", "scp-2915", "scp-2420", "scp-2191", "scp-2118", "scp-2790", "scp-2993", "scp-748", "scp-2460", "scp-2702", "scp-2203", "scp-2190",
+        "scp-2316", "scp-2935", "scp-2439", "scp-2747", "scp-527", "scp-2774", "scp-2578", "scp-847", "scp-2874", "scp-2193", "scp-2508", "scp-2432", "scp-2820", "scp-2293", "scp-2547", "scp-2408", "scp-2951", "scp-2306", "scp-2481", "scp-414", "scp-644", "scp-2308", "scp-2338", "scp-2522", "scp-2912", "scp-2284", "scp-2241", "scp-2219",
+        "scp-3008", "scp-3001", "scp-3999", "scp-3000", "shaggydredlocks-proposal", "scp-3125", "scp-3002", "scp-3333" ,"scp-3812", "scp-3199", "scp-3003", "scp-3034", "scp-3007", "scp-2639", "scp-3301", "scp-3740", "scp-3935", "scp-3004", "scp-3519", "scp-2419", "scp-3300", "scp-3005", "scp-3922", "scp-2952", "scp-3043", "scp-3078", "scp-3799", "scp-3171", "scp-2571", "wjs-proposal", "scp-3966", "scp-3201", "scp-3045", "scp-3900", "scp-3456", "scp-3288", "scp-3512", "scp-3108", "scp-3101", "scp-3041",
+        "scp-4000", "scp-4999", "scp-3930", "lily-s-proposal", "scp-4666", "scp-3393", "tuftos-proposal", "scp-3309", "scp-4001", "scp-001-ex", "scp-4991", "scp-4444", "scp-3939", "scp-1313", "scp-3211", "tanhony-s-proposal", "scp-3213", "scp-3790", "scp-3521", "scp-1233", "captain-kirby-s-proposal", "scp-3671", "scp-4010", "scp-3936", "scp-4006", "scp-4231", "scp-4514", "scp-2786", "scp-4500", "scp-4960", "scp-3515", "scp-3166", "scp-3626", "scp-3280", "scp-4028", "scp-3448", "scp-783", "scp-4051", "scp-4774",
+        "scp-4205", "ouroboros", "scp-4182", "scp-4975", "scp-4966", "scp-4290", "scp-4335", "pedantique-s-proposal", "scp-4661", "scp-4971", "scp-4955", "scp-4498", "scp-4494", "scp-4703", "scp-4773", "not-a-seagull-proposal", "scp-4885", "scp-4511", "scp-4098", "scp-4517", "scp-4043", "scp-4780", "scp-4062", "scp-4857", "scp-4645", "scp-4319", "scp-4485", "scp-4338", "scp-4840", "scp-4233", "scp-4240", "scp-4144", "scp-4547", "scp-4465",
+        "scp-5000", "scp-5031", "scp-5999", "scp-5140", "scp-5001", "scp-5002", "scp-5555", "scp-5005", "scp-5004", "scp-5094", "scp-5242", "scp-5404", "scp-5500", "tanhony-s-proposal-ii", "scp-5935", "scp-5595", "scp-5552", "scp-5789", "scp-5832", "scp-5045", "scp-5545", "scp-5866", "scp-3352", "scp-5236", "scp-5145", "scp-5733", "scp-5243", "scp-5320", "scp-5370", "scp-5510", "scp-5494", "scp-5040", "scp-5618", "scp-5149", "scp-5549", "scp-5131", "scp-5699", "scp-5309", "scp-5003", "scp-5175", "scp-5056", "scp-5983", "scp-5740", "scp-5520",
+        "scp-6001", "scp-6000", "scp-6820", "scp-6500", "scp-6140", "scp-6666", "scp-6999", "scp-6599", "rounderhouse-proposal", "scp-6002", "scp-6670", "scp-6113", "scp-6096", "scp-6969", "rounderhouse-gold-proposal", "scp-6336", "keter-duty", "scp-6101", "scp-5761", "scp-6448", "scp-5657", "scp-5732", "scp-6987", "scp-5956", "scp-6747", "scp-5616", "scp-6996", "scp-5655", "pickman-blank-proposal", "scp-6659", "scp-5798", "scp-6871", "scp-5167", "scp-6033", "scp-6442", "scp-6373", "scp-6400", "scp-6059", "scp-6868", "scp-6005", "scp-6668", "scp-2744", "scp-5889", "scp-6369", "scp-5281", "scp-6004",
+        "scp-7000", "scp-7999", "scp-7179", "scp-7777", "scp-7034", "scp-7005", "scp-7001", "scp-6470", "scp-6819", "dyfscp-001", "scp-7004", "scp-6764", "scp-6630", "scp-7333", "scp-7450", "scp-7676", "scp-6445", "scp-6488", "scp-6869", "scp-6469", "scp-7976", "scp-7027", "scp-7025", "scp-7795", "scp-5392", "scp-7579", "scp-7700", "scp-7726", "scp-7666", "scp-7340", "scp-6511", "scp-6383", "scp-6468", "scp-6765", "scp-7007", "scp-6287", "scp-6355", "scp-7002", "scp-7898", "scp-7470", "scp-7328", "scp-7200", "scp-7500",
+        "scp-7819", "scp-7311", "scp-122", "scp-6183", "dyfscp0012", "rounderhouse-jade-proposal", "plague-s-proposal", "scp-7243", "scp-7832", "scp-7918", "scp-7419", "scp-7169", "scp-7785", "scp-7838", "scp-332", "scp-6634", "scp-6130", "scp-7112", "scp-7545", "nico-proposal", "scp-8599", "scp-7592", "scp-7528", "scp-7529", "scp-7271", "scp-7288", "scp-7427", "scp-7593", "scp-7376", "sscp-7594", "scp-7769", "scp-5257", "scp-4238", "scp-7599", "scp-7313", "scp-3775",
+        "scp-8980", "scp-8000", "scp-8999", "scp-8001", "scp-8005", "scp-8066", "scp-8008", "scp-8500", "scp-8002", "scp-8595", "scp-8320", "scp-8400", "scp-8654", "scp-8888", "scp-8147", "scp-8916", "scp-8140", "oris-proposal", "scp-8596", "scp-8976", "scp-8597", "scp-8822", "scp-8043", "scp-8876", "scp-8003", "scp-8060", "scp-8007", "scp-8166", "scp-8726", "scp-8190", "scp-8558", "scp-8430", "scp-8217", "scp-8480", "scp-8799", "scp-8770", "scp-8607", "scp-8055", "scp-8986", "scp-8668", "scp-8093", "scp-8006", "scp-8401", "scp-8009", "scp-8004", "scp-8209",
+        "scp-9000", "scp-9001", "scp-9998", "scp-8557", "rounderhouse-bone-proposal", "scp-9900", "scp-8411", "scp-9002", "scp-9599", "scp-9100", "scp-9003", "scp-9005", "scp-8513", "scp-9500", "scp-8795", "scp-9009", "scp-9595", "metaphysician-karpin-proposal", "scp-9044", "scp-9004", "scp-8490", "scp-9592", "scp-8958", "scp-5315", "scp-9964", "scp-8356", "scp-8281", "scp-9084", "scp-8345", "scp-8987", "scp-8683", "scp-8329", "scp-8905", "scp-7543", "scp-8626", "scp-8426", "scp-8566", "scp-2003", "scp-9726", "scp-7563", "scp-1796", "scp-8242"
+    ]
+
+    let roman_numerals = {
+        0: "I",
+        1: "II",
+        2: "III",
+        3: "IV",
+        4: "V",
+        5: "VI",
+        6: "VII",
+        7: "VIII",
+        8: "IX",
+        9: "X",
+    }
+
+    proposals = {
+        0: [
+            {
+                "id": "jonathan-ball-s-proposal",
+                "name": "Jonathan Ball's Proposal"
+            },
+            {
+                "id": "dr-gears-s-proposal",
+                "name": "Dr Gears' Proposal"
+            },
+            {
+                "id": "dr-clef-s-proposal",
+                "name": "Dr Clef's Proposal"
+            },
+            {
+                "id": "qntm-s-proposal",
+                "name": "qntm's proposal"
+            },
+            {
+                "id": "scp-001-o5",
+                "name": "SCP-001:O5"
+            },
+            {
+                "id": "dr-manns-proposal",
+                "name": "Dr. Mann's Proposal"
+            },
+        ],
+        1: [
+            {
+                "id": "mackenzie-s-proposal",
+                "name": "Dr. Mackenzie's Proposal"
+            },
+            {
+                "id": "sandrewswann-s-proposal",
+                "name": "S Andrew Swann's Proposal"
+            },
+            {
+                "id": "scantron-s-proposal",
+                "name": "Scantron's Proposal"
+            },
+            {
+                "id": "djoric-dmatix-proposal",
+                "name": "Djoric-Dmatix Proposal"
+            },
+        ],
+        2: [
+            {
+                "id": "ouroboros",
+                "name": "Ouroboros"
+            },
+            {
+                "id": "kate-mctiriss-s-proposal",
+                "name": "Kate McTiriss's Proposal"
+            },
+            {
+                "id": "wrong-proposal",
+                "name": "Wrong Proposal"
+            },
+        ],
+        3: [
+            {
+                "id": "shaggydredlocks-proposal",
+                "name": "S. D. Locke's Proposal"
+            },
+            {
+                "id": "spikebrennan-s-proposal",
+                "name": "spikebrennan's proposal"
+            },
+            {
+                "id": "wjs-proposal",
+                "name": "WJS Proposal"
+            },
+        ],
+        4: [
+            {
+                "id": "billiths-proposal",
+                "name": "Billith's Proposal"
+            },
+            {
+                "id": "tanhony-s-proposal",
+                "name": "Tanhony's Proposal"
+            },
+            {
+                "id": "lily-s-proposal",
+                "name": "Lily's Proposal "
+            },
+            {
+                "id": "tuftos-proposal",
+                "name": "Tufto's Proposal"
+            },
+            {
+                "id": "liz-the-gm-s-proposal",
+                "name": "Liz The GM's Proposal"
+            },
+            {
+                "id": "i-h-p-proposal",
+                "name": "I.H.Pickman's Proposal"
+            },
+            {
+                "id": "scp-001-ex",
+                "name": "The Great Hippo's Proposal (feat. PeppersGhost)"
+            },
+            {
+                "id": "wmdd-s-proposal",
+                "name": "WMDD's Proposal"
+            },
+            {
+                "id": "psul-001",
+                "name": "psul's proposal"
+            },
+            {
+                "id": "captain-kirby-s-proposal",
+                "name": "Captain Kirby's Proposal"
+            },
+            {
+                "id": "pedantique-s-proposal",
+                "name": "Pedantique's Proposal"
+            },
+            {
+                "id": "not-a-seagull-proposal",
+                "name": "notgull's Proposal"
+            },
+            {
+                "id": "jack-ike-s-proposal-i",
+                "name": "Meta Ike Proposal"
+            },
+            {
+                "id": "jack-ike-s-proposal-ii",
+                "name": "Noir Box Proposal"
+            },
+        ],
+        5: [
+            {
+                "id": "tanhony-s-proposal-ii",
+                "name": "Tanhony's Proposal II"
+            },
+            {
+                "id": "swelling-of-the-worlds",
+                "name": "Arbelict's Proposal"
+            },
+            {
+                "id": "mcdoctorate-s-proposal",
+                "name": "McDoctorate's Proposal"
+            },
+            {
+                "id": "rounderhouse-proposal",
+                "name": "ROUNDERHOUSE's Proposal"
+            },
+            {
+                "id": "manymeats-proposal",
+                "name": "Dr. Eates's Proposal"
+            },
+            {
+                "id": "keter-duty",
+                "name": "Ihp/Locke Proposal"
+            },
+        ],
+        6: [
+            {
+                "id": "pickman-blank-proposal",
+                "name": "Pickman-Blank Proposal"
+            },
+            {
+                "id": "rounderhouse-gold-proposal",
+                "name": "ROUNDERHOUSE's Gold Proposal"
+            },
+            {
+                "id": "ralliston-s-proposal",
+                "name": "Ralliston's Proposal"
+            },
+        ],
+        7: [
+            {
+                "id": "dyfscp-001",
+                "name": "D. Ulysses Foole's Proposal"
+            },
+            {
+                "id": "nagiros-proposal",
+                "name": "Nagiros's Proposal"
+            },
+            {
+                "id": "rounderhouse-jade-proposal",
+                "name": "ROUNDERHOUSE's Jade Proposal"
+            },
+            {
+                "id": "plague-s-proposal",
+                "name": "Plague's Proposal"
+            },
+            {
+                "id": "jack-ike-s-proposal-iv",
+                "name": "Null Sum Proposal"
+            },
+            {
+                "id": "dyfscp0012",
+                "name": "Dafydd Utica Foolfellow's Proposal"
+            },
+            {
+                "id": "nico-proposal",
+                "name": "Nico's Proposal"
+            },
+            {
+                "id": "dr-cimmerian-s-proposal",
+                "name": "Dr. Cimmerian's Proposal"
+            },
+        ],
+        8: [
+            {
+                "id": "oris-proposal",
+                "name": "Ori's Proposal"
+            },
+            {
+                "id": "dyfscp0013",
+                "name": "Daoud Ewen Fullerton's Proposal"
+            },
+            {
+                "id": "nicos-proposal-ii",
+                "name": "Nico's Proposal II"
+            },
+            {
+                "id": "dr-frueh-s-proposal",
+                "name": "DarkStuff's Proposal"
+            },
+            {
+                "id": "rounderhouse-bone-proposal",
+                "name": "ROUNDERHOUSE's Bone Proposal"
+            },
+            {
+                "id": "metaphysician-karpin-proposal",
+                "name": "Metaphysician/Karpin Proposal"
+            },
+            {
+                "id": "yoshihides-proposal",
+                "name": "Yoshihide's Proposal"
+            },
+            {
+                "id": "calibold-harryblank-nico-proposal",
+                "name": "Calibold/HarryBlank/Nico Proposal"
+            },
+            {
+                "id": "etc-proposal",
+                "name": "E. T. Cetera's Proposal"
+            },
+            {
+                "id": "poufys-proposal",
+                "name": "Poufy's Proposal"
+            },
+            {
+                "id": "dyfscp0014",
+                "name": "Debhida Eulalie O'Foolbert's Proposal"
+            },
+        ],
+        9: [
+            {
+                "id": "queerious-proposal",
+                "name": "Queerious' Proposal"
+            },
+            {
+                "id": "lulus-proposal",
+                "name": "Lulu's Proposal"
+            },
+            {
+                "id": "the-communitys-proposal",
+                "name": "The Community's Proposal"
+            },
+        ],
+    }
+
+    // First, we're gonna add the top header rows
+    let ten_row = document.createElement("tr")
+    let one_row = document.createElement("tr")
+
+    // Add an empty 2x2 cell to the top left corner
+    let empty_cell = document.createElement("th")
+    empty_cell.setAttribute("colspan", "2")
+    empty_cell.setAttribute("rowspan", "2")
+    ten_row.appendChild(empty_cell)
+
+    // First let's do the row with the ten's place headers
+    for (let ten = 0; ten < 10; ten++) {
+        let column = document.createElement("td")
+        column.setAttribute("colspan", "10")
+        column.appendChild(document.createTextNode(`_${ten}_`))
+        ten_row.appendChild(column)
+    }
+
+    // Now we'll do the unit's place headers
+    for (let one = 0; one < 100; one++) {
+        let column = document.createElement("td")
+        column.appendChild(document.createTextNode(one % 10))
+        one_row.appendChild(column)
+    }
+
+    // Add the headers to the table!
+    table.append(ten_row)
+    table.append(one_row)
+
+    // Big loop where we go through series by series
+    for (let thou = 0; thou < 10; thou++) {
+        // We'll reuse this row object a bit
+        let row = document.createElement("tr")
+
+        // Create a header for the series (TODO make it roman numerals)
+        let thou_header = document.createElement("td")
+        thou_header.setAttribute("rowspan", "10")
+        thou_header.appendChild(document.createTextNode(roman_numerals[thou]))
+
+        // Add the series header to the current row
+        row.appendChild(thou_header)
+        table.appendChild(row)
+
+        // Now we'll loop through the ten rows in the series
+        for (let hund = 0; hund < 10; hund++) {
+            // Create the header
+            let hund_header = document.createElement("td")
+            hund_header.appendChild(document.createTextNode(`${hund}__`))
+            row.appendChild(hund_header)
+
+            // Create the hundred cells in the row
+            for (let i = 0; i < 100; i++) {
+                // Create the cell
+                let cell = document.createElement("td")
+                cell.setAttribute("class", "cell dotted")
+
+                // Add classes on increments of 10 to create a major-minor gridline look
+                if (i % 10 == 9) {
+                    cell.setAttribute("class", cell.getAttribute("class") + " right-edge")
+                }
+                if (hund % 10 == 9) {
+                    cell.setAttribute("class", cell.getAttribute("class") + " bottom-edge")
+                }
+
+                // TODO link the dang thing? can we do this with a callback function
+                // for now let's just make the id the number we wanna go to
+
+                // Get the number of the cell
+                let value = (thou * 1000) + (hund * 100) + i
+                if (value > 99) {
+                    value = `${value}`
+                } else if (value > 9) {
+                    value = `0${value}`
+                } else {
+                    value = `00${value}`
+                }
+                value = `scp-${value}`
+
+                if (recommendations.includes(value)) {
+                    cell.setAttribute("class", cell.getAttribute("class") + " recommended")
+                }
+
+                cell.setAttribute("id", value)
+
+                if (localStorage.getItem(value)) {
+                    cell.setAttribute("style", "background-color: white")
+                }
+                
+                let anchor = document.createElement("a")
+
+                anchor.setAttribute("href", `https://scp-wiki.wikidot.com/${value}`)
+                let div = document.createElement("div")
+                div.appendChild(document.createTextNode(value))
+                anchor.appendChild(div)
+                anchor.setAttribute("onclick", `localStorage.setItem("${value}", true);this.parentElement.setAttribute("style", "background-color:white");`)
+                cell.appendChild(anchor)
+
+                row.appendChild(cell)
+            }
+
+            table.append(row)
+            row = document.createElement("tr")
+        }        
+    }
+
+    // Now we do the same thing for the 001 table, starting with the header
+    let header = document.createElement("td")
+    header.appendChild(document.createTextNode("SCP-001"))
+    header.setAttribute("colspan", "3")
+    row = document.createElement("tr")
+    row.appendChild(header)
+    proposalTable.appendChild(row)
+
+    for (let series = 0; series < Object.keys(roman_numerals).length; series++) {
+        row = document.createElement("tr");
+
+        // Create the series header
+        let seriesHeader = document.createElement("td")
+        seriesHeader.appendChild(document.createTextNode(roman_numerals[series]))
+        seriesHeader.setAttribute("rowspan", proposals[series].length)
+        seriesHeader.setAttribute("width", "28")
+        row.appendChild(seriesHeader)
+
+        for (let i = 0; i < proposals[series].length; i++) {
+            let name = document.createElement("td")
+            name.appendChild(document.createTextNode(proposals[series][i]["name"]))
+            if (i == proposals[series].length - 1) {
+                name.setAttribute("class", "dotted bottom-edge")
+            } else {
+                name.setAttribute("class", "dotted")
+            }
+            name.setAttribute("width", "238px")
+            row.appendChild(name)
+
+            let cell = document.createElement("td")
+            cell.setAttribute("width", "6px")
+            if (i == proposals[series].length - 1) {
+                cell.setAttribute("class", "cell dotted right-edge bottom-edge")
+            } else {
+                cell.setAttribute("class", "cell dotted right-edge")
+            }
+
+            let value = proposals[series][i]["id"]
+
+            if (recommendations.includes(value)) {
+                cell.setAttribute("class", cell.getAttribute("class") + " recommended")
+            }
+
+            cell.setAttribute("id", value)
+
+            if (localStorage.getItem(value)) {
+                cell.setAttribute("style", "background-color: white")
+            }
+            
+            let anchor = document.createElement("a")
+
+            anchor.setAttribute("href", `https://scp-wiki.wikidot.com/${value}`)
+            let div = document.createElement("div")
+            div.appendChild(document.createTextNode(value))
+            anchor.appendChild(div)
+            anchor.setAttribute("onclick", `localStorage.setItem("${value}", true);this.parentElement.setAttribute("style", "background-color:white");`)
+            cell.appendChild(anchor)
+
+            row.appendChild(cell)
+
+            proposalTable.appendChild(row)
+            row = document.createElement("tr");
+        }
+    }
+
+    // Move the manually-written top rows of the table to the bottom
+    proposalTable.appendChild(proposalTable.firstChild)
+    proposalTable.appendChild(proposalTable.firstChild)
+    
+</script>
