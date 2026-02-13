@@ -5,7 +5,7 @@
 
 @font-face {
   font-family: "disco";
-  src: url("/projects/scipnet/DigitalDisco.ttf") format('truetype');
+  src: url("/scipnet/DigitalDisco.ttf") format('truetype');
 }
 
 body {
