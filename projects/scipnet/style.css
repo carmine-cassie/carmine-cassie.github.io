@@ -1,0 +1,94 @@
+@font-face {
+  font-family: "cozette";
+  src: url("/assets/fonts/CozetteVector.otf") format('opentype');
+}
+
+@font-face {
+  font-family: "disco";
+  src: url("/projects/scp_browser/DigitalDisco.ttf") format('truetype');
+}
+
+body {
+    font-family: cozette;
+    font-size: 13px;
+    color: white;
+    background-color: black;
+}
+
+h1 {
+    font-family: disco;
+    font-size: 48px;
+    font-weight: normal;
+    margin: 0;
+    text-indent:1em
+}
+
+.small {
+    font-family: cozette;
+    font-size: 13px;
+}
+
+p {
+    margin: 0
+}
+
+table {
+    border-collapse: collapse;
+}
+
+td {
+  border: 1px solid white;
+  border-collapse: collapse;
+}
+
+td.dotted {
+  border-style: dotted;
+}
+
+td.bottom-edge {
+    border-bottom-style: solid;
+}
+
+td.right-edge {
+    border-right-style: solid;
+}
+
+table {
+    text-align: center;
+}
+
+td {
+    padding-right: 2px;
+}
+
+.cell a div {
+    width: 100%;
+    height: 100%;
+    width: 6px;
+    height: 13px;
+    opacity: 0%;
+    overflow: hidden;   
+}
+
+.recommended {
+    background-color: red;
+}
+
+button {
+    background-color: black;
+    color: white;
+    border: 1px solid white;
+    font-family: cozette;
+    font-size: 13px;
+    cursor: pointer
+}
+
+button:hover{
+    border: 2px solid white;
+    margin: -1px;
+}
+
+a {
+    color: white;
+}
+
