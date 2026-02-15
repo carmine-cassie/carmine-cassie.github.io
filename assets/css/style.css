@@ -121,8 +121,7 @@ ul {
 
 a {
   color: var(--color-accent-fg);
-  font-weight: bold;
-  text-decoration-thickness: calc(1em / 8);
+  text-decoration-thickness: 1px;
 }
 
 .compact {
@@ -231,4 +230,11 @@ li {
 .hatched {
   background-image: url("/assets/img/hatch.png");
   image-rendering: pixelated
+} 
+
+.body-image {
+  width: 100%;
+  box-shadow: -2px -2px var(--color-accent-bg), 2px 2px var(--color-fg);
+  border: 2px solid var(--color-bg);
+  margin-bottom: 5px;
 }
