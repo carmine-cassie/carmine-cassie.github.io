@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name='viewport' content='width=device-width'/>
+    <title>Carmine Cassie</title>
+
+    <link rel="stylesheet" href="/assets/css/style.css">
+
+  </head>
+
+  <body>
+    <img src="/assets/img/header.png" style="width:720px;max-width:100%;image-rendering: pixelated;margin: auto;display: block;"/>
+    <div class="main-window">
+      
+      <div class="window-header">
+        <p>carmine-cassie » ear-trainer </p>
+        <p>X</p>
+      </div>
+      
+      <div class="main-paper">
+
+      <h1>Ear Trainer</h1>
+
+        <h2>Select Level:</h2>
+        <input id="level" type="range" min="1", max="9", value="1" style="width:100%">
+        <h2>Level X</h2>
+        <input type="radio" id="interval" name="mode">
+        <label for="interval" id="interval_label">Intervals: P5<br></label>
+        <input type="radio" id="chord" name="mode">
+        <label for="chord" id="chord_label">Chords: Power Chord<br></label>
+
+        <h2 id="start" style="cursor: pointer; font-size: 96px;text-align: center;">Click to Start</h2>
+        <h2 id="front" style="cursor: pointer; font-size: 96px;text-align: center;">C, P5</h2>
+        <h2 id="back" style="cursor: pointer; font-size: 96px;text-align: center;">C, G</h2>
+
+    </div></div>
+  </body>
+</html>
+
+<script>
+
+    const NUM_NOTES = 12
+    const notes = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"]
+
+    const intervals = [
+        {
+            name: "Perfect Fifth",
+            level: 1,
+            interval: 7,
+            notation: "P5"
+        },
+        {
+            name: "Major Third",
+            level: 2,
+            interval: 4,
+            notation: "M3"
+        },
+        {
+            name: "Minor Third",
+            level: 3,
+            interval: 3,
+            notation: "m3"
+        },
+        {
+            name: "Minor Seventh",
+            level: 4,
+            interval: 11,
+            notation: "m7"
+        },
+        {
+            name: "Major Seventh",
+            level: 5,
+            interval: 12,
+            notation: "M7"
+        },
+        {
+            name: "Minor Sixth",
+            level: 6,
+            interval: 8,
+            notation: "m6"
+        },
+        {
+            name: "Major Sixth",
+            level: 7,
+            interval: 9,
+            notation: "M6"
+        },
+        {
+            name: "Perfect Fourth",
+            level: 8,
+            interval: 5,
+            notation: "P4"
+        },
+        {
+            name: "Tritone",
+            level: 9,
+            interval: 6,
+            notation: "TT"
+        },
+    ]
+
+    const chords = [
+        {
+            name: "Power Chord",
+            level: 1,
+            intervals: [7],
+            notation: ((root) => notes[root] + "5")
+        },
+        {
+            name: "Major Chord",
+            level: 2,
+            intervals: [4, 7],
+            notation: ((root) => notes[root])
+        },
+        {
+            name: "Minor Chord",
+            level: 3,
+            intervals: [3, 7],
+            notation: ((root) => notes[root] + "m")
+        },
+        {
+            name: "Seventh Chord",
+            level: 4,
+            intervals: [4, 7, 11],
+            notation: ((root) => notes[root] + "7")
+        },
+        {
+            name: "Minor Seventh Chord",
+            level: 4,
+            intervals: [3, 7, 11],
+            notation: ((root) => notes[root] + "m7")
+        },
+        {
+            name: "Major Seventh Chord",
+            level: 5,
+            intervals: [4, 7, 12],
+            notation: ((root) => notes[root] + "maj7")
+        },
+        {
+            name: "Minor Major Seventh Chord",
+            level: 5,
+            intervals: [3, 7, 12],
+            notation: ((root) => notes[root] + "mM7")
+        },
+        {
+            name: "Major Chord, first inversion",
+            level: 6,
+            intervals: [3, 8],
+            notation: ((root) => notes[root] + "/" + notes[(root + 4) % NUM_NOTES])
+        },
+        {
+            name: "Minor Chord, first inversion",
+            level: 7,
+            intervals: [4, 9],
+            notation: ((root) => notes[root] + "m/" + notes[(root + 3) % NUM_NOTES])
+        },
+        {
+            name: "Major Chord, seond inversion",
+            level: 8,
+            intervals: [5, 9],
+            notation: ((root) => notes[root] + "/" + notes[(root + 7) % NUM_NOTES])
+        },
+        {
+            name: "Minor Chord, second inversion",
+            level: 8,
+            intervals: [5, 8],
+            notation: ((root) => notes[root] + "m/" + notes[(root + 7) % NUM_NOTES])
+        },
+        {
+            name: "Diminished Chord",
+            level: 9,
+            intervals: [3, 6],
+            notation: ((root) => notes[root] + "dim")
+        },
+        // TODO: minor seventh major seventh
+    ]
+
+    // 3 states: start, front, and back
+    // changing any of the input sets us to start
+    // clicking start goes to front
+    // clicking front goes to back
+    // clicking back goes to front
+
+    // these are done with like, a front function which takes us to front, that sort of thing
+    // when we land on front we randomly generate the front and write up the back
+
+    // first off I want to update the lists when the slider moves
+
+</script>
