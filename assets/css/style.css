@@ -18,6 +18,11 @@
   src: url("/assets/fonts/leko majuna sin.ttf") format('truetype');
 }
 
+@font-face {
+  font-family: "disco";
+  src: url("/assets/fonts/DigitalDisco.ttf") format('truetype');
+}
+
 :root {
   --color-bg: #fee;
   --color-bg-faint: #fee;/*d;*/
