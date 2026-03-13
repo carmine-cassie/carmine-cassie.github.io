@@ -2,270 +2,310 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name='viewport' content='width=device-width'/>
+    <meta name="viewport" content="width=device-width" />
     <title>Carmine Cassie</title>
 
-    <link rel="stylesheet" href="/assets/css/style.css">
-    <link rel="stylesheet" href="/chord_trainer/style.css">
-
+    <link rel="stylesheet" href="/assets/css/style.css" />
+    <link rel="stylesheet" href="/chord_trainer/style.css" />
   </head>
 
   <body>
-    <img src="/assets/img/header.png" style="width:720px;max-width:100%;image-rendering: pixelated;margin: auto;display: block;"/>
+    <img
+      src="/assets/img/header.png"
+      style="
+        width: 720px;
+        max-width: 100%;
+        image-rendering: pixelated;
+        margin: auto;
+        display: block;
+      "
+    />
     <div class="main-window">
-      
       <div class="window-header">
-        <p>carmine-cassie » chord-trainer </p>
+        <p>carmine-cassie » chord-trainer</p>
         <p>X</p>
       </div>
-      
+
       <div class="main-paper">
+        <h1>Chord Trainer</h1>
 
-      <h1>Chord Trainer</h1>
-      
-      <p>When I learned piano as a kid (and every time I've dipped my toes back in since), I've been more focused on plodding through sheet music than, like, music theory fundamentals. I don't have the ability to play chords by name or recognise intervals, but I'd like to be able to accompany myself from Lead Sheets or Chord Sheets (The sort you find on <a href="https://www.ultimate-guitar.com/explore">Ultimate Guitar</a>)! I put together this quick practice tool to help me develop those skills a bit.</p>
+        <p>
+          When I learned piano as a kid (and every time I've dipped my toes back
+          in since), I've been more focused on plodding through sheet music
+          than, like, music theory fundamentals. I don't have the ability to
+          play chords by name or recognise intervals, but I'd like to be able to
+          accompany myself from Lead Sheets or Chord Sheets (The sort you find
+          on
+          <a href="https://www.ultimate-guitar.com/explore">Ultimate Guitar</a
+          >)! I put together this quick practice tool to help me develop those
+          skills a bit.
+        </p>
 
-      <h2>Select Level:</h2>
-      <input id="level" type="range" min="1", max="9", value="1" style="width:100%">
-      <h2 id="level_label">Level X</h2>
-      <input type="radio" id="interval" name="mode" checked>
-      <label for="interval" id="interval_label">Intervals: <br></label>
-      <input type="radio" id="chord" name="mode">
-      <label for="chord" id="chord_label">Chords: <br></label>
+        <h2>Select Level:</h2>
+        <input
+          id="level"
+          type="range"
+          min="1"
+          ,
+          max="9"
+          ,
+          value="1"
+          style="width: 100%"
+        />
+        <h2 id="level_label">Level X</h2>
+        <input type="radio" id="interval" name="mode" checked />
+        <label for="interval" id="interval_label">Intervals: <br /></label>
+        <input type="radio" id="chord" name="mode" />
+        <label for="chord" id="chord_label">Chords: <br /></label>
 
-      <h2 id="front" class="card">C, P5</h2>
-      <h2 id="back" class="card">C, G</h2>
-
-    </div></div>
+        <h2 id="front" class="card">C, P5</h2>
+        <h2 id="back" class="card">C, G</h2>
+      </div>
+    </div>
   </body>
 </html>
 
 <script>
+  const NUM_NOTES = 12;
+  const notes = [
+    "C",
+    "C#",
+    "D",
+    "D#",
+    "E",
+    "F",
+    "F#",
+    "G",
+    "G#",
+    "A",
+    "A#",
+    "B",
+  ];
 
-    const NUM_NOTES = 12
-    const notes = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"]
+  const intervals = [
+    {
+      name: "Perfect Fifth",
+      level: 1,
+      interval: 7,
+      notation: "P5",
+    },
+    {
+      name: "Major Third",
+      level: 2,
+      interval: 4,
+      notation: "M3",
+    },
+    {
+      name: "Minor Third",
+      level: 3,
+      interval: 3,
+      notation: "m3",
+    },
+    {
+      name: "Minor Seventh",
+      level: 4,
+      interval: 10,
+      notation: "m7",
+    },
+    {
+      name: "Major Seventh",
+      level: 5,
+      interval: 11,
+      notation: "M7",
+    },
+    {
+      name: "Minor Sixth",
+      level: 6,
+      interval: 8,
+      notation: "m6",
+    },
+    {
+      name: "Major Sixth",
+      level: 7,
+      interval: 9,
+      notation: "M6",
+    },
+    {
+      name: "Perfect Fourth",
+      level: 8,
+      interval: 5,
+      notation: "P4",
+    },
+    {
+      name: "Tritone",
+      level: 9,
+      interval: 6,
+      notation: "TT",
+    },
+  ];
 
-    const intervals = [
-        {
-            name: "Perfect Fifth",
-            level: 1,
-            interval: 7,
-            notation: "P5"
-        },
-        {
-            name: "Major Third",
-            level: 2,
-            interval: 4,
-            notation: "M3"
-        },
-        {
-            name: "Minor Third",
-            level: 3,
-            interval: 3,
-            notation: "m3"
-        },
-        {
-            name: "Minor Seventh",
-            level: 4,
-            interval: 10,
-            notation: "m7"
-        },
-        {
-            name: "Major Seventh",
-            level: 5,
-            interval: 11,
-            notation: "M7"
-        },
-        {
-            name: "Minor Sixth",
-            level: 6,
-            interval: 8,
-            notation: "m6"
-        },
-        {
-            name: "Major Sixth",
-            level: 7,
-            interval: 9,
-            notation: "M6"
-        },
-        {
-            name: "Perfect Fourth",
-            level: 8,
-            interval: 5,
-            notation: "P4"
-        },
-        {
-            name: "Tritone",
-            level: 9,
-            interval: 6,
-            notation: "TT"
-        },
-    ]
+  const chords = [
+    {
+      name: "Power Chord",
+      level: 1,
+      intervals: [0, 7],
+      notation: (root) => notes[root] + "5",
+    },
+    {
+      name: "Major Chord",
+      level: 2,
+      intervals: [0, 4, 7],
+      notation: (root) => notes[root],
+    },
+    {
+      name: "Minor Chord",
+      level: 3,
+      intervals: [0, 3, 7],
+      notation: (root) => notes[root] + "m",
+    },
+    {
+      name: "Seventh Chord",
+      level: 4,
+      intervals: [0, 4, 7, 10],
+      notation: (root) => notes[root] + "7",
+    },
+    {
+      name: "Minor Seventh Chord",
+      level: 4,
+      intervals: [0, 3, 7, 10],
+      notation: (root) => notes[root] + "m7",
+    },
+    {
+      name: "Major Seventh Chord",
+      level: 5,
+      intervals: [0, 4, 7, 11],
+      notation: (root) => notes[root] + "maj7",
+    },
+    {
+      name: "Minor Major Seventh Chord",
+      level: 5,
+      intervals: [0, 3, 7, 11],
+      notation: (root) => notes[root] + "mM7",
+    },
+    {
+      name: "Major Chord (first inversion)",
+      level: 6,
+      intervals: [4, 7, 0],
+      notation: (root) => notes[root] + "/" + notes[(root + 4) % NUM_NOTES],
+    },
+    {
+      name: "Minor Chord (first inversion)",
+      level: 7,
+      intervals: [3, 7, 0],
+      notation: (root) => notes[root] + "m/" + notes[(root + 3) % NUM_NOTES],
+    },
+    {
+      name: "Major Chord (second inversion)",
+      level: 8,
+      intervals: [7, 0, 4],
+      notation: (root) => notes[root] + "/" + notes[(root + 7) % NUM_NOTES],
+    },
+    {
+      name: "Minor Chord (second inversion)",
+      level: 8,
+      intervals: [7, 0, 3],
+      notation: (root) => notes[root] + "m/" + notes[(root + 7) % NUM_NOTES],
+    },
+    {
+      name: "Diminished Chord",
+      level: 9,
+      intervals: [0, 3, 6],
+      notation: (root) => notes[root] + "dim",
+    },
+  ];
 
-    const chords = [
-        {
-            name: "Power Chord",
-            level: 1,
-            intervals: [0, 7],
-            notation: ((root) => notes[root] + "5")
-        },
-        {
-            name: "Major Chord",
-            level: 2,
-            intervals: [0, 4, 7],
-            notation: ((root) => notes[root])
-        },
-        {
-            name: "Minor Chord",
-            level: 3,
-            intervals: [0, 3, 7],
-            notation: ((root) => notes[root] + "m")
-        },
-        {
-            name: "Seventh Chord",
-            level: 4,
-            intervals: [0, 4, 7, 10],
-            notation: ((root) => notes[root] + "7")
-        },
-        {
-            name: "Minor Seventh Chord",
-            level: 4,
-            intervals: [0, 3, 7, 10],
-            notation: ((root) => notes[root] + "m7")
-        },
-        {
-            name: "Major Seventh Chord",
-            level: 5,
-            intervals: [0, 4, 7, 11],
-            notation: ((root) => notes[root] + "maj7")
-        },
-        {
-            name: "Minor Major Seventh Chord",
-            level: 5,
-            intervals: [0, 3, 7, 11],
-            notation: ((root) => notes[root] + "mM7")
-        },
-        {
-            name: "Major Chord (first inversion)",
-            level: 6,
-            intervals: [4, 7, 0],
-            notation: ((root) => notes[root] + "/" + notes[(root + 4) % NUM_NOTES])
-        },
-        {
-            name: "Minor Chord (first inversion)",
-            level: 7,
-            intervals: [3, 7, 0],
-            notation: ((root) => notes[root] + "m/" + notes[(root + 3) % NUM_NOTES])
-        },
-        {
-            name: "Major Chord (second inversion)",
-            level: 8,
-            intervals: [7, 0, 4],
-            notation: ((root) => notes[root] + "/" + notes[(root + 7) % NUM_NOTES])
-        },
-        {
-            name: "Minor Chord (second inversion)",
-            level: 8,
-            intervals: [7, 0, 3],
-            notation: ((root) => notes[root] + "m/" + notes[(root + 7) % NUM_NOTES])
-        },
-        {
-            name: "Diminished Chord",
-            level: 9,
-            intervals: [0, 3, 6],
-            notation: ((root) => notes[root] + "dim")
-        },
-    ]
+  const slider = document.getElementById("level");
+  const level_label = document.getElementById("level_label");
+  const interval_label = document.getElementById("interval_label");
+  const chord_label = document.getElementById("chord_label");
+  const interval = document.getElementById("interval");
+  const chord = document.getElementById("chord");
 
-    const slider = document.getElementById("level")
-    const level_label = document.getElementById("level_label")
-    const interval_label = document.getElementById("interval_label")
-    const chord_label = document.getElementById("chord_label")
-    const interval = document.getElementById("interval")
-    const chord = document.getElementById("chord")
+  const front = document.getElementById("front");
+  const back = document.getElementById("back");
 
-    const front = document.getElementById("front")
-    const back = document.getElementById("back")
+  function update_labels() {
+    const value = level.value;
+    level_label.innerText = "Level " + value;
 
-    function update_labels() {
-        const value = level.value;
-        level_label.innerText = "Level " + value;
+    interval_label.innerText =
+      "Intervals: " +
+      intervals
+        .filter((interval) => interval.level <= value)
+        .map((interval) => interval.name)
+        .join(", ") +
+      "\n";
 
-        interval_label.innerText = "Intervals: " + 
-            intervals
-                .filter((interval) => interval.level <= value)
-                .map((interval) => interval.name)
-                .join(", ")
-            + "\n"
+    chord_label.innerText =
+      "Chords: " +
+      chords
+        .filter((chord) => chord.level <= value)
+        .map((chord) => chord.name)
+        .join(", ") +
+      "\n";
 
-        chord_label.innerText = "Chords: " + 
-            chords
-                .filter((chord) => chord.level <= value)
-                .map((chord) => chord.name)
-                .join(", ")
-            + "\n"
-        
-        goto_front()
+    goto_front();
+  }
+
+  slider.addEventListener("input", update_labels);
+
+  function goto_front() {
+    const level = slider.value;
+
+    if (interval.checked) {
+      // Interval Training
+
+      // get the list of intervals we can use
+      const allowed_intervals = intervals.filter(
+        (interval) => interval.level <= level,
+      );
+
+      // pick one
+      const chosen_interval =
+        allowed_intervals[Math.floor(Math.random() * allowed_intervals.length)];
+
+      // pick a starting note
+      const starting_note = Math.floor(Math.random() * NUM_NOTES);
+
+      // set the front and back to look like that
+      front.innerText = notes[starting_note] + ", " + chosen_interval.notation;
+      back.innerText =
+        notes[starting_note] +
+        ", " +
+        notes[(starting_note + chosen_interval.interval) % NUM_NOTES];
+    } else {
+      // Chord Training
+
+      // get the list of chords we can use
+      const allowed_chords = chords.filter((chords) => chords.level <= level);
+
+      // pick one
+      const chosen_chord =
+        allowed_chords[Math.floor(Math.random() * allowed_chords.length)];
+
+      // pick a starting note
+      const starting_note = Math.floor(Math.random() * NUM_NOTES);
+
+      // set the front and back to look like that
+      front.innerText = chosen_chord.notation(starting_note);
+      back.innerText = chosen_chord.intervals
+        .map((interval) => notes[(starting_note + interval) % NUM_NOTES])
+        .join(", ");
     }
 
+    front.style.display = "block";
+    back.style.display = "none";
+  }
 
-    slider.addEventListener("input", update_labels)
+  function goto_back() {
+    front.style.display = "none";
+    back.style.display = "block";
+  }
 
-    function goto_front() {
-        const level = slider.value;
+  front.addEventListener("click", goto_back);
+  back.addEventListener("click", goto_front);
+  interval.addEventListener("click", goto_front);
+  chord.addEventListener("click", goto_front);
 
-        if (interval.checked) {
-            // Interval Training
-
-            // get the list of intervals we can use
-            const allowed_intervals = intervals
-                .filter((interval) => interval.level <= level)
-            
-            // pick one
-            const chosen_interval = allowed_intervals[
-                Math.floor(Math.random() * allowed_intervals.length)
-            ]
-
-            // pick a starting note
-            const starting_note = Math.floor(Math.random() * NUM_NOTES)
-            
-            // set the front and back to look like that
-            front.innerText = notes[starting_note] + ", " + chosen_interval.notation
-            back.innerText = notes[starting_note] + ", " + notes[(starting_note + chosen_interval.interval) % NUM_NOTES]
-        } else {
-            // Chord Training
-
-            // get the list of chords we can use
-            const allowed_chords = chords
-                .filter((chords) => chords.level <= level)
-
-            // pick one
-            const chosen_chord = allowed_chords[
-                Math.floor(Math.random() * allowed_chords.length)
-            ]
-
-            // pick a starting note
-            const starting_note = Math.floor(Math.random() * NUM_NOTES)
-
-            // set the front and back to look like that
-            front.innerText = chosen_chord.notation(starting_note)
-            back.innerText = chosen_chord.intervals.map((interval) => notes[(starting_note + interval) % NUM_NOTES]).join(", ")
-        }
-
-        front.style.display = "block";
-        back.style.display = "none";
-    }
-
-    function goto_back()  {
-        front.style.display = "none";
-        back.style.display = "block";
-    }
-
-    front.addEventListener("click", goto_back)
-    back.addEventListener("click", goto_front)
-    interval.addEventListener("click", goto_front)
-    chord.addEventListener("click", goto_front)
-
-    update_labels()
-
+  update_labels();
 </script>
