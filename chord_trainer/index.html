@@ -37,29 +37,18 @@
           accompany myself from Lead Sheets or Chord Sheets (The sort you find
           on
           <a href="https://www.ultimate-guitar.com/explore">Ultimate Guitar</a
-          >)! I put together this quick practice tool to help me develop those
-          skills a bit.
+          >)! I put together this quick practice tool in an effort to help me
+          develop those skills a bit.
         </p>
 
-        <h2>Select Level:</h2>
-        <input
-          id="level"
-          type="range"
-          min="1"
-          ,
-          max="9"
-          ,
-          value="1"
-          style="width: 100%"
-        />
-        <h2 id="level_label">Level X</h2>
-        <input type="radio" id="interval" name="mode" checked />
-        <label for="interval" id="interval_label">Intervals: <br /></label>
-        <input type="radio" id="chord" name="mode" />
-        <label for="chord" id="chord_label">Chords: <br /></label>
+        <!-- TODO make them tabs rather than sequential? -->
+        <!-- TODO choose which to include (checkbox array) -->
 
-        <h2 id="front" class="card">C, P5</h2>
-        <h2 id="back" class="card">C, G</h2>
+        <h1>Interval Practice</h1>
+        <p id="intervals" style="font-size: 3em;white-space: pre-wrap;"></p>
+
+        <h1>Chord Practice</h1>
+        <p id="chords" style="font-size: 3em;white-space: pre-wrap;"></p>
       </div>
     </div>
   </body>
@@ -68,244 +57,180 @@
 <script>
   const NUM_NOTES = 12;
   const notes = [
-    "C",
-    "C#",
-    "D",
-    "D#",
-    "E",
-    "F",
-    "F#",
-    "G",
-    "G#",
-    "A",
-    "A#",
-    "B",
+    ["C", "C♯", "D", "D♯", "E", "F", "F♯", "G", "G♯", "A", "A♯", "B"],
+    ["C", "D♭", "D", "E♭", "E", "F", "G♭", "G", "A♭", "A", "B♭", "B"],
   ];
+
+  function i(note, interval) {
+    return (note + interval) % NUM_NOTES;
+  }
+
+  // We use fraction slash rather than the regular forward-slash so that the lines don't get broken - kinda weird but whatever
+  const chords = {
+    "": (notes, note) => {
+      return notes[note] + "";
+    },
+    "/1": (notes, note) => {
+      return notes[note] + "⁄" + notes[i(note, 4)];
+    },
+    "/2": (notes, note) => {
+      return notes[note] + "⁄" + notes[i(note, 7)];
+    },
+    m: (notes, note) => {
+      return notes[note] + "m";
+    },
+    "m/1": (notes, note) => {
+      return notes[note] + "m⁄" + notes[i(note, 3)];
+    },
+    "m/2": (notes, note) => {
+      return notes[note] + "m⁄" + notes[i(note, 7)];
+    },
+    dim: (notes, note) => {
+      return notes[note] + "o";
+    },
+    aug: (notes, note) => {
+      return notes[note] + "+";
+    },
+    7: (notes, note) => {
+      return notes[note] + "7";
+    },
+    "7/1": (notes, note) => {
+      return notes[note] + "7⁄" + notes[i(note, 4)];
+    },
+    "7/2": (notes, note) => {
+      return notes[note] + "7⁄" + notes[i(note, 7)];
+    },
+    "7/3": (notes, note) => {
+      return notes[note] + "7⁄" + notes[i(note, 10)];
+    },
+    m7: (notes, note) => {
+      return notes[note] + "m7";
+    },
+    "m7/1": (notes, note) => {
+      return notes[note] + "m7⁄" + notes[i(note, 3)];
+    },
+    "m7/2": (notes, note) => {
+      return notes[note] + "m7⁄" + notes[i(note, 7)];
+    },
+    "m7/3": (notes, note) => {
+      return notes[note] + "m7⁄" + notes[i(note, 10)];
+    },
+    M7: (notes, note) => {
+      return notes[note] + "Δ7";
+    },
+    "M7/1": (notes, note) => {
+      return notes[note] + "Δ7⁄" + notes[i(note, 4)];
+    },
+    "M7/2": (notes, note) => {
+      return notes[note] + "Δ7⁄" + notes[i(note, 7)];
+    },
+    "M7/3": (notes, note) => {
+      return notes[note] + "Δ7⁄" + notes[i(note, 11)];
+    },
+    mM7: (notes, note) => {
+      return notes[note] + "mΔ7";
+    },
+    "mM7/1": (notes, note) => {
+      return notes[note] + "mΔ7⁄" + notes[i(note, 3)];
+    },
+    "mM7/2": (notes, note) => {
+      return notes[note] + "mΔ7⁄" + notes[i(note, 7)];
+    },
+    "mM7/3": (notes, note) => {
+      return notes[note] + "mΔ7⁄" + notes[i(note, 11)];
+    },
+    hdim: (notes, note) => {
+      return notes[note] + "ø7";
+    },
+    6: (notes, note) => {
+      return notes[note] + "6";
+    },
+    "6/1": (notes, note) => {
+      return notes[note] + "6⁄" + notes[i(note, 4)];
+    },
+    "6/2": (notes, note) => {
+      return notes[note] + "6⁄" + notes[i(note, 7)];
+    },
+    "6/3": (notes, note) => {
+      return notes[note] + "6⁄" + notes[i(note, 9)];
+    },
+    m6: (notes, note) => {
+      return notes[note] + "m6";
+    },
+    "m6/1": (notes, note) => {
+      return notes[note] + "m6⁄" + notes[i(note, 3)];
+    },
+    "m6/2": (notes, note) => {
+      return notes[note] + "m6⁄" + notes[i(note, 7)];
+    },
+    "m6/3": (notes, note) => {
+      return notes[note] + "m6⁄" + notes[i(note, 9)];
+    },
+    9: (notes, note) => {
+      return notes[note] + "9";
+    },
+    m9: (notes, note) => {
+      return notes[note] + "m9";
+    },
+    M9: (notes, note) => {
+      return notes[note] + "Δ9";
+    },
+    mM9: (notes, note) => {
+      return notes[note] + "mΔ9";
+    },
+  };
+
+  const directions = ["↑", "↓"];
 
   const intervals = [
-    {
-      name: "Perfect Fifth",
-      level: 1,
-      interval: 7,
-      notation: "P5",
-    },
-    {
-      name: "Major Third",
-      level: 2,
-      interval: 4,
-      notation: "M3",
-    },
-    {
-      name: "Minor Third",
-      level: 3,
-      interval: 3,
-      notation: "m3",
-    },
-    {
-      name: "Minor Seventh",
-      level: 4,
-      interval: 10,
-      notation: "m7",
-    },
-    {
-      name: "Major Seventh",
-      level: 5,
-      interval: 11,
-      notation: "M7",
-    },
-    {
-      name: "Minor Sixth",
-      level: 6,
-      interval: 8,
-      notation: "m6",
-    },
-    {
-      name: "Major Sixth",
-      level: 7,
-      interval: 9,
-      notation: "M6",
-    },
-    {
-      name: "Perfect Fourth",
-      level: 8,
-      interval: 5,
-      notation: "P4",
-    },
-    {
-      name: "Tritone",
-      level: 9,
-      interval: 6,
-      notation: "TT",
-    },
+    "m2",
+    "M2",
+    "m3",
+    "M3",
+    "P4",
+    "TT",
+    "P5",
+    "m6",
+    "M6",
+    "m7",
+    "M7",
   ];
 
-  const chords = [
-    {
-      name: "Power Chord",
-      level: 1,
-      intervals: [0, 7],
-      notation: (root) => notes[root] + "5",
-    },
-    {
-      name: "Major Chord",
-      level: 2,
-      intervals: [0, 4, 7],
-      notation: (root) => notes[root],
-    },
-    {
-      name: "Minor Chord",
-      level: 3,
-      intervals: [0, 3, 7],
-      notation: (root) => notes[root] + "m",
-    },
-    {
-      name: "Seventh Chord",
-      level: 4,
-      intervals: [0, 4, 7, 10],
-      notation: (root) => notes[root] + "7",
-    },
-    {
-      name: "Minor Seventh Chord",
-      level: 4,
-      intervals: [0, 3, 7, 10],
-      notation: (root) => notes[root] + "m7",
-    },
-    {
-      name: "Major Seventh Chord",
-      level: 5,
-      intervals: [0, 4, 7, 11],
-      notation: (root) => notes[root] + "maj7",
-    },
-    {
-      name: "Minor Major Seventh Chord",
-      level: 5,
-      intervals: [0, 3, 7, 11],
-      notation: (root) => notes[root] + "mM7",
-    },
-    {
-      name: "Major Chord (first inversion)",
-      level: 6,
-      intervals: [4, 7, 0],
-      notation: (root) => notes[root] + "/" + notes[(root + 4) % NUM_NOTES],
-    },
-    {
-      name: "Minor Chord (first inversion)",
-      level: 7,
-      intervals: [3, 7, 0],
-      notation: (root) => notes[root] + "m/" + notes[(root + 3) % NUM_NOTES],
-    },
-    {
-      name: "Major Chord (second inversion)",
-      level: 8,
-      intervals: [7, 0, 4],
-      notation: (root) => notes[root] + "/" + notes[(root + 7) % NUM_NOTES],
-    },
-    {
-      name: "Minor Chord (second inversion)",
-      level: 8,
-      intervals: [7, 0, 3],
-      notation: (root) => notes[root] + "m/" + notes[(root + 7) % NUM_NOTES],
-    },
-    {
-      name: "Diminished Chord",
-      level: 9,
-      intervals: [0, 3, 6],
-      notation: (root) => notes[root] + "dim",
-    },
-  ];
-
-  const slider = document.getElementById("level");
-  const level_label = document.getElementById("level_label");
-  const interval_label = document.getElementById("interval_label");
-  const chord_label = document.getElementById("chord_label");
-  const interval = document.getElementById("interval");
-  const chord = document.getElementById("chord");
-
-  const front = document.getElementById("front");
-  const back = document.getElementById("back");
-
-  function update_labels() {
-    const value = level.value;
-    level_label.innerText = "Level " + value;
-
-    interval_label.innerText =
-      "Intervals: " +
-      intervals
-        .filter((interval) => interval.level <= value)
-        .map((interval) => interval.name)
-        .join(", ") +
-      "\n";
-
-    chord_label.innerText =
-      "Chords: " +
-      chords
-        .filter((chord) => chord.level <= value)
-        .map((chord) => chord.name)
-        .join(", ") +
-      "\n";
-
-    goto_front();
-  }
-
-  slider.addEventListener("input", update_labels);
-
-  function goto_front() {
-    const level = slider.value;
-
-    if (interval.checked) {
-      // Interval Training
-
-      // get the list of intervals we can use
-      const allowed_intervals = intervals.filter(
-        (interval) => interval.level <= level,
-      );
-
-      // pick one
-      const chosen_interval =
-        allowed_intervals[Math.floor(Math.random() * allowed_intervals.length)];
-
-      // pick a starting note
-      const starting_note = Math.floor(Math.random() * NUM_NOTES);
-
-      // set the front and back to look like that
-      front.innerText = notes[starting_note] + ", " + chosen_interval.notation;
-      back.innerText =
-        notes[starting_note] +
-        ", " +
-        notes[(starting_note + chosen_interval.interval) % NUM_NOTES];
-    } else {
-      // Chord Training
-
-      // get the list of chords we can use
-      const allowed_chords = chords.filter((chords) => chords.level <= level);
-
-      // pick one
-      const chosen_chord =
-        allowed_chords[Math.floor(Math.random() * allowed_chords.length)];
-
-      // pick a starting note
-      const starting_note = Math.floor(Math.random() * NUM_NOTES);
-
-      // set the front and back to look like that
-      front.innerText = chosen_chord.notation(starting_note);
-      back.innerText = chosen_chord.intervals
-        .map((interval) => notes[(starting_note + interval) % NUM_NOTES])
-        .join(", ");
+  // Fisher-Yates from https://javascript.info/array-methods#shuffle-an-array
+  function shuffle(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+      let j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
     }
-
-    front.style.display = "block";
-    back.style.display = "none";
   }
 
-  function goto_back() {
-    front.style.display = "none";
-    back.style.display = "block";
-  }
+  let interval_string = [];
+  notes.forEach((notes) => {
+    for (note = 0; note < NUM_NOTES; note++) {
+      directions.forEach((direction) => {
+        intervals.forEach((interval) => {
+          interval_string.push(notes[note] + direction + interval);
+        });
+      });
+    }
+  });
 
-  front.addEventListener("click", goto_back);
-  back.addEventListener("click", goto_front);
-  interval.addEventListener("click", goto_front);
-  chord.addEventListener("click", goto_front);
+  shuffle(interval_string);
 
-  update_labels();
+  let interval_element = document.getElementById("intervals");
+  interval_element.innerText = interval_string.join("   ");
+
+  let chord_string = [];
+  notes.forEach((notes) => {
+    for (note = 0; note < NUM_NOTES; note++) {
+      Object.values(chords).forEach((chord) => {
+        chord_string.push(chord(notes, note));
+      });
+    }
+  });
+
+  shuffle(chord_string);
+
+  let chord_element = document.getElementById("chords");
+  chord_element.innerText = chord_string.join("   ");
 </script>
