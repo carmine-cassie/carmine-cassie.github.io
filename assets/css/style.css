@@ -183,8 +183,13 @@ table {
 }
 
 th, td {
-  padding-left: 0.5em;
-  padding-right: 0.5em;
+  padding-left: 3px;
+  padding-right: 3px;
+}
+
+input[type="checkbox"] {
+  width: 12px;
+  margin: 0px;
 }
 
 .scroll-container {
