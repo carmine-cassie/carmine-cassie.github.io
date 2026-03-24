@@ -6,7 +6,6 @@
     <title>Carmine Cassie</title>
 
     <link rel="stylesheet" href="/assets/css/style.css" />
-    <link rel="stylesheet" href="/chord_trainer/style.css" />
   </head>
 
   <body>
@@ -41,14 +40,154 @@
           develop those skills a bit.
         </p>
 
-        <!-- TODO make them tabs rather than sequential? -->
-        <!-- TODO choose which to include (checkbox array) -->
-
         <h1>Interval Practice</h1>
-        <p id="intervals" style="font-size: 3em;white-space: pre-wrap;"></p>
+
+        <table>
+          <tr>
+            <td></td>
+            <td>m2</td>
+            <td>M2</td>
+            <td>m3</td>
+            <td>M3</td>
+            <td>P4</td>
+            <td>TT</td>
+            <td>P5</td>
+            <td>m6</td>
+            <td>M6</td>
+            <td>m7</td>
+            <td>M7</td>
+          </tr>
+          <tr>
+            <td>↑</td>
+            <td><input type="checkbox" onclick="gen_intervals()" id="up_m2" /></td>
+            <td><input type="checkbox" onclick="gen_intervals()" id="up_M2" /></td>
+            <td><input type="checkbox" onclick="gen_intervals()" id="up_m3" /></td>
+            <td><input type="checkbox" onclick="gen_intervals()" id="up_M3" /></td>
+            <td><input type="checkbox" onclick="gen_intervals()" id="up_P4" /></td>
+            <td><input type="checkbox" onclick="gen_intervals()" id="up_TT" /></td>
+            <td><input type="checkbox" onclick="gen_intervals()" id="up_P5" /></td>
+            <td><input type="checkbox" onclick="gen_intervals()" id="up_m6" /></td>
+            <td><input type="checkbox" onclick="gen_intervals()" id="up_M6" /></td>
+            <td><input type="checkbox" onclick="gen_intervals()" id="up_m7" /></td>
+            <td><input type="checkbox" onclick="gen_intervals()" id="up_M7" /></td>
+          </tr>
+          <tr>
+            <td>↓</td>
+            <td><input type="checkbox" onclick="gen_intervals()" id="down_m2" /></td>
+            <td><input type="checkbox" onclick="gen_intervals()" id="down_M2" /></td>
+            <td><input type="checkbox" onclick="gen_intervals()" id="down_m3" /></td>
+            <td><input type="checkbox" onclick="gen_intervals()" id="down_M3" /></td>
+            <td><input type="checkbox" onclick="gen_intervals()" id="down_P4" /></td>
+            <td><input type="checkbox" onclick="gen_intervals()" id="down_TT" /></td>
+            <td><input type="checkbox" onclick="gen_intervals()" id="down_P5" /></td>
+            <td><input type="checkbox" onclick="gen_intervals()" id="down_m6" /></td>
+            <td><input type="checkbox" onclick="gen_intervals()" id="down_M6" /></td>
+            <td><input type="checkbox" onclick="gen_intervals()" id="down_m7" /></td>
+            <td><input type="checkbox" onclick="gen_intervals()" id="down_M7" /></td>
+          </tr>
+        </table>
+
+        <p id="intervals" style="font-size: 2em; white-space: pre-wrap"></p>
 
         <h1>Chord Practice</h1>
-        <p id="chords" style="font-size: 3em;white-space: pre-wrap;"></p>
+
+        <table>
+          <tr>
+            <td></td>
+            <td>C</td>
+            <td>Cm</td>
+            <td>Co</td>
+            <td>C+</td>
+            <td>C7</td>
+            <td>Cm7</td>
+            <td>CΔ7</td>
+            <td>CmΔ7</td>
+            <td>Cø7</td>
+            <td>C6</td>
+            <td>Cm6</td>
+            <td>C9</td>
+            <td>Cm9</td>
+            <td>CΔ9</td>
+            <td>CmΔ9</td>
+          </tr>
+          <tr>
+            <td></td>
+            <td><input type="checkbox" onclick="gen_chords()" id="chord_" /></td>
+            <td><input type="checkbox" onclick="gen_chords()" id="chord_m" /></td>
+            <td><input type="checkbox" onclick="gen_chords()" id="chord_dim" /></td>
+            <td><input type="checkbox" onclick="gen_chords()" id="chord_aug" /></td>
+            <td><input type="checkbox" onclick="gen_chords()" id="chord_7" /></td>
+            <td><input type="checkbox" onclick="gen_chords()" id="chord_m7" /></td>
+            <td><input type="checkbox" onclick="gen_chords()" id="chord_M7" /></td>
+            <td><input type="checkbox" onclick="gen_chords()" id="chord_mM7" /></td>
+            <td><input type="checkbox" onclick="gen_chords()" id="chord_hdim" /></td>
+            <td><input type="checkbox" onclick="gen_chords()" id="chord_6" /></td>
+            <td><input type="checkbox" onclick="gen_chords()" id="chord_m6" /></td>
+            <td><input type="checkbox" onclick="gen_chords()" id="chord_9" /></td>
+            <td><input type="checkbox" onclick="gen_chords()" id="chord_m9" /></td>
+            <td><input type="checkbox" onclick="gen_chords()" id="chord_M9" /></td>
+            <td><input type="checkbox" onclick="gen_chords()" id="chord_mM9" /></td>
+          </tr>
+          <tr>
+            <td>/1</td>
+            <td><input type="checkbox" onclick="gen_chords()" id="chord_/1" /></td>
+            <td><input type="checkbox" onclick="gen_chords()" id="chord_m/1" /></td>
+            <td></td>
+            <td></td>
+            <td><input type="checkbox" onclick="gen_chords()" id="chord_7/1" /></td>
+            <td><input type="checkbox" onclick="gen_chords()" id="chord_m7/1" /></td>
+            <td><input type="checkbox" onclick="gen_chords()" id="chord_M7/1" /></td>
+            <td><input type="checkbox" onclick="gen_chords()" id="chord_mM7/1" /></td>
+            <td></td>
+            <td><input type="checkbox" onclick="gen_chords()" id="chord_6/1" /></td>
+            <td><input type="checkbox" onclick="gen_chords()" id="chord_m6/1" /></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>/2</td>
+            <td><input type="checkbox" onclick="gen_chords()" id="chord_/2" /></td>
+            <td><input type="checkbox" onclick="gen_chords()" id="chord_m/2" /></td>
+            <td></td>
+            <td></td>
+            <td><input type="checkbox" onclick="gen_chords()" id="chord_7/2" /></td>
+            <td><input type="checkbox" onclick="gen_chords()" id="chord_m7/2" /></td>
+            <td><input type="checkbox" onclick="gen_chords()" id="chord_M7/2" /></td>
+            <td><input type="checkbox" onclick="gen_chords()" id="chord_mM7/2" /></td>
+            <td></td>
+            <td><input type="checkbox" onclick="gen_chords()" id="chord_6/2" /></td>
+            <td><input type="checkbox" onclick="gen_chords()" id="chord_m6/2" /></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>/3</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td><input type="checkbox" onclick="gen_chords()" id="chord_7/3" /></td>
+            <td><input type="checkbox" onclick="gen_chords()" id="chord_m7/3" /></td>
+            <td><input type="checkbox" onclick="gen_chords()" id="chord_M7/3" /></td>
+            <td><input type="checkbox" onclick="gen_chords()" id="chord_mM7/3" /></td>
+            <td></td>
+            <td><input type="checkbox" onclick="gen_chords()" id="chord_6/3" /></td>
+            <td><input type="checkbox" onclick="gen_chords()" id="chord_m6/3" /></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+        </table>
+
+        <p
+          id="chords"
+          style="font-size: 2em; white-space: pre-wrap; tab-size: 10"
+        ></p>
       </div>
     </div>
   </body>
@@ -181,6 +320,7 @@
   };
 
   const directions = ["↑", "↓"];
+  const dir_names = { "↑": "up_", "↓": "down_" };
 
   const intervals = [
     "m2",
@@ -204,33 +344,44 @@
     }
   }
 
-  let interval_string = [];
-  notes.forEach((notes) => {
-    for (note = 0; note < NUM_NOTES; note++) {
-      directions.forEach((direction) => {
-        intervals.forEach((interval) => {
-          interval_string.push(notes[note] + direction + interval);
+  function gen_intervals() {
+    let interval_string = [];
+    directions.forEach((direction) => {
+      intervals.forEach((interval) => {
+        if (document.getElementById(dir_names[direction] + interval).checked) {
+          notes.forEach((notes) => {
+            for (note = 0; note < NUM_NOTES; note++) {
+              interval_string.push(notes[note] + direction + interval);
+            }
+          });
+        }
+      });
+    });
+
+    shuffle(interval_string);
+
+    let interval_element = document.getElementById("intervals");
+    interval_element.innerText = interval_string.join("\t");
+  }
+
+  function gen_chords() {
+    let chord_string = [];
+    Object.keys(chords).forEach((chord) => {
+      if (document.getElementById("chord_" + chord).checked) {
+        notes.forEach((notes) => {
+          for (note = 0; note < NUM_NOTES; note++) {
+            chord_string.push(chords[chord](notes, note));
+          }
         });
-      });
-    }
-  });
+      }
+    });
 
-  shuffle(interval_string);
+    shuffle(chord_string);
 
-  let interval_element = document.getElementById("intervals");
-  interval_element.innerText = interval_string.join("   ");
+    let chord_element = document.getElementById("chords");
+    chord_element.innerText = chord_string.join("\t");
+  }
 
-  let chord_string = [];
-  notes.forEach((notes) => {
-    for (note = 0; note < NUM_NOTES; note++) {
-      Object.values(chords).forEach((chord) => {
-        chord_string.push(chord(notes, note));
-      });
-    }
-  });
-
-  shuffle(chord_string);
-
-  let chord_element = document.getElementById("chords");
-  chord_element.innerText = chord_string.join("   ");
+  gen_intervals();
+  gen_chords();
 </script>
