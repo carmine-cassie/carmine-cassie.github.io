@@ -229,6 +229,7 @@ input[type="checkbox"] {
 
 .scroll-container {
   overflow: scroll;
+  text-wrap: nowrap;
 }
 
 .code-inline{
@@ -302,4 +303,8 @@ p.caption {
   margin-bottom: 6px;
   margin-top: -10px;
   text-align: center;
+}
+
+p.sitelen-pona {
+  margin-bottom: 8px;
 }
