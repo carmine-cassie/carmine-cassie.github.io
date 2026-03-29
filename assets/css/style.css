@@ -305,6 +305,12 @@ p.caption {
   text-align: center;
 }
 
+p.top-caption {
+  margin-top: 13px;
+  margin-bottom: 4px;
+  text-align: center;
+}
+
 p.sitelen-pona {
   margin-bottom: 8px;
 }
