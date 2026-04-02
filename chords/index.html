@@ -105,10 +105,6 @@
             <td>Cø7</td>
             <td>C6</td>
             <td>Cm6</td>
-            <td>C9</td>
-            <td>Cm9</td>
-            <td>CΔ9</td>
-            <td>CmΔ9</td>
           </tr>
           <tr>
             <td></td>
@@ -123,10 +119,6 @@
             <td><input type="checkbox" onclick="gen_chords()" id="chord_hdim" /></td>
             <td><input type="checkbox" onclick="gen_chords()" id="chord_6" /></td>
             <td><input type="checkbox" onclick="gen_chords()" id="chord_m6" /></td>
-            <td><input type="checkbox" onclick="gen_chords()" id="chord_9" /></td>
-            <td><input type="checkbox" onclick="gen_chords()" id="chord_m9" /></td>
-            <td><input type="checkbox" onclick="gen_chords()" id="chord_M9" /></td>
-            <td><input type="checkbox" onclick="gen_chords()" id="chord_mM9" /></td>
           </tr>
           <tr>
             <td>/1</td>
@@ -141,10 +133,6 @@
             <td></td>
             <td><input type="checkbox" onclick="gen_chords()" id="chord_6/1" /></td>
             <td><input type="checkbox" onclick="gen_chords()" id="chord_m6/1" /></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
           </tr>
           <tr>
             <td>/2</td>
@@ -159,10 +147,6 @@
             <td></td>
             <td><input type="checkbox" onclick="gen_chords()" id="chord_6/2" /></td>
             <td><input type="checkbox" onclick="gen_chords()" id="chord_m6/2" /></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
           </tr>
           <tr>
             <td>/3</td>
@@ -177,10 +161,6 @@
             <td></td>
             <td><input type="checkbox" onclick="gen_chords()" id="chord_6/3" /></td>
             <td><input type="checkbox" onclick="gen_chords()" id="chord_m6/3" /></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
           </tr>
         </table>
 
@@ -304,18 +284,6 @@
     },
     "m6/3": (notes, note) => {
       return notes[note] + "m6⁄" + notes[i(note, 9)];
-    },
-    9: (notes, note) => {
-      return notes[note] + "9";
-    },
-    m9: (notes, note) => {
-      return notes[note] + "m9";
-    },
-    M9: (notes, note) => {
-      return notes[note] + "Δ9";
-    },
-    mM9: (notes, note) => {
-      return notes[note] + "mΔ9";
     },
   };
 
