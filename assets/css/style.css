@@ -127,9 +127,11 @@ h2.sitelen-pona {
 }
 
 h3 {
-  font-size: 1em;
-  margin-bottom: 0.25em;
-  text-decoration: underline;
+  font-size: 16px;
+  font-family: kiwisoda;
+  font-weight: normal;
+  text-shadow: 1px 1px 1px var(--color-accent-fg-faint);
+  margin-bottom: 4px;
 }
 
 p {
@@ -313,4 +315,8 @@ p.top-caption {
 
 p.sitelen-pona {
   margin-bottom: 8px;
+}
+
+.no-shadow {
+  text-shadow: none;
 }
