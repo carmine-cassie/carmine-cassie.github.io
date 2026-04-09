@@ -230,7 +230,7 @@ input[type="checkbox"] {
 }
 
 .scroll-container {
-  overflow: scroll;
+  overflow-x: scroll;
   text-wrap: nowrap;
 }
 
