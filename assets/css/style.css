@@ -19,6 +19,11 @@
 }
 
 @font-face {
+  font-family: "lusi";
+  src: url("/assets/fonts/musi-leko-tan-jan-Lusi.ttf") format('truetype');
+}
+
+@font-face {
   font-family: "disco";
   src: url("/assets/fonts/DigitalDisco.ttf") format('truetype');
 }
@@ -94,8 +99,8 @@ h1 {
 }
 
 h1.sitelen-pona {
-  font-family: lekomajuna;
-  font-size: 40px;
+  font-family: lusi;
+  font-size: 48px;
 }
 
 h2 {
@@ -122,7 +127,7 @@ h2.byline {
 }
 
 h2.sitelen-pona {
-  font-family: lekomajuna;
+  font-family: lusi;
   font-size: 32px;
 }
 
