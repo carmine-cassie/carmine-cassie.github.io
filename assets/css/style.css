@@ -307,6 +307,8 @@ li {
 }
 
 p.caption {
+  width: 95%;
+  margin: auto;
   margin-bottom: 6px;
   margin-top: -10px;
   text-align: center;
