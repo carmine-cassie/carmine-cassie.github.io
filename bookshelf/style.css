@@ -1,0 +1,72 @@
+@font-face {
+  font-family: "cozette";
+  src: url("/assets/fonts/CozetteVector.otf") format('opentype');
+}
+
+body {
+    font-family: cozette;
+    font-size: 13px;
+}
+
+.book {
+    border: 1px black solid;
+    width: fit-content;
+    margin-bottom: -1px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    margin-left: auto;
+    margin-right: auto;
+
+    position: relative;
+}
+
+.small {
+    width: 250px;
+    padding-left: 3px;
+    padding-right: 3px;
+}
+
+.medium {
+    width: 294;
+    padding-left: 6px;
+    padding-right: 6px;
+}
+
+.large {
+    width: 326px;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.spine {
+    margin-top: -1px;
+    white-space: nowrap;
+}
+
+.title {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: center;
+}
+
+.shelf {
+    width: 420px;
+}
+
+h2 {
+    font-size: 39px;
+    margin-bottom: 6px;
+    text-align: center;
+    font-weight: normal;
+}
+
+#shelves {
+    margin: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: flex-end;
+}
