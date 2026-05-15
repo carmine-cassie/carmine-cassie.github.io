@@ -59,18 +59,8 @@
 
       height = Math.ceil(book.words * 40 / width_coefficient);
 
-      bg = "#ffffff"
-      fg = "#000000"
-
-      if (book.bg) {
-        bg = book.bg
-      }
-      if (book.fg) {
-        fg = book.fg
-      }
-
       container.innerHTML += `
-      <div class="book ${book.size}" style="height: ${height}px;left:${randoms[i % randoms.length]}px;--fg:${fg};--bg:${bg}">
+      <div class="book ${book.size}" style="height: ${height}px;left:${randoms[i % randoms.length]}px">
         <span class="spine title">${spine_text}</span>
         <span class="spine">&nbsp;</span>
         <span class="spine">${book.author}</span>
@@ -81,7 +71,7 @@
 
     // Add bottom of Shelf
     container.innerHTML += `
-      <div class="book large" style="height: 3px;background-color:black"></div>
+      <div class="book large" style="height: 1px;background-color:black"></div>
     `;
 
   })

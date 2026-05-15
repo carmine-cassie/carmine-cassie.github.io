@@ -9,7 +9,7 @@ body {
 }
 
 .book {
-    border: 1px var(--fg) solid;
+    border: 1px black solid;
     width: fit-content;
     margin-bottom: -1px;
 
@@ -21,9 +21,6 @@ body {
     margin-right: auto;
 
     position: relative;
-
-    color: var(--fg);
-    background-color: var(--bg);
 }
 
 .small {
