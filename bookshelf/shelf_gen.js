@@ -46,6 +46,7 @@
       // We'll say that a 15k word book shall be 10 x 250 pixels
       // Volume is proportional to the square of the spine width to we can say this as:
       // height = (words * 40) / (width ^ 2)
+      // Edit: changed it to 35 based on vibes
 
       width_coefficient = SMALL;
       if (book.size == "medium") {
