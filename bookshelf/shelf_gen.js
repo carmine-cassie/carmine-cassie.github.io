@@ -1,5 +1,3 @@
-// Word counts calculated with https://pengowray.github.io/word-count-epub/
-
   let randoms = [];
   let value = 67.67;
   const phi = 1.618;
