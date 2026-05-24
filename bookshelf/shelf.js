@@ -1,6 +1,17 @@
 // Word counts calculated with https://pengowray.github.io/word-count-epub/
+// (with include non-toc items on)
 
 const shelves = {
+  "Current": [
+    {
+      series: "Arc of a Scythe",
+      entry: "2",
+      title: "Thunderhead",
+      author: "Neal Shusterman",
+      words: 121691,
+      size: "medium",
+    },
+  ],
   "May 2026": [
     {
       series: "Twig",
@@ -115,14 +126,6 @@ const shelves = {
     },
     {
       series: "Arc of a Scythe",
-      entry: "2",
-      title: "Thunderhead",
-      author: "Neal Shusterman",
-      words: 121691,
-      size: "medium",
-    },
-    {
-      series: "Arc of a Scythe",
       entry: "3",
       title: "The Toll",
       author: "Neal Shusterman",
@@ -195,6 +198,11 @@ const shelves = {
       words: 22156,
       size: "small",
     },
-  ]
-  */
+    {
+      title: "jan Osawi pi ma Osawi",
+      author: "L. Frank Baum<br>trans. jan Ke Tami",
+      words: 49357,
+      size: "small",
+    },
+  ]*/
 }
