@@ -1,7 +1,7 @@
   let randoms = [];
   let value = 67.67;
   const phi = 1.618;
-  const spread = 35;
+  const spread = 32;
   for (let i = 0; i < 100; i++) {
     value = (phi * value);
     randoms.push(Math.round((value % spread) - (spread/2)))
@@ -14,6 +14,8 @@
   const LARGE = 350*350
 
   const shelves_div = document.getElementById("shelves");
+
+  let random_key = 0
   
   Object.keys(shelves).forEach((key) => {
     shelves_div.innerHTML += `<div id="${key}" class="shelf"></div>`
@@ -59,12 +61,14 @@
       height = Math.ceil(book.words * 40 / width_coefficient);
 
       container.innerHTML += `
-      <div class="book ${book.size}" style="height: ${height}px;left:${randoms[i % randoms.length]}px">
+      <div class="book ${book.size}" style="height: ${height}px;left:${randoms[random_key % randoms.length]}px">
         <span class="spine title">${spine_text}</span>
         <span class="spine">&nbsp;</span>
         <span class="spine">${book.author}</span>
       </div>
     `;
+
+      random_key++
 
     }
 

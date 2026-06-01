@@ -306,6 +306,15 @@ li {
   max-width: 100%;
 }
 
+.book-cover {
+  height: 180px;
+  box-shadow: -2px -2px var(--color-accent-bg), 2px 2px var(--color-fg);
+  border: 2px solid var(--color-bg);
+  margin: 0px 0px 10px 15px;
+  float: right;
+  image-rendering: pixelated;
+}
+
 p.caption {
   width: 95%;
   margin: auto;
@@ -326,4 +335,8 @@ p.sitelen-pona {
 
 .no-shadow {
   text-shadow: none;
+}
+
+.spoiler {
+  background-color: var(--color-fg);
 }

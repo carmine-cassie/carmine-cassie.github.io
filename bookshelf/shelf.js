@@ -4,6 +4,29 @@
 const shelves = {
   "Current": [
     {
+      series: "Twig",
+      entry: "15",
+      title: "Bitter Pill",
+      author: "Wildbow",
+      words: 85925,
+      size: "large",
+    },
+    {
+      title: "Valuable Humans in Transit and Other Stories",
+      author: "qntm",
+      words: 22156,
+      size: "small",
+    },
+    {
+      series: "Tanakh",
+      title: "Torah",
+      author: "RJPS",
+      words: 150152,
+      size: "large",
+    },
+  ],
+  "May 2026": [
+    {
       series: "Arc of a Scythe",
       entry: "2",
       title: "Thunderhead",
@@ -11,8 +34,6 @@ const shelves = {
       words: 121691,
       size: "medium",
     },
-  ],
-  "May 2026": [
     {
       series: "Twig",
       entry: "14",
@@ -42,26 +63,10 @@ const shelves = {
       words: 205235,
       size: "large",
     },
-    {
-      series: "Animorphs",
-      entry: "1",
-      title: "The Invasion",
-      author: "K.A. Applegate",
-      words: 34551,
-      size: "small",
-    },
   ],
   // Books I have on my kindle, so it's easier to add them to this page
   /*
   "Kindle": [
-    {
-      series: "Twig",
-      entry: "15",
-      title: "Bitter Pill",
-      author: "Wildbow",
-      words: 85925,
-      size: "large",
-    },
     {
       series: "Twig",
       entry: "16",
@@ -193,16 +198,64 @@ const shelves = {
       size: "medium",
     },
     {
-      title: "Valuable Humans in Transit and Other Stories",
-      author: "qntm",
-      words: 22156,
-      size: "small",
-    },
-    {
       title: "jan Osawi pi ma Osawi",
       author: "L. Frank Baum<br>trans. jan Ke Tami",
       words: 49357,
       size: "small",
+    },
+    {
+      title: "Autobiography of an Androgyne",
+      author: "Jennie June",
+      words: 80789,
+      size: "medium",
+    },
+    {
+      series: "Dune",
+      entry: "1",
+      title: "Dune",
+      author: "Frank Herbert",
+      words: 206772,
+      size: "medium",
+    },
+    {
+      series: "Dune",
+      entry: "2",
+      title: "Dune: Messiah",
+      author: "Frank Herbert",
+      words: 75200,
+      size: "medium",
+    },
+    {
+      series: "Dune",
+      entry: "3",
+      title: "Children of Dune",
+      author: "Frank Herbert",
+      words: 149047,
+      size: "medium",
+    },
+    {
+      series: "Dune",
+      entry: "4",
+      title: "God Emperor of Dune",
+      author: "Frank Herbert",
+      words: 138954,
+      size: "medium",
+    },
+    {
+      series: "Dune",
+      entry: "5",
+      title: "Heretics of Dune",
+      author: "Frank Herbert",
+      words: 168801,
+      size: "medium",
+    },
+    {
+      series: "Dune",
+      entry: "6",
+      title: "Chapterhouse: Dune",
+      author: "Frank Herbert",
+      words: 143579,
+      size: "medium",
     },
   ]*/
 }

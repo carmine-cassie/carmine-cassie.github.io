@@ -80,8 +80,8 @@ h2 {
 .stacked .shelf h2 {
     position: absolute;
     margin: 0px;
-    margin-left: 400px;
-    width: 180px;
+    margin-left: 410px;
+    width: 170px;
     text-align: left;
     margin-top: -0.15em;
 }
@@ -105,3 +105,4 @@ hr {
     background-color: #222;
     margin: 10px 0px;
 }
+
