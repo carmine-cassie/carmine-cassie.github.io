@@ -339,10 +339,8 @@ p.sitelen-pona {
 
 .spoiler {
   background-color: var(--color-fg);
-  padding: 2px 4px;
-  margin: -2px -4px;
 }
 
 .spoiler:hover {
-  color: var(--color-bg)
+  background-color: var(--color-accent-bg);
 }
