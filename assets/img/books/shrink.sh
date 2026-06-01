@@ -1,1 +1,1 @@
-magick input.jpg -resize 120x180^ -gravity center -extent 120x180 -dither FloydSteinberg -colors 16 output.png
+magick input.jpg -resize 120x180^ -gravity center -extent 120x180 -quantize YIQ -dither FloydSteinberg -colors 16 output.png
