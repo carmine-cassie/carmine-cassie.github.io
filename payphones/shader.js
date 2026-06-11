@@ -45,7 +45,8 @@ controls.mouseButtons = {
 	LEFT: THREE.MOUSE.PAN
 }
 controls.touches = {
-	ONE: THREE.TOUCH.PAN
+	ONE: THREE.TOUCH.PAN,
+	TWO: THREE.TOUCH.DOLLY_ROTATE
 }
 controls.screenSpacePanning = true;
 controls.enableRotate = false;
