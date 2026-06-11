@@ -4,12 +4,12 @@
 const shelves = {
   "Current": [
     {
-      series: "Twig",
-      entry: "15",
-      title: "Bitter Pill",
-      author: "Wildbow",
-      words: 85925,
-      size: "large",
+      series: "Arc of a Scythe",
+      entry: "3",
+      title: "The Toll",
+      author: "Neal Shusterman",
+      words: 146547,
+      size: "medium",
     },
     {
       title: "Valuable Humans in Transit and Other Stories",
@@ -22,6 +22,16 @@ const shelves = {
       title: "Torah",
       author: "RJPS",
       words: 150152,
+      size: "large",
+    },
+  ],
+  "Jun 2026": [
+    {
+      series: "Twig",
+      entry: "15",
+      title: "Bitter Pill",
+      author: "Wildbow",
+      words: 85925,
       size: "large",
     },
   ],
@@ -128,14 +138,6 @@ const shelves = {
       author: "Alexander Wales",
       words: 206847,
       size: "large",
-    },
-    {
-      series: "Arc of a Scythe",
-      entry: "3",
-      title: "The Toll",
-      author: "Neal Shusterman",
-      words: 146547,
-      size: "medium",
     },
     {
       series: "Farseer Trilogy",
