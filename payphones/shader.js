@@ -72,15 +72,16 @@ for (let i = 0; i < unexplored_coords.length; i++) {
 // Combine those positions into a point cloud, and add it to the scene
 const e_geometry = new THREE.BufferGeometry();
 e_geometry.setAttribute('position', new THREE.BufferAttribute(e_positions, 3));
-const e_material = new THREE.PointsMaterial({color: 0xcc7777, size: 1.5})
+const e_material = new THREE.PointsMaterial({color: 0xaaaaaa, size: 1.5})
 const e_points = new THREE.Points(e_geometry, e_material)
-// scene.add(e_points)
+scene.add(e_points)
 
 const u__geometry = new THREE.BufferGeometry();
 u__geometry.setAttribute('position', new THREE.BufferAttribute(u_positions, 3));
 // const u_material = new THREE.PointsMaterial({color: 0x332626, size: 1.5})
 const u_material = new THREE.PointsMaterial({color: 0x999999, size: 1.5})
 const u_points = new THREE.Points(u__geometry, u_material)
+u_points.translateZ(2)
 scene.add(u_points)
 
 const positions = new Float32Array(phone_ids.length * 3)
@@ -127,8 +128,12 @@ fog_geometry.setIndex(tris);
 fog_geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
 fog_geometry.setAttribute('color', new THREE.BufferAttribute(colors, 4));
 const fog_material = new THREE.MeshBasicMaterial({vertexColors: true, transparent: true, side: THREE.DoubleSide})
+const wireframe_material = new THREE.MeshBasicMaterial({vertexColors: true, transparent: true, color: 0xeeeeee, wireframe: true})
 const fog = new THREE.Mesh(fog_geometry, fog_material)
 scene.add(fog)
+const wireframe = new THREE.Mesh(fog_geometry, wireframe_material)
+wireframe.translateZ(1);
+scene.add(wireframe)
 
 function height(z, y) {
 	let n = Math.pow(2, z);
@@ -158,16 +163,15 @@ function draw_tile(x, y, z) {
 	const sprite = new THREE.Sprite(spriteMaterial);
 	sprite.scale.set(width, height, 1);
 	sprite.position.set(lon + width/2, lat - height/2, -30 + z);
-	// console.log(lon + width/2.0, lat - width/2.0)
 	scene.add(sprite)
 }
 
 // draw_tile(235, 153, 8)
 // draw_tile(3768, 2457, 12)
 
-for (let lat = 3766*4; lat <= 3770*4; lat++) {
-	for (let lon = 2455*4; lon <= 2459*4; lon++) {
-		draw_tile(lat, lon, 14)
+for (let lat = 3766*1; lat <= 3770*1; lat++) {
+	for (let lon = 2455*1; lon <= 2459*1; lon++) {
+		draw_tile(lat, lon, 12)
 	}
 }
 
