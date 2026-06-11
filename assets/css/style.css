@@ -142,6 +142,7 @@ h3 {
 p {
   margin: 0px;
   margin-bottom: 5px;
+  line-height: calc(14/13);
   b {
     text-shadow: 1px 1px 1px var(--color-accent-fg-faint);
     font-weight: normal;
