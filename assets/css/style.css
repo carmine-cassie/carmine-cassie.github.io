@@ -342,8 +342,8 @@ p.sitelen-pona {
   background-color: var(--color-fg);
   cursor: none;
   transition: background-color 0.15s steps(2);
-  padding: 1px;
-  margin: -1px;
+  padding: 0px 1px;
+  margin: 0px -1px;
   border-radius: 2px;
 }
 
