@@ -51,6 +51,7 @@ controls.touches = {
 controls.screenSpacePanning = true;
 controls.enableRotate = false;
 controls.enableDamping = true;
+controls.enableDamping = false;
 controls.dampingFactor = 0.15;
 controls.zoomToCursor = true;
 
@@ -183,7 +184,7 @@ function draw_tile(x, y, z) {
 	let y_pos = (y + 0.5) / z_dif;
 
 	const textureLoader = new THREE.TextureLoader();
-	const spriteTexture = textureLoader.load(`https://tile.openstreetmap.org/${z}/${x}/${y}.png`);
+	const spriteTexture = textureLoader.load(`https://tile.openstreetmap.org/${z}/${x}/${y}.png`, () => renderer.render(scene, camera));
 	const spriteMaterial = new THREE.SpriteMaterial({ 
 		map: spriteTexture, 
 		color: 0xffffff 
@@ -193,6 +194,7 @@ function draw_tile(x, y, z) {
 	sprite.position.set(x_pos, -y_pos, -30 + z);
 
 	scene.add(sprite)
+	renderer.render(scene, camera)
 }
 
 for (let lat = 3766*1; lat <= 3770*1; lat++) {
@@ -220,7 +222,7 @@ onWindowResize()
 
 function animate () {
 
-  requestAnimationFrame(animate)
+//   requestAnimationFrame(animate)
 
   controls.update()
 
@@ -228,4 +230,6 @@ function animate () {
 
 }
 
-animate()
+// animate()
+
+controls.addEventListener("change", () => renderer.render(scene, camera));
