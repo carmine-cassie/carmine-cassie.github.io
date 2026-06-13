@@ -12,6 +12,12 @@ import { MapControls } from 'three/addons/controls/MapControls.js';
 // - TILE DRAWING
 
 ////////////////////////////////////////////////////////////////////////////////////
+// PAGE ELEMENTS
+const zoom_text = document.getElementById('zoom');
+const width_text = document.getElementById('width');
+const height_text = document.getElementById('height');
+
+////////////////////////////////////////////////////////////////////////////////////
 // PROJECTION FUNCTION
 // Reprojects from equirectangular to xy web mercator coords from 0-256.
 // y value goes from 0 to -256 so that downwards works fine from camera
@@ -57,7 +63,7 @@ const camera = new THREE.OrthographicCamera(
   1 / 2,
   1 / -2,
   1,
-  30,
+  50,
 );
 camera.up.set(0, 1, 0);
 
@@ -102,6 +108,10 @@ function redrawScene() {
   localStorage.setItem('cameraZoom', camera.zoom);
 
   renderer.render(scene, camera);
+
+  zoom_text.innerText = camera.zoom;
+  width_text.innerText = (camera.right - camera.left) / camera.zoom;
+  height_text.innerText = (camera.top - camera.bottom) / camera.zoom;
 }
 window.addEventListener('resize', redrawScene, false);
 
@@ -234,10 +244,11 @@ for (let i = 0; i < phone_ids.length; i++) {
     explored = 1;
   }
 
-  // #cbcbcbff if unexplored, #cbcbcb00 if explored
-  colors[i4 + 0] = 0.6;
-  colors[i4 + 1] = 0.6;
-  colors[i4 + 2] = 0.6;
+  // #dadadaff if unexplored, #dadada00 if explored
+
+  colors[i4 + 0] = 0.7;
+  colors[i4 + 1] = 0.7;
+  colors[i4 + 2] = 0.7;
   colors[i4 + 3] = 1 - explored;
 }
 
@@ -285,15 +296,38 @@ const wireframe = new THREE.Mesh(fog_geometry, wireframe_material);
 wireframe.translateZ(1);
 scene.add(wireframe);
 
+// TODO maybe add some custom triangles to fill out the edges of the map
+// (this way if you have a phone on the edge you don't get a harsh border)
+// should apply to the main fog but not the wireframe
+// for now we just render a white copy of fog behind the map
+// const bg_material = new THREE.MeshBasicMaterial({
+//   color: 0xffffff,
+//   side: THREE.DoubleSide,
+// });
+// const bg = new THREE.Mesh(fog_geometry, bg_material);
+// bg.translateZ(-30);
+// scene.add(bg);
+
 // Now that everything but tiles have been added, draw a frame so the user has
 // something to look at while the tiles load
 redrawScene();
 
 ////////////////////////////////////////////////////////////////////////////////////
 // TILE DRAWING
+// TODO add tiles to layers in the scene and then turn them off when we zoom out :p
+// we do this by removing the 0 layer from tiles and adding a z layer instead
+// and on the camera we'll remove all layers then add zero and our zoom level
+let fetched_tiles = {};
+
 // Function that draws a specified tile to the scene
 // It gets added at -30 + Z
-function draw_tile(x, y, z) {
+async function draw_tile(x, y, z) {
+  if (fetched_tiles[`${z}/${x}/${y}`]) {
+    return;
+  } else {
+    fetched_tiles[`${z}/${x}/${y}`] = true;
+  }
+
   let z_dif = Math.pow(2, z - 8);
   let x_pos = (x + 0.5) / z_dif;
   let y_pos = (y + 0.5) / z_dif;
@@ -316,13 +350,39 @@ function draw_tile(x, y, z) {
   scene.add(sprite);
 }
 
-// Draw some sydney tiles
-// TODO replace this, add a thing where on camera move we figure out where we are
-// and decide if we need more tiles, and draw them if so.
-// Maybe there's a function to get top left, top right, and ofc we need to figure out
-// Zoom level scaling etc.
-for (let lat = 3766 * 1; lat <= 3770 * 1; lat++) {
-  for (let lon = 2455 * 1; lon <= 2459 * 1; lon++) {
-    draw_tile(lat, lon, 12);
+const scaling_constant = 2.75;
+
+function update_tiles() {
+  let camera_width = (camera.right - camera.left) / camera.zoom;
+  let camera_height = (camera.top - camera.bottom) / camera.zoom;
+  let size = Math.min(camera_width, camera_height);
+  let zoom_level = Math.floor(8 - Math.log2(size / scaling_constant));
+  zoom_level = Math.min(zoom_level, 14);
+
+  let coords_scaling = Math.pow(2, zoom_level - 8);
+  let x_min = Math.floor(coords_scaling * (camera.position.x - camera_width / 2));
+  let x_max = Math.ceil(coords_scaling * (camera.position.x + camera_width / 2));
+  let y_min = -Math.ceil(coords_scaling * (camera.position.y + camera_height / 2));
+  let y_max = -Math.floor(coords_scaling * (camera.position.y - camera_height / 2));
+
+  x_min = Math.max(0, x_min - 1);
+  x_max = Math.min(Math.pow(2, zoom_level) - 1, x_max + 1);
+  y_min = Math.max(0, y_min - 1);
+  y_max = Math.min(Math.pow(2, zoom_level) - 1, y_max + 1);
+
+  // console.log(zoom_level, coords_scaling);
+
+  // console.log(x_min, x_max, y_min, y_max, zoom_level);
+
+  for (let lat = x_min; lat <= x_max; lat++) {
+    for (let lon = y_min; lon <= y_max; lon++) {
+      draw_tile(lat, lon, zoom_level);
+    }
   }
 }
+
+window.addEventListener('resize', update_tiles);
+
+controls.addEventListener('change', update_tiles);
+
+update_tiles();
