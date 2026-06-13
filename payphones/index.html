@@ -44,12 +44,14 @@
         <a href="https://payphonetag.com/" style="color: blue">Payphone Tag</a>
       </h2>
       <!-- (In either IMB Plex Mono or Courier New or monospace) -->
-      <div style="display: flex; justify-content: center; margin: 2px">
-        <p style="margin: 2px">
+      <div
+        style="display: flex; justify-content: center; margin: 2px; flex-wrap: wrap"
+      >
+        <p style="margin: 2px; flex: 0 0 auto">
           Enter Operative Name: &nbsp;
           <!-- TODO implement this -->
         </p>
-        <form style="display: inline" onsubmit="return false;">
+        <form style="display: block; flex: 0 0 auto" onsubmit="return false;">
           <input id="user_input" style="text-align: center" autocomplete="off" />
           <button
             type="submit"
