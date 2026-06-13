@@ -309,9 +309,9 @@ if (window.location.hash) {
       explored = 1;
     }
 
-    colors[i4 + 0] = 0.55;
-    colors[i4 + 1] = 0.55;
-    colors[i4 + 2] = 0.55;
+    colors[i4 + 0] = 0.45;
+    colors[i4 + 1] = 0.45;
+    colors[i4 + 2] = 0.45;
     colors[i4 + 3] = 1 - explored;
   }
 
@@ -319,9 +319,9 @@ if (window.location.hash) {
   for (let i = 0; i < 4; i++) {
     const i4 = (i + phone_ids.length) * 4;
 
-    colors[i4 + 0] = 0.5;
-    colors[i4 + 1] = 0.5;
-    colors[i4 + 2] = 0.5;
+    colors[i4 + 0] = 0.4;
+    colors[i4 + 1] = 0.4;
+    colors[i4 + 2] = 0.4;
     colors[i4 + 3] = 1;
   }
 
