@@ -1,0 +1,44 @@
+name: Scrape Payphone data
+
+on:
+  schedule:
+    - cron: '0 * * * *'
+  workflow_dispatch:
+
+name: Run Script and Deploy to Pages
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  payphone_scrape:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Source Code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+
+      # - name: Install Dependencies
+      #   run: |
+      #     if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+
+      - name: Run Python Script
+        run: python payphones/cors_proxy.py # Replace with your actual script filename
+      
+      - name: Configure git details
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./
