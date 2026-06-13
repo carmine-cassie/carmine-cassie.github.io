@@ -15,7 +15,9 @@
     </script>
   </head>
 
-  <body style="background-color: #aaaaaa">
+  <body
+    style="background-color: #aaaaaa; font-family: 'Courier New', Courier, monospace"
+  >
     <script src="triangulation.js"></script>
     <script src="payphones.js"></script>
     <script src="past_captures.js"></script>
@@ -36,11 +38,15 @@
       "
     >
       <!-- (in Space Mono) -->
-      <h1 style="margin: 2px">Payphone Fog of War</h1>
+      <h1 style="margin: 2px; font-size: 4em">PAYPHONE EXPLORER</h1>
+      <h2 style="margin: 2px; margin-bottom: 10px; font-size: 2em">
+        Fog of War based on
+        <a href="https://payphonetag.com/" style="color: blue">Payphone Tag</a>
+      </h2>
       <!-- (In either IMB Plex Mono or Courier New or monospace) -->
-      <div style="display: flex; justify-content: center; gap: 5px">
+      <div style="display: flex; justify-content: center; margin: 2px">
         <p style="margin: 2px">
-          Enter Operative Name:
+          Enter Operative Name: &nbsp;
           <!-- TODO implement this -->
         </p>
         <form style="display: inline" onsubmit="return false;">
@@ -78,7 +84,7 @@
       </p>
       <p style="margin: 2px; font-size: 0.9em">
         (Or just view
-        <a href="#3209">my phones</a>.)
+        <a href="#3209" style="color: blue">my phones</a>.)
       </p>
       <div>
         <br />
@@ -103,7 +109,7 @@
           padding: 5px;
         "
       >
-        <p style="margin: 0">
+        <p style="margin: 0; font-size: 0.8em">
           <span id="user"></span>: <span id="explored"></span>/<span
             id="total"
           ></span>
