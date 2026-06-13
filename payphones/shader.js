@@ -22,7 +22,6 @@ if (window.location.hash) {
 
   ////////////////////////////////////////////////////////////////////////////////////
   // MAP BORDER
-  // TODO lock the camera to within these :p
   const BORDER_SCALE = 5;
   const LEFT_BORDER = 24;
   const RIGHT_BORDER = 31;
@@ -154,7 +153,6 @@ if (window.location.hash) {
   const players = payphones['players'];
   const phones = payphones['payphones'];
 
-  // TODO handle no hash given (don't load the page if no hash?)
   const me = window.location.hash.slice(1);
 
   // Get useful stuff from the api data
@@ -311,11 +309,9 @@ if (window.location.hash) {
       explored = 1;
     }
 
-    // #dadadaff if unexplored, #dadada00 if explored
-
-    colors[i4 + 0] = 0.6;
-    colors[i4 + 1] = 0.6;
-    colors[i4 + 2] = 0.6;
+    colors[i4 + 0] = 0.55;
+    colors[i4 + 1] = 0.55;
+    colors[i4 + 2] = 0.55;
     colors[i4 + 3] = 1 - explored;
   }
 
@@ -323,9 +319,9 @@ if (window.location.hash) {
   for (let i = 0; i < 4; i++) {
     const i4 = (i + phone_ids.length) * 4;
 
-    colors[i4 + 0] = 0.55;
-    colors[i4 + 1] = 0.55;
-    colors[i4 + 2] = 0.55;
+    colors[i4 + 0] = 0.5;
+    colors[i4 + 1] = 0.5;
+    colors[i4 + 2] = 0.5;
     colors[i4 + 3] = 1;
   }
 
@@ -445,6 +441,7 @@ if (window.location.hash) {
       `https://tile.openstreetmap.org/${z}/${x}/${y}.png`,
       () => redrawScene(),
     );
+    spriteTexture.colorSpace = THREE.SRGBColorSpace;
 
     const spriteMaterial = new THREE.SpriteMaterial({
       map: spriteTexture,
