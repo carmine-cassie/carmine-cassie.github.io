@@ -61,14 +61,17 @@ const camera = new THREE.OrthographicCamera(
 );
 camera.up.set(0, 1, 0);
 
-// Initial values for sydney
-// TODO replace these with full-australia view
-// TODO get them from localstorage
-camera.position.set(235.5, -153.6, 5);
-camera.zoom = 1 / 1;
+// Get the camera pos from local storage, with sensible defaults
+camera.position.set(
+  localStorage.getItem('cameraX') || 224,
+  localStorage.getItem('cameraY') || -149,
+  5,
+);
+camera.zoom = localStorage.getItem('cameraZoom') || (1 / 35) * Math.min(aspect, 1);
 
 const controls = new MapControls(camera, renderer.domElement);
-controls.target.set(235.5, -153.6, 0);
+// I'll be real i don't understand the target setting line but it breaks without em
+controls.target.set(camera.position.x, camera.position.y, 0);
 controls.mouseButtons = {
   LEFT: THREE.MOUSE.PAN,
 };
@@ -92,6 +95,11 @@ function redrawScene() {
 
   camera.updateProjectionMatrix();
   renderer.setSize(window.innerWidth, window.innerHeight);
+
+  // Write the camera pos to local storage so we can load to it
+  localStorage.setItem('cameraX', camera.position.x);
+  localStorage.setItem('cameraY', camera.position.y);
+  localStorage.setItem('cameraZoom', camera.zoom);
 
   renderer.render(scene, camera);
 }
