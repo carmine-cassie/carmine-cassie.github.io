@@ -2,7 +2,8 @@ name: Scrape Payphone data
 
 on:
   schedule:
-    - cron: '17 */6 * * *'
+    # Run it at 17 minutes past midnight, sydney time
+    - cron: '17 14 * * *'
   workflow_dispatch:
 
 jobs:
