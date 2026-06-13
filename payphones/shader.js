@@ -94,9 +94,30 @@ controls.screenSpacePanning = true;
 controls.enableRotate = false;
 controls.enableDamping = false;
 controls.zoomToCursor = true;
+controls.maxZoom = 2;
+controls.minZoom = 0.0002;
 
 // Update the size on window resize
 function redrawScene() {
+  // Clamp the position
+  const bounds_scale = Math.pow(2, scale_basis - BORDER_SCALE);
+
+  if (controls.target.x < LEFT_BORDER * bounds_scale) {
+    controls.target.setX(LEFT_BORDER * bounds_scale);
+    camera.position.x = LEFT_BORDER * bounds_scale;
+  } else if (controls.target.x > RIGHT_BORDER * bounds_scale) {
+    controls.target.setX(RIGHT_BORDER * bounds_scale);
+    camera.position.x = RIGHT_BORDER * bounds_scale;
+  }
+
+  if (controls.target.y < -BOTTOM_BORDER * bounds_scale) {
+    controls.target.setY(-BOTTOM_BORDER * bounds_scale);
+    camera.position.y = -BOTTOM_BORDER * bounds_scale;
+  } else if (controls.target.y > -TOP_BORDER * bounds_scale) {
+    controls.target.setY(-TOP_BORDER * bounds_scale);
+    camera.position.y = -TOP_BORDER * bounds_scale;
+  }
+
   let aspect = window.innerWidth / window.innerHeight;
 
   camera.left = aspect / -2;
