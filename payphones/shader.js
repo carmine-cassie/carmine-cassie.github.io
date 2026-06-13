@@ -49,18 +49,26 @@ const scene = new THREE.Scene();
 
 ////////////////////////////////////////////////////////////////////////////////////
 // CAMERA & CONTROLS
-const camera = new THREE.OrthographicCamera();
-camera.position.set(0, 0, 5);
+
+let aspect = window.innerWidth / window.innerHeight;
+const camera = new THREE.OrthographicCamera(
+  aspect / -2,
+  aspect / 2,
+  1 / 2,
+  1 / -2,
+  1,
+  30,
+);
+camera.up.set(0, 1, 0);
 
 // Initial values for sydney
 // TODO replace these with full-australia view
 // TODO get them from localstorage
-// TODO do these as camera position things rather than random variable
-let x = 235.5;
-let y = -153.6;
-let zoom = 1;
+camera.position.set(235.5, -153.6, 5);
+camera.zoom = 1 / 1;
 
 const controls = new MapControls(camera, renderer.domElement);
+controls.target.set(235.5, -153.6, 0);
 controls.mouseButtons = {
   LEFT: THREE.MOUSE.PAN,
 };
@@ -73,24 +81,24 @@ controls.enableRotate = false;
 controls.enableDamping = false;
 controls.zoomToCursor = true;
 
-controls.addEventListener('change', () => renderer.render(scene, camera));
-
 // Update the size on window resize
-function onWindowResize() {
+function redrawScene() {
   let aspect = window.innerWidth / window.innerHeight;
-  renderer.setSize(window.innerWidth, window.innerHeight);
 
-  // Surely this is unecessary, right? like surely the controls handle this
-  // TODO
-  camera.bottom = y - zoom / aspect / 2;
-  camera.top = y + zoom / aspect / 2;
-  camera.left = x - zoom / 2;
-  camera.right = x + zoom / 2;
+  camera.left = aspect / -2;
+  camera.right = aspect / 2;
+  camera.top = 1 / 2;
+  camera.bottom = 1 / -2;
 
   camera.updateProjectionMatrix();
+  renderer.setSize(window.innerWidth, window.innerHeight);
+
   renderer.render(scene, camera);
 }
-window.addEventListener('resize', onWindowResize, false);
+window.addEventListener('resize', redrawScene, false);
+
+controls.addEventListener('change', () => redrawScene());
+controls.update();
 
 ////////////////////////////////////////////////////////////////////////////////////
 // PAYPHONE API
@@ -269,7 +277,7 @@ scene.add(wireframe);
 
 // Now that everything but tiles have been added, draw a frame so the user has
 // something to look at while the tiles load
-onWindowResize();
+redrawScene();
 
 ////////////////////////////////////////////////////////////////////////////////////
 // TILE DRAWING
@@ -283,7 +291,7 @@ function draw_tile(x, y, z) {
   const textureLoader = new THREE.TextureLoader();
   const spriteTexture = textureLoader.load(
     `https://tile.openstreetmap.org/${z}/${x}/${y}.png`,
-    () => renderer.render(scene, camera),
+    () => redrawScene(),
   );
 
   const spriteMaterial = new THREE.SpriteMaterial({
