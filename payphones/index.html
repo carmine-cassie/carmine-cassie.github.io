@@ -15,7 +15,7 @@
     </script>
   </head>
 
-  <body style="background-color: #c4c4c4">
+  <body style="background-color: #bcbcbc">
     <script src="triangulation.js"></script>
     <script src="payphones.js"></script>
     <script src="past_captures.js"></script>
@@ -38,15 +38,43 @@
       <!-- (in Space Mono) -->
       <h1 style="margin: 2px">Payphone Fog of War</h1>
       <!-- (In either IMB Plex Mono or Courier New or monospace) -->
-      <p style="margin: 2px">
-        Enter Operative Name:
-        <input
-          id="user_input"
-          value="<NOT IMPLEMENTED>"
-          disabled
-          style="text-align: center"
-        />
-        <button disabled>GO</button>
+      <div style="display: flex; justify-content: center; gap: 5px">
+        <p style="margin: 2px">
+          Enter Operative Name:
+          <!-- TODO implement this -->
+        </p>
+        <form style="display: inline" onsubmit="return false;">
+          <input id="user_input" style="text-align: center" autocomplete="off" />
+          <button
+            type="submit"
+            onclick="
+              {
+                const name = document.getElementById('user_input').value;
+
+                const id = Object.keys(payphones['players']).find((key) => {
+                  return (
+                    payphones['players'][key]['name'].toLowerCase() ==
+                    name.toLowerCase()
+                  );
+                });
+
+                if (id == undefined) {
+                  document.getElementById('err_text').style.display = 'block';
+                } else {
+                  window.location.href = `#${id}`;
+                }
+              }
+            "
+          >
+            GO
+          </button>
+        </form>
+      </div>
+      <p
+        id="err_text"
+        style="color: red; margin: 2px; font-size: 0.9em; display: none"
+      >
+        Name not found!
       </p>
       <p style="margin: 2px; font-size: 0.9em">
         (Or just view
