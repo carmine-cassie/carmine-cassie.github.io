@@ -145,6 +145,12 @@ controls.update();
 const players = payphones['players'];
 const phones = payphones['payphones'];
 
+try {
+  const test_phones = await fetch('https://payphonetag.com/api/payphones');
+} catch {
+  console.log('CORS is mad');
+}
+
 // TODO handle no hash given (don't load the page if no hash?)
 const me = window.location.hash.slice(1);
 
