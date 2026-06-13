@@ -3,6 +3,7 @@ name: Scrape Payphone data
 on:
   schedule:
     - cron: '17 */6 * * *'
+  workflow_dispatch:
 
 jobs:
   payphone_scrape:
