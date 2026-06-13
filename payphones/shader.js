@@ -12,21 +12,26 @@ import { MapControls } from 'three/addons/controls/MapControls.js';
 // - TILE DRAWING
 
 ////////////////////////////////////////////////////////////////////////////////////
-// PAGE ELEMENTS
-const zoom_text = document.getElementById('zoom');
-const width_text = document.getElementById('width');
-const height_text = document.getElementById('height');
+// MAP BORDER
+// TODO lock the camera to within these :p
+const BORDER_SCALE = 5;
+const LEFT_BORDER = 24;
+const RIGHT_BORDER = 31;
+const TOP_BORDER = 16;
+const BOTTOM_BORDER = 21;
 
 ////////////////////////////////////////////////////////////////////////////////////
 // PROJECTION FUNCTION
+const scale_basis = 14;
+
 // Reprojects from equirectangular to xy web mercator coords from 0-256.
 // y value goes from 0 to -256 so that downwards works fine from camera
 function project(lon, lat) {
   const lon_deg = lon;
   const lat_rad = (lat / 180) * Math.PI;
 
-  // We use a "default zoom" of 8, which just means our values will be between 0-256
-  const n = Math.pow(2, 8);
+  // We use a "default zoom" of 4, which just means our values will be between 0-16384
+  const n = Math.pow(2, scale_basis);
 
   // Based on psuedocode from https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames
   const xtile = n * ((lon_deg + 180) / 360);
@@ -69,8 +74,8 @@ camera.up.set(0, 1, 0);
 
 // Get the camera pos from local storage, with sensible defaults
 camera.position.set(
-  localStorage.getItem('cameraX') || 224,
-  localStorage.getItem('cameraY') || -149,
+  localStorage.getItem('cameraX') || 14336,
+  localStorage.getItem('cameraY') || -9536,
   5,
 );
 camera.zoom = localStorage.getItem('cameraZoom') || (1 / 35) * Math.min(aspect, 1);
@@ -108,10 +113,6 @@ function redrawScene() {
   localStorage.setItem('cameraZoom', camera.zoom);
 
   renderer.render(scene, camera);
-
-  zoom_text.innerText = camera.zoom;
-  width_text.innerText = (camera.right - camera.left) / camera.zoom;
-  height_text.innerText = (camera.top - camera.bottom) / camera.zoom;
 }
 window.addEventListener('resize', redrawScene, false);
 
@@ -130,6 +131,15 @@ const me = window.location.hash.slice(1);
 let my_phones = (await (await fetch(`past_captures/${me}.json`)).json())[
   'payphoneIds'
 ];
+
+const user_elem = document.getElementById('user');
+user_elem.innerText = `${players[me]['emoji']} ${players[me]['name']}`;
+
+const explored_elem = document.getElementById('explored');
+explored_elem.innerText = my_phones.length;
+
+const total_elem = document.getElementById('total');
+total_elem.innerText = phones.length;
 
 const phone_coords = triangulation['coords'];
 
@@ -220,7 +230,10 @@ scene.add(u_points);
 ////////////////////////////////////////////////////////////////////////////////////
 // DRAW FOG
 // Create a Float32Array of all the phones
-const positions = new Float32Array(phone_ids.length * 3);
+// (Plus 4 for the world corners)
+const positions = new Float32Array((phone_ids.length + 4) * 3);
+
+// Add all the phones
 for (let i = 0; i < phone_ids.length; i++) {
   const i3 = i * 3;
 
@@ -229,8 +242,32 @@ for (let i = 0; i < phone_ids.length; i++) {
   positions[i3 + 2] = -1;
 }
 
+// Add the corners
+// Top left, Bottom left, Bottom right, Top right
+const TOP_LEFT = 0;
+const BOTTOM_LEFT = 1;
+const BOTTOM_RIGHT = 2;
+const TOP_RIGHT = 3;
+const corners = [
+  [24, -16],
+  [24, -21],
+  [31, -21],
+  [31, -16],
+];
+
+let corner_ids = [];
+
+for (let i = 0; i < 4; i++) {
+  corner_ids.push(i + phone_ids.length);
+  const i3 = (i + phone_ids.length) * 3;
+
+  positions[i3 + 0] = corners[i][0] * Math.pow(2, scale_basis - 5);
+  positions[i3 + 1] = corners[i][1] * Math.pow(2, scale_basis - 5);
+  positions[i3 + 2] = -1;
+}
+
 // Create a Float32Array for RGBA vertex colour
-const colors = new Float32Array(phone_ids.length * 4);
+const colors = new Float32Array((phone_ids.length + 4) * 4);
 for (let i = 0; i < phone_ids.length; i++) {
   const i4 = i * 4;
 
@@ -246,10 +283,20 @@ for (let i = 0; i < phone_ids.length; i++) {
 
   // #dadadaff if unexplored, #dadada00 if explored
 
-  colors[i4 + 0] = 0.7;
-  colors[i4 + 1] = 0.7;
-  colors[i4 + 2] = 0.7;
+  colors[i4 + 0] = 0.6;
+  colors[i4 + 1] = 0.6;
+  colors[i4 + 2] = 0.6;
   colors[i4 + 3] = 1 - explored;
+}
+
+// And make the corners unexplored
+for (let i = 0; i < 4; i++) {
+  const i4 = (i + phone_ids.length) * 4;
+
+  colors[i4 + 0] = 0.55;
+  colors[i4 + 1] = 0.55;
+  colors[i4 + 2] = 0.55;
+  colors[i4 + 3] = 1;
 }
 
 // Read the triangles into an array
@@ -271,17 +318,6 @@ fog_geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
 fog_geometry.setAttribute('color', new THREE.BufferAttribute(colors, 4));
 fog_geometry.setIndex(tris);
 
-// Make a material just using the vertex Colors, for the fog itself
-const fog_material = new THREE.MeshBasicMaterial({
-  vertexColors: true,
-  transparent: true,
-  side: THREE.DoubleSide,
-});
-
-// Add the fog to the scene at Z=0
-const fog = new THREE.Mesh(fog_geometry, fog_material);
-scene.add(fog);
-
 // Make a material that's about 85% brightness and wireframe
 // (About the same colour as the unexplored dots)
 const wireframe_material = new THREE.MeshBasicMaterial({
@@ -296,17 +332,62 @@ const wireframe = new THREE.Mesh(fog_geometry, wireframe_material);
 wireframe.translateZ(1);
 scene.add(wireframe);
 
-// TODO maybe add some custom triangles to fill out the edges of the map
-// (this way if you have a phone on the edge you don't get a harsh border)
-// should apply to the main fog but not the wireframe
-// for now we just render a white copy of fog behind the map
-// const bg_material = new THREE.MeshBasicMaterial({
-//   color: 0xffffff,
-//   side: THREE.DoubleSide,
-// });
-// const bg = new THREE.Mesh(fog_geometry, bg_material);
-// bg.translateZ(-30);
-// scene.add(bg);
+// Manually add those corner triangles
+const right_most = 6801 - 1;
+const top_most = 12619 - 1;
+const left_most = 2363 - 1;
+const bottom_most = 13487 - 1;
+
+// Rightmost to corners
+tris.push(corner_ids[TOP_RIGHT], corner_ids[BOTTOM_RIGHT], right_most);
+
+// Ones that link to top right
+tris.push(corner_ids[TOP_RIGHT], right_most, 3324 - 1);
+tris.push(corner_ids[TOP_RIGHT], 3324 - 1, top_most);
+
+// Topmost to corners
+tris.push(corner_ids[TOP_RIGHT], corner_ids[TOP_LEFT], top_most);
+
+// Ones that link to top left
+tris.push(corner_ids[TOP_LEFT], top_most, 12420 - 1);
+tris.push(corner_ids[TOP_LEFT], 12420 - 1, 5436 - 1);
+tris.push(corner_ids[TOP_LEFT], 5436 - 1, 5754 - 1);
+tris.push(corner_ids[TOP_LEFT], 5754 - 1, left_most);
+
+// Leftmost to corners
+tris.push(corner_ids[TOP_LEFT], corner_ids[BOTTOM_LEFT], left_most);
+
+// Ones that link to bottom left
+tris.push(corner_ids[BOTTOM_LEFT], left_most, 1315 - 1);
+tris.push(corner_ids[BOTTOM_LEFT], 1315 - 1, 10825 - 1);
+tris.push(corner_ids[BOTTOM_LEFT], 10825 - 1, bottom_most);
+
+// Bottommost to corners
+tris.push(corner_ids[BOTTOM_LEFT], corner_ids[BOTTOM_RIGHT], bottom_most);
+
+// Ones that link to bottom right
+tris.push(corner_ids[BOTTOM_RIGHT], bottom_most, 12574 - 1);
+tris.push(corner_ids[BOTTOM_RIGHT], 12574 - 1, right_most);
+
+// Make extended fog geometry that goes to the edge
+const extended_fog_geometry = new THREE.BufferGeometry();
+extended_fog_geometry.setAttribute(
+  'position',
+  new THREE.BufferAttribute(positions, 3),
+);
+extended_fog_geometry.setAttribute('color', new THREE.BufferAttribute(colors, 4));
+extended_fog_geometry.setIndex(tris);
+
+// Make a material just using the vertex Colors, for the fog itself
+const fog_material = new THREE.MeshBasicMaterial({
+  vertexColors: true,
+  transparent: true,
+  side: THREE.DoubleSide,
+});
+
+// Add the fog to the scene at Z=0
+const fog = new THREE.Mesh(extended_fog_geometry, fog_material);
+scene.add(fog);
 
 // Now that everything but tiles have been added, draw a frame so the user has
 // something to look at while the tiles load
@@ -314,9 +395,6 @@ redrawScene();
 
 ////////////////////////////////////////////////////////////////////////////////////
 // TILE DRAWING
-// TODO add tiles to layers in the scene and then turn them off when we zoom out :p
-// we do this by removing the 0 layer from tiles and adding a z layer instead
-// and on the camera we'll remove all layers then add zero and our zoom level
 let fetched_tiles = {};
 
 // Function that draws a specified tile to the scene
@@ -328,7 +406,7 @@ async function draw_tile(x, y, z) {
     fetched_tiles[`${z}/${x}/${y}`] = true;
   }
 
-  let z_dif = Math.pow(2, z - 8);
+  let z_dif = Math.pow(2, z - scale_basis);
   let x_pos = (x + 0.5) / z_dif;
   let y_pos = (y + 0.5) / z_dif;
 
@@ -346,38 +424,45 @@ async function draw_tile(x, y, z) {
   const sprite = new THREE.Sprite(spriteMaterial);
   sprite.scale.set(1 / z_dif, 1 / z_dif, 1);
   sprite.position.set(x_pos, -y_pos, -30 + z);
+  sprite.layers.disableAll();
+  sprite.layers.enable(z);
 
   scene.add(sprite);
 }
 
-const scaling_constant = 2.75;
+const scaling_constant = 3.5;
 
 function update_tiles() {
   let camera_width = (camera.right - camera.left) / camera.zoom;
   let camera_height = (camera.top - camera.bottom) / camera.zoom;
   let size = Math.min(camera_width, camera_height);
-  let zoom_level = Math.floor(8 - Math.log2(size / scaling_constant));
-  zoom_level = Math.min(zoom_level, 14);
+  let zoom_level = Math.floor(scale_basis - Math.log2(size / scaling_constant));
+  zoom_level = Math.max(Math.min(zoom_level, 14), 5);
 
-  let coords_scaling = Math.pow(2, zoom_level - 8);
-  let x_min = Math.floor(coords_scaling * (camera.position.x - camera_width / 2));
-  let x_max = Math.ceil(coords_scaling * (camera.position.x + camera_width / 2));
-  let y_min = -Math.ceil(coords_scaling * (camera.position.y + camera_height / 2));
-  let y_max = -Math.floor(coords_scaling * (camera.position.y - camera_height / 2));
+  for (let z = 5; z <= zoom_level; z++) {
+    let coords_scaling = Math.pow(2, z - scale_basis);
+    let x_min = Math.floor(coords_scaling * (camera.position.x - camera_width / 2));
+    let x_max = Math.ceil(coords_scaling * (camera.position.x + camera_width / 2));
+    let y_min = -Math.ceil(coords_scaling * (camera.position.y + camera_height / 2));
+    let y_max = -Math.floor(
+      coords_scaling * (camera.position.y - camera_height / 2),
+    );
 
-  x_min = Math.max(0, x_min - 1);
-  x_max = Math.min(Math.pow(2, zoom_level) - 1, x_max + 1);
-  y_min = Math.max(0, y_min - 1);
-  y_max = Math.min(Math.pow(2, zoom_level) - 1, y_max + 1);
+    x_min = Math.max(Math.pow(2, z - BORDER_SCALE) * LEFT_BORDER, x_min);
+    x_max = Math.min(Math.pow(2, z - BORDER_SCALE) * RIGHT_BORDER - 1, x_max);
+    y_min = Math.max(Math.pow(2, z - BORDER_SCALE) * TOP_BORDER, y_min);
+    y_max = Math.min(Math.pow(2, z - BORDER_SCALE) * BOTTOM_BORDER - 1, y_max);
 
-  // console.log(zoom_level, coords_scaling);
-
-  // console.log(x_min, x_max, y_min, y_max, zoom_level);
-
-  for (let lat = x_min; lat <= x_max; lat++) {
-    for (let lon = y_min; lon <= y_max; lon++) {
-      draw_tile(lat, lon, zoom_level);
+    for (let lat = x_min; lat <= x_max; lat++) {
+      for (let lon = y_min; lon <= y_max; lon++) {
+        draw_tile(lat, lon, z);
+      }
     }
+  }
+
+  camera.layers.disableAll();
+  for (let layer = 0; layer <= zoom_level; layer++) {
+    camera.layers.enable(layer);
   }
 }
 
