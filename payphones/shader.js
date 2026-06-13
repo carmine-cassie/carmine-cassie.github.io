@@ -110,15 +110,17 @@ controls.update();
 
 ////////////////////////////////////////////////////////////////////////////////////
 // PAYPHONE API
-// TODO replace these with dynamically loaded with a promise
 const players = payphones['players'];
 const phones = payphones['payphones'];
 
-// TODO use a url # and look this up via the players data
-const me = 3209;
+// TODO handle no hash given (don't load the page if no hash?)
+const me = window.location.hash.slice(1);
 
 // Get useful stuff from the api data
-const my_phones = past_captures['payphoneIds'];
+let my_phones = (await (await fetch(`past_captures/${me}.json`)).json())[
+  'payphoneIds'
+];
+
 const phone_coords = triangulation['coords'];
 
 // Project all the coords into web mercator
