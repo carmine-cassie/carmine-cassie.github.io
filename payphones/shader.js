@@ -1,6 +1,20 @@
 import * as THREE from 'three';
 import { MapControls } from 'three/addons/controls/MapControls.js';
 
+// Table of Contents:
+// - PROJECTION FUNCTION
+// - SET UP RENDERER
+// - CAMERA & CONTROLS
+// - PAYPHONE API
+// - DRAW EXPLORED DOTS
+// - DRAW UNEXPLORED DOTS
+// - DRAW FOG
+// - TILE DRAWING
+
+////////////////////////////////////////////////////////////////////////////////////
+// PROJECTION FUNCTION
+// Reprojects from equirectangular to xy web mercator coords from 0-256.
+// y value goes from 0 to -256 so that downwards works fine from camera
 function project(lon, lat) {
   const lon_deg = lon;
   const lat_rad = (lat / 180) * Math.PI;
@@ -10,27 +24,16 @@ function project(lon, lat) {
 
   // Based on psuedocode from https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames
   const xtile = n * ((lon_deg + 180) / 360);
-  const ytile = (-n * (1 - Math.log(Math.tan(lat_rad) + 1 / Math.cos(lat_rad)) / Math.PI)) / 2;
+  const ytile =
+    -(n * (1 - Math.log(Math.tan(lat_rad) + 1 / Math.cos(lat_rad)) / Math.PI)) / 2;
 
   return [xtile, ytile];
 }
 
+////////////////////////////////////////////////////////////////////////////////////
+// SET UP RENDERER
 // Get the canvas from the html document
 const canvas = document.querySelector('#bgcanvas');
-
-// Scene setup - simplest possible
-const scene = new THREE.Scene();
-const camera = new THREE.OrthographicCamera();
-camera.position.set(0, 0, 5);
-
-let x = 235.5;
-let y = -153.6;
-let zoom = 1;
-// let zoom = 0.1;
-
-// let x = 135;
-// let y = -27;
-// let zoom = 90;
 
 // Build the renderer
 const renderer = new THREE.WebGLRenderer({
@@ -38,8 +41,24 @@ const renderer = new THREE.WebGLRenderer({
   alpha: true,
   antialias: true,
 });
-// renderer.setPixelRatio( window.devicePixelRatio);
+renderer.setPixelRatio(window.devicePixelRatio);
 renderer.setSize(window.innerWidth, window.innerHeight);
+
+// Scene setup - simplest possible
+const scene = new THREE.Scene();
+
+////////////////////////////////////////////////////////////////////////////////////
+// CAMERA & CONTROLS
+const camera = new THREE.OrthographicCamera();
+camera.position.set(0, 0, 5);
+
+// Initial values for sydney
+// TODO replace these with full-australia view
+// TODO get them from localstorage
+// TODO do these as camera position things rather than random variable
+let x = 235.5;
+let y = -153.6;
+let zoom = 1;
 
 const controls = new MapControls(camera, renderer.domElement);
 controls.mouseButtons = {
@@ -51,27 +70,52 @@ controls.touches = {
 };
 controls.screenSpacePanning = true;
 controls.enableRotate = false;
-controls.enableDamping = true;
 controls.enableDamping = false;
-controls.dampingFactor = 0.15;
 controls.zoomToCursor = true;
 
+controls.addEventListener('change', () => renderer.render(scene, camera));
+
+// Update the size on window resize
+function onWindowResize() {
+  let aspect = window.innerWidth / window.innerHeight;
+  renderer.setSize(window.innerWidth, window.innerHeight);
+
+  // Surely this is unecessary, right? like surely the controls handle this
+  // TODO
+  camera.bottom = y - zoom / aspect / 2;
+  camera.top = y + zoom / aspect / 2;
+  camera.left = x - zoom / 2;
+  camera.right = x + zoom / 2;
+
+  camera.updateProjectionMatrix();
+  renderer.render(scene, camera);
+}
+window.addEventListener('resize', onWindowResize, false);
+
+////////////////////////////////////////////////////////////////////////////////////
+// PAYPHONE API
+// TODO replace these with dynamically loaded with a promise
 const players = payphones['players'];
 const phones = payphones['payphones'];
 
-// todo use a url # and look this up via the players
+// TODO use a url # and look this up via the players data
 const me = 3209;
 
+// Get useful stuff from the api data
 const my_phones = past_captures['payphoneIds'];
 const phone_coords = triangulation['coords'];
 
-// todo, map through the phone coords here, at the start of the doc, and project them into mercator
+// Project all the coords into web mercator
 Object.keys(phone_coords).forEach((id) => {
   phone_coords[id] = project(phone_coords[id][0], phone_coords[id][1]);
 });
 
+// Useful to have just the IDs, for looping through the phones
 const phone_ids = Object.keys(phone_coords);
 
+////////////////////////////////////////////////////////////////////////////////////
+// DRAW EXPLORED DOTS
+// Get a separate set of phone coords that have been explored
 const explored_coords = phone_ids
   .filter((id) => {
     return my_phones.some((i) => {
@@ -82,6 +126,34 @@ const explored_coords = phone_ids
     return phone_coords[id];
   });
 
+// Convert to a Float32Array so we can draw it as a point cloud
+const e_positions = new Float32Array(explored_coords.length * 3);
+for (let i = 0; i < explored_coords.length; i++) {
+  const i3 = i * 3;
+
+  e_positions[i3 + 0] = explored_coords[i][0];
+  e_positions[i3 + 1] = explored_coords[i][1];
+  e_positions[i3 + 2] = 0;
+}
+
+// Write those points into a buffer geometry,
+const e_geometry = new THREE.BufferGeometry();
+e_geometry.setAttribute('position', new THREE.BufferAttribute(e_positions, 3));
+
+// Add a point cloud material
+const e_material = new THREE.PointsMaterial({
+  color: 0xffffff,
+  size: 1.5,
+});
+
+// And add it to the scene as a point cloud at Z=3
+const e_points = new THREE.Points(e_geometry, e_material);
+e_points.translateZ(3);
+scene.add(e_points);
+
+////////////////////////////////////////////////////////////////////////////////////
+// DRAW UNEXPLORED DOTS
+// Get a separate set of phone coords that have not been explored
 const unexplored_coords = phone_ids
   .filter((id) => {
     return !my_phones.some((i) => {
@@ -92,18 +164,8 @@ const unexplored_coords = phone_ids
     return phone_coords[id];
   });
 
-const e_positions = new Float32Array(explored_coords.length * 3);
-
-for (let i = 0; i < explored_coords.length; i++) {
-  const i3 = i * 3;
-
-  e_positions[i3 + 0] = explored_coords[i][0];
-  e_positions[i3 + 1] = explored_coords[i][1];
-  e_positions[i3 + 2] = 0;
-}
-
+// Convert to a Float32Array so we can draw it as a point cloud
 const u_positions = new Float32Array(unexplored_coords.length * 3);
-
 for (let i = 0; i < unexplored_coords.length; i++) {
   const i3 = i * 3;
 
@@ -112,29 +174,25 @@ for (let i = 0; i < unexplored_coords.length; i++) {
   u_positions[i3 + 2] = 0;
 }
 
-// Combine those positions into a point cloud, and add it to the scene
-const e_geometry = new THREE.BufferGeometry();
-e_geometry.setAttribute('position', new THREE.BufferAttribute(e_positions, 3));
-const e_material = new THREE.PointsMaterial({
-  color: 0xffffff,
-  size: 1.5,
-});
-const e_points = new THREE.Points(e_geometry, e_material);
-e_points.translateZ(3);
-scene.add(e_points);
-
+// Write those points into a buffer geometry,
 const u__geometry = new THREE.BufferGeometry();
 u__geometry.setAttribute('position', new THREE.BufferAttribute(u_positions, 3));
+
+// Add a point cloud material
 const u_material = new THREE.PointsMaterial({
   color: 0x777777,
   size: 1.5,
 });
+
+// And add it to the scene as a point cloud at Z=2
 const u_points = new THREE.Points(u__geometry, u_material);
 u_points.translateZ(2);
 scene.add(u_points);
 
+////////////////////////////////////////////////////////////////////////////////////
+// DRAW FOG
+// Create a Float32Array of all the phones
 const positions = new Float32Array(phone_ids.length * 3);
-
 for (let i = 0; i < phone_ids.length; i++) {
   const i3 = i * 3;
 
@@ -143,10 +201,12 @@ for (let i = 0; i < phone_ids.length; i++) {
   positions[i3 + 2] = -1;
 }
 
+// Create a Float32Array for RGBA vertex colour
 const colors = new Float32Array(phone_ids.length * 4);
 for (let i = 0; i < phone_ids.length; i++) {
   const i4 = i * 4;
 
+  // Check if we've explored this phone
   let explored = 0;
   if (
     my_phones.some((id) => {
@@ -156,15 +216,16 @@ for (let i = 0; i < phone_ids.length; i++) {
     explored = 1;
   }
 
-  // colors[i4 + 0] = 0.8784313725490196
-  // colors[i4 + 1] = 0.8745098039215686
-  // colors[i4 + 2] = 0.8745098039215686
+  // #cbcbcbff if unexplored, #cbcbcb00 if explored
   colors[i4 + 0] = 0.6;
   colors[i4 + 1] = 0.6;
   colors[i4 + 2] = 0.6;
   colors[i4 + 3] = 1 - explored;
 }
 
+// Read the triangles into an array
+// (We do this because each triangle is the vertex list followed by area, and
+// we just want to fully flatten it out)
 let triangles = triangulation['triangles'];
 let tris = [];
 for (let i = 0; i < triangles.length; i++) {
@@ -175,85 +236,75 @@ for (let i = 0; i < triangles.length; i++) {
   tris[i3 + 2] = triangles[i][2] - 1;
 }
 
+// Put all those arrays into some Buffer Geometry
 const fog_geometry = new THREE.BufferGeometry();
-fog_geometry.setIndex(tris);
 fog_geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
 fog_geometry.setAttribute('color', new THREE.BufferAttribute(colors, 4));
+fog_geometry.setIndex(tris);
+
+// Make a material just using the vertex Colors, for the fog itself
 const fog_material = new THREE.MeshBasicMaterial({
   vertexColors: true,
   transparent: true,
   side: THREE.DoubleSide,
 });
+
+// Add the fog to the scene at Z=0
+const fog = new THREE.Mesh(fog_geometry, fog_material);
+scene.add(fog);
+
+// Make a material that's about 85% brightness and wireframe
+// (About the same colour as the unexplored dots)
 const wireframe_material = new THREE.MeshBasicMaterial({
   vertexColors: true,
   transparent: true,
   color: 0xdddddd,
   wireframe: true,
 });
-const fog = new THREE.Mesh(fog_geometry, fog_material);
-scene.add(fog);
+
+// Add the wireframe to the scene at Z=1
 const wireframe = new THREE.Mesh(fog_geometry, wireframe_material);
 wireframe.translateZ(1);
 scene.add(wireframe);
 
-function height(z, y) {
-  let n = Math.pow(2, z);
-  let lat = (Math.atan(Math.sinh(Math.PI * (1 - (2 * y) / n))) * 180.0) / Math.PI;
-  let height = (Math.atan(Math.sinh(Math.PI * (1 - (2 * (y - 1)) / n))) * 180.0) / Math.PI - lat;
-  return height;
-}
+// Now that everything but tiles have been added, draw a frame so the user has
+// something to look at while the tiles load
+onWindowResize();
 
+////////////////////////////////////////////////////////////////////////////////////
+// TILE DRAWING
+// Function that draws a specified tile to the scene
+// It gets added at -30 + Z
 function draw_tile(x, y, z) {
   let z_dif = Math.pow(2, z - 8);
   let x_pos = (x + 0.5) / z_dif;
   let y_pos = (y + 0.5) / z_dif;
 
   const textureLoader = new THREE.TextureLoader();
-  const spriteTexture = textureLoader.load(`https://tile.openstreetmap.org/${z}/${x}/${y}.png`, () =>
-    renderer.render(scene, camera),
+  const spriteTexture = textureLoader.load(
+    `https://tile.openstreetmap.org/${z}/${x}/${y}.png`,
+    () => renderer.render(scene, camera),
   );
+
   const spriteMaterial = new THREE.SpriteMaterial({
     map: spriteTexture,
     color: 0xffffff,
   });
+
   const sprite = new THREE.Sprite(spriteMaterial);
   sprite.scale.set(1 / z_dif, 1 / z_dif, 1);
   sprite.position.set(x_pos, -y_pos, -30 + z);
 
   scene.add(sprite);
-  renderer.render(scene, camera);
 }
 
+// Draw some sydney tiles
+// TODO replace this, add a thing where on camera move we figure out where we are
+// and decide if we need more tiles, and draw them if so.
+// Maybe there's a function to get top left, top right, and ofc we need to figure out
+// Zoom level scaling etc.
 for (let lat = 3766 * 1; lat <= 3770 * 1; lat++) {
   for (let lon = 2455 * 1; lon <= 2459 * 1; lon++) {
     draw_tile(lat, lon, 12);
   }
 }
-
-// Update the size on window resize
-function onWindowResize() {
-  let aspect = window.innerWidth / window.innerHeight;
-  renderer.setSize(window.innerWidth, window.innerHeight);
-
-  camera.bottom = y - zoom / aspect / 2;
-  camera.top = y + zoom / aspect / 2;
-  camera.left = x - zoom / 2;
-  camera.right = x + zoom / 2;
-
-  camera.updateProjectionMatrix();
-  renderer.render(scene, camera);
-}
-window.addEventListener('resize', onWindowResize, false);
-onWindowResize();
-
-function animate() {
-  //   requestAnimationFrame(animate)
-
-  controls.update();
-
-  renderer.render(scene, camera);
-}
-
-// animate()
-
-controls.addEventListener('change', () => renderer.render(scene, camera));
