@@ -21,8 +21,8 @@ if payphones.status_code == 200:
 
 triangulation = requests.get("https://payphonetag.com/api/triangulation")
 if triangulation.status_code == 200:
-    with open("triangulation.js", "wb") as file:
-        file.write("payphones/triangulation = ".encode())
+    with open("payphones/triangulation.js", "wb") as file:
+        file.write("triangulation = ".encode())
         file.write(triangulation.content)
 
 print("Done!")
