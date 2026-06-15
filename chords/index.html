@@ -29,15 +29,14 @@
         <h1>Chord Trainer</h1>
 
         <p>
-          When I learned piano as a kid (and every time I've dipped my toes back
-          in since), I've been more focused on plodding through sheet music
-          than, like, music theory fundamentals. I don't have the ability to
-          play chords by name or recognise intervals, but I'd like to be able to
-          accompany myself from Lead Sheets or Chord Sheets (The sort you find
-          on
-          <a href="https://www.ultimate-guitar.com/explore">Ultimate Guitar</a
-          >)! I put together this quick practice tool in an effort to help me
-          develop those skills a bit.
+          When I learned piano as a kid (and every time I've dipped my toes back in
+          since), I've been more focused on plodding through sheet music than, like,
+          music theory fundamentals. I don't have the ability to play chords by name
+          or recognise intervals, but I'd like to be able to accompany myself from
+          Lead Sheets or Chord Sheets (The sort you find on
+          <a href="https://www.ultimate-guitar.com/explore">Ultimate Guitar</a>)! I
+          put together this quick practice tool in an effort to help me develop those
+          skills a bit.
         </p>
 
         <h1>Interval Practice</h1>
@@ -129,7 +128,9 @@
             <td><input type="checkbox" onclick="gen_chords()" id="chord_7/1" /></td>
             <td><input type="checkbox" onclick="gen_chords()" id="chord_m7/1" /></td>
             <td><input type="checkbox" onclick="gen_chords()" id="chord_M7/1" /></td>
-            <td><input type="checkbox" onclick="gen_chords()" id="chord_mM7/1" /></td>
+            <td>
+              <input type="checkbox" onclick="gen_chords()" id="chord_mM7/1" />
+            </td>
             <td></td>
             <td><input type="checkbox" onclick="gen_chords()" id="chord_6/1" /></td>
             <td><input type="checkbox" onclick="gen_chords()" id="chord_m6/1" /></td>
@@ -143,7 +144,9 @@
             <td><input type="checkbox" onclick="gen_chords()" id="chord_7/2" /></td>
             <td><input type="checkbox" onclick="gen_chords()" id="chord_m7/2" /></td>
             <td><input type="checkbox" onclick="gen_chords()" id="chord_M7/2" /></td>
-            <td><input type="checkbox" onclick="gen_chords()" id="chord_mM7/2" /></td>
+            <td>
+              <input type="checkbox" onclick="gen_chords()" id="chord_mM7/2" />
+            </td>
             <td></td>
             <td><input type="checkbox" onclick="gen_chords()" id="chord_6/2" /></td>
             <td><input type="checkbox" onclick="gen_chords()" id="chord_m6/2" /></td>
@@ -157,7 +160,9 @@
             <td><input type="checkbox" onclick="gen_chords()" id="chord_7/3" /></td>
             <td><input type="checkbox" onclick="gen_chords()" id="chord_m7/3" /></td>
             <td><input type="checkbox" onclick="gen_chords()" id="chord_M7/3" /></td>
-            <td><input type="checkbox" onclick="gen_chords()" id="chord_mM7/3" /></td>
+            <td>
+              <input type="checkbox" onclick="gen_chords()" id="chord_mM7/3" />
+            </td>
             <td></td>
             <td><input type="checkbox" onclick="gen_chords()" id="chord_6/3" /></td>
             <td><input type="checkbox" onclick="gen_chords()" id="chord_m6/3" /></td>
@@ -176,8 +181,8 @@
 <script>
   const NUM_NOTES = 12;
   const notes = [
-    ["C", "C♯", "D", "D♯", "E", "F", "F♯", "G", "G♯", "A", "A♯", "B"],
-    ["C", "D♭", "D", "E♭", "E", "F", "G♭", "G", "A♭", "A", "B♭", "B"],
+    ['C', 'C♯', 'D', 'D♯', 'E', 'F', 'F♯', 'G', 'G♯', 'A', 'A♯', 'B'],
+    ['C', 'D♭', 'D', 'E♭', 'E', 'F', 'G♭', 'G', 'A♭', 'A', 'B♭', 'B'],
   ];
 
   function i(note, interval) {
@@ -186,122 +191,122 @@
 
   // We use fraction slash rather than the regular forward-slash so that the lines don't get broken - kinda weird but whatever
   const chords = {
-    "": (notes, note) => {
-      return notes[note] + "";
+    '': (notes, note) => {
+      return notes[note] + '';
     },
-    "/1": (notes, note) => {
-      return notes[note] + "⁄" + notes[i(note, 4)];
+    '/1': (notes, note) => {
+      return notes[note] + '⁄' + notes[i(note, 4)];
     },
-    "/2": (notes, note) => {
-      return notes[note] + "⁄" + notes[i(note, 7)];
+    '/2': (notes, note) => {
+      return notes[note] + '⁄' + notes[i(note, 7)];
     },
     m: (notes, note) => {
-      return notes[note] + "m";
+      return notes[note] + 'm';
     },
-    "m/1": (notes, note) => {
-      return notes[note] + "m⁄" + notes[i(note, 3)];
+    'm/1': (notes, note) => {
+      return notes[note] + 'm⁄' + notes[i(note, 3)];
     },
-    "m/2": (notes, note) => {
-      return notes[note] + "m⁄" + notes[i(note, 7)];
+    'm/2': (notes, note) => {
+      return notes[note] + 'm⁄' + notes[i(note, 7)];
     },
     dim: (notes, note) => {
-      return notes[note] + "o";
+      return notes[note] + 'o';
     },
     aug: (notes, note) => {
-      return notes[note] + "+";
+      return notes[note] + '+';
     },
     7: (notes, note) => {
-      return notes[note] + "7";
+      return notes[note] + '7';
     },
-    "7/1": (notes, note) => {
-      return notes[note] + "7⁄" + notes[i(note, 4)];
+    '7/1': (notes, note) => {
+      return notes[note] + '7⁄' + notes[i(note, 4)];
     },
-    "7/2": (notes, note) => {
-      return notes[note] + "7⁄" + notes[i(note, 7)];
+    '7/2': (notes, note) => {
+      return notes[note] + '7⁄' + notes[i(note, 7)];
     },
-    "7/3": (notes, note) => {
-      return notes[note] + "7⁄" + notes[i(note, 10)];
+    '7/3': (notes, note) => {
+      return notes[note] + '7⁄' + notes[i(note, 10)];
     },
     m7: (notes, note) => {
-      return notes[note] + "m7";
+      return notes[note] + 'm7';
     },
-    "m7/1": (notes, note) => {
-      return notes[note] + "m7⁄" + notes[i(note, 3)];
+    'm7/1': (notes, note) => {
+      return notes[note] + 'm7⁄' + notes[i(note, 3)];
     },
-    "m7/2": (notes, note) => {
-      return notes[note] + "m7⁄" + notes[i(note, 7)];
+    'm7/2': (notes, note) => {
+      return notes[note] + 'm7⁄' + notes[i(note, 7)];
     },
-    "m7/3": (notes, note) => {
-      return notes[note] + "m7⁄" + notes[i(note, 10)];
+    'm7/3': (notes, note) => {
+      return notes[note] + 'm7⁄' + notes[i(note, 10)];
     },
     M7: (notes, note) => {
-      return notes[note] + "Δ7";
+      return notes[note] + 'Δ7';
     },
-    "M7/1": (notes, note) => {
-      return notes[note] + "Δ7⁄" + notes[i(note, 4)];
+    'M7/1': (notes, note) => {
+      return notes[note] + 'Δ7⁄' + notes[i(note, 4)];
     },
-    "M7/2": (notes, note) => {
-      return notes[note] + "Δ7⁄" + notes[i(note, 7)];
+    'M7/2': (notes, note) => {
+      return notes[note] + 'Δ7⁄' + notes[i(note, 7)];
     },
-    "M7/3": (notes, note) => {
-      return notes[note] + "Δ7⁄" + notes[i(note, 11)];
+    'M7/3': (notes, note) => {
+      return notes[note] + 'Δ7⁄' + notes[i(note, 11)];
     },
     mM7: (notes, note) => {
-      return notes[note] + "mΔ7";
+      return notes[note] + 'mΔ7';
     },
-    "mM7/1": (notes, note) => {
-      return notes[note] + "mΔ7⁄" + notes[i(note, 3)];
+    'mM7/1': (notes, note) => {
+      return notes[note] + 'mΔ7⁄' + notes[i(note, 3)];
     },
-    "mM7/2": (notes, note) => {
-      return notes[note] + "mΔ7⁄" + notes[i(note, 7)];
+    'mM7/2': (notes, note) => {
+      return notes[note] + 'mΔ7⁄' + notes[i(note, 7)];
     },
-    "mM7/3": (notes, note) => {
-      return notes[note] + "mΔ7⁄" + notes[i(note, 11)];
+    'mM7/3': (notes, note) => {
+      return notes[note] + 'mΔ7⁄' + notes[i(note, 11)];
     },
     hdim: (notes, note) => {
-      return notes[note] + "ø7";
+      return notes[note] + 'ø7';
     },
     6: (notes, note) => {
-      return notes[note] + "6";
+      return notes[note] + '6';
     },
-    "6/1": (notes, note) => {
-      return notes[note] + "6⁄" + notes[i(note, 4)];
+    '6/1': (notes, note) => {
+      return notes[note] + '6⁄' + notes[i(note, 4)];
     },
-    "6/2": (notes, note) => {
-      return notes[note] + "6⁄" + notes[i(note, 7)];
+    '6/2': (notes, note) => {
+      return notes[note] + '6⁄' + notes[i(note, 7)];
     },
-    "6/3": (notes, note) => {
-      return notes[note] + "6⁄" + notes[i(note, 9)];
+    '6/3': (notes, note) => {
+      return notes[note] + '6⁄' + notes[i(note, 9)];
     },
     m6: (notes, note) => {
-      return notes[note] + "m6";
+      return notes[note] + 'm6';
     },
-    "m6/1": (notes, note) => {
-      return notes[note] + "m6⁄" + notes[i(note, 3)];
+    'm6/1': (notes, note) => {
+      return notes[note] + 'm6⁄' + notes[i(note, 3)];
     },
-    "m6/2": (notes, note) => {
-      return notes[note] + "m6⁄" + notes[i(note, 7)];
+    'm6/2': (notes, note) => {
+      return notes[note] + 'm6⁄' + notes[i(note, 7)];
     },
-    "m6/3": (notes, note) => {
-      return notes[note] + "m6⁄" + notes[i(note, 9)];
+    'm6/3': (notes, note) => {
+      return notes[note] + 'm6⁄' + notes[i(note, 9)];
     },
   };
 
-  const directions = ["↑", "↓"];
-  const dir_names = { "↑": "up_", "↓": "down_" };
+  const directions = ['↑', '↓'];
+  const dir_names = { '↑': 'up_', '↓': 'down_' };
 
   const intervals = [
-    "m2",
-    "M2",
-    "m3",
-    "M3",
-    "P4",
-    "TT",
-    "P5",
-    "m6",
-    "M6",
-    "m7",
-    "M7",
+    'm2',
+    'M2',
+    'm3',
+    'M3',
+    'P4',
+    'TT',
+    'P5',
+    'm6',
+    'M6',
+    'm7',
+    'M7',
   ];
 
   // Fisher-Yates from https://javascript.info/array-methods#shuffle-an-array
@@ -328,14 +333,14 @@
 
     shuffle(interval_string);
 
-    let interval_element = document.getElementById("intervals");
-    interval_element.innerText = interval_string.join("\t");
+    let interval_element = document.getElementById('intervals');
+    interval_element.innerText = interval_string.join('\t');
   }
 
   function gen_chords() {
     let chord_string = [];
     Object.keys(chords).forEach((chord) => {
-      if (document.getElementById("chord_" + chord).checked) {
+      if (document.getElementById('chord_' + chord).checked) {
         notes.forEach((notes) => {
           for (note = 0; note < NUM_NOTES; note++) {
             chord_string.push(chords[chord](notes, note));
@@ -346,8 +351,8 @@
 
     shuffle(chord_string);
 
-    let chord_element = document.getElementById("chords");
-    chord_element.innerText = chord_string.join("\t");
+    let chord_element = document.getElementById('chords');
+    chord_element.innerText = chord_string.join('\t');
   }
 
   gen_intervals();
