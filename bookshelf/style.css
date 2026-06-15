@@ -7,10 +7,14 @@ body {
     font-family: cozette;
     font-size: 13px;
     margin: 0px;
+
+    background-image: url('books.png');
+    background-position: center top;
 }
 
 .book {
     border: 1px black solid;
+    background-color: white;
     width: fit-content;
     margin-bottom: -1px;
 
@@ -90,7 +94,7 @@ h1 {
     font-size: 52px;
     text-align: center;
     font-weight: normal;
-    margin-top: -25px;
+    margin-top: -15px;
     margin-bottom: -5px;
 }
 
