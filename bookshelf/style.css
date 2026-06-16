@@ -26,6 +26,14 @@ body {
     margin-right: auto;
 
     position: relative;
+
+    background-image: url('gradient.png');
+    background-repeat: repeat-x;
+    background-position: bottom;
+}
+
+.shelf-bottom {
+    background-image: none;
 }
 
 .small {
