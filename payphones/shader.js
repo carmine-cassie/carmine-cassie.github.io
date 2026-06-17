@@ -208,7 +208,7 @@ if (window.location.hash) {
 
   // Add a point cloud material
   const e_material = new THREE.PointsMaterial({
-    color: 0xffffff,
+    color: 0xe0e0e0,
     size: 1.5,
   });
 
@@ -309,9 +309,11 @@ if (window.location.hash) {
       explored = 1;
     }
 
-    colors[i4 + 0] = 0.45;
-    colors[i4 + 1] = 0.45;
-    colors[i4 + 2] = 0.45;
+    const brightness = 0.45 - (phone_ids[i] % 10) / 200;
+
+    colors[i4 + 0] = brightness;
+    colors[i4 + 1] = brightness;
+    colors[i4 + 2] = brightness;
     colors[i4 + 3] = 1 - explored;
   }
 
