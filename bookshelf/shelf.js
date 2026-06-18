@@ -4,12 +4,12 @@
 const shelves = {
   Current: [
     {
-      series: 'Arc of a Scythe',
-      entry: '3',
-      title: 'The Toll',
-      author: 'Neal Shusterman',
-      words: 146547,
-      size: 'medium',
+      series: 'Twig',
+      entry: '16',
+      title: 'Head over Heels',
+      author: 'Wildbow',
+      words: 73805,
+      size: 'large',
     },
     {
       title: 'Valuable Humans in Transit and Other Stories',
@@ -26,6 +26,14 @@ const shelves = {
     },
   ],
   'Jun 2026': [
+    {
+      series: 'Arc of a Scythe',
+      entry: '3',
+      title: 'The Toll',
+      author: 'Neal Shusterman',
+      words: 146547,
+      size: 'medium',
+    },
     {
       series: 'Twig',
       entry: '15',
@@ -77,14 +85,6 @@ const shelves = {
   // Books I have on my kindle, so it's easier to add them to this page
   /*
   Kindle: [
-    {
-      series: 'Twig',
-      entry: '16',
-      title: 'Head over Heels',
-      author: 'Wildbow',
-      words: 73805,
-      size: 'large',
-    },
     {
       series: 'Twig',
       entry: '17',
