@@ -1,0 +1,57 @@
+<html>
+  <head>
+    <title>New tab</title>
+
+    <style>
+      :root {
+        background-color: #32302f;
+        color: #ebdbb2;
+        font-family: 'kirsch';
+        font-size: 16px;
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body
+    style="
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      height: 85vh;
+      overflow: hidden;
+    "
+  >
+    <h1
+      id="time"
+      style="
+        font-size: 8em;
+        font-weight: normal;
+        font-family: 'OwreKynge';
+        margin: 0;
+        text-shadow: 4px 4px 0px #d65d0e;
+      "
+    >
+      00:00am
+    </h1>
+    <p
+      id="date"
+      style="font-size: 3em; margin: -20px; text-shadow: 2px 2px 0px #d65d0e"
+    >
+      Weekday, Month, Day
+    </p>
+  </body>
+</html>
+
+<script>
+  const date = new Date();
+  const weekday = date.toLocaleDateString('en-au', { weekday: 'long' });
+  const month = date.toLocaleDateString('en-au', { month: 'long' });
+  const day = date.toLocaleDateString('en-au', { day: 'numeric' });
+  document.getElementById('date').innerText = `${weekday}, ${month} ${day}`;
+
+  const time = date.toLocaleTimeString('en-au', {
+    hour: 'numeric',
+    minute: '2-digit',
+  });
+  document.getElementById('time').innerText = time;
+</script>
