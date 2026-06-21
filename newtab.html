@@ -1,5 +1,6 @@
 <html>
   <head>
+    <meta charset="utf-8" />
     <title>New tab</title>
 
     <style>
@@ -9,6 +10,21 @@
         font-family: 'kirsch';
         font-size: 16px;
         text-align: center;
+
+        --day: #ebdbb2;
+        --night: #1d2021;
+
+        /* Neutral Versions */
+        --outline: #d79921;
+        --outline: #d65d0e;
+
+        /* Bright versions */
+        --golden: #fabd2f;
+        --sun: #fe8019;
+
+        --civil: #83a598;
+        --nautical: #458588;
+        --astronomical: #076678;
       }
     </style>
   </head>
@@ -17,6 +33,7 @@
       display: flex;
       flex-direction: column;
       justify-content: center;
+      align-items: center;
       height: 85vh;
       overflow: hidden;
     "
@@ -31,18 +48,48 @@
         text-shadow: 4px 4px 0px #d65d0e;
       "
     >
-      00:00am
+      &nbsp;
     </h1>
     <p
       id="date"
-      style="font-size: 3em; margin: -20px; text-shadow: 2px 2px 0px #d65d0e"
+      style="
+        font-size: 3em;
+        margin: 0;
+        margin-top: -20px;
+        text-shadow: 2px 2px 0px #d65d0e;
+      "
     >
-      Weekday, Month, Day
+      &nbsp;
     </p>
+    <div
+      id="day"
+      style="
+        background-color: var(--night);
+        height: 20px;
+        width: 50vw;
+        margin: 20px;
+        border: 2px ridge #928374;
+        border-radius: 10px;
+        box-shadow: 0px 3px 3px var(--night);
+      "
+    >
+      <div
+        id="pointer"
+        style="
+          border: 2px inset #928374;
+          box-sizing: border-box;
+          position: relative;
+          width: 20px;
+          height: 20px;
+          border-radius: 100%;
+          text-align: center;
+        "
+      ></div>
+    </div>
   </body>
 </html>
 
-<script>
+<script type="module" defer>
   const date = new Date();
   const weekday = date.toLocaleDateString('en-au', { weekday: 'long' });
   const month = date.toLocaleDateString('en-au', { month: 'long' });
@@ -54,4 +101,120 @@
     minute: '2-digit',
   });
   document.getElementById('time').innerText = time.replace(' ', '');
+
+  import * as SunCalc from 'https://cdn.jsdelivr.net/npm/suncalc/+esm';
+
+  // TODO let the user freaking change this
+  const lat = -33.87;
+  const lon = 151.21;
+
+  const sunTimes = SunCalc.getTimes(date, lat, lon);
+
+  // TODO write date to percent function
+  function dateToPercent(date) {
+    const hour = +date.toLocaleTimeString('en-au', {
+      hour12: false,
+      hour: 'numeric',
+    });
+    const minute = +date.toLocaleTimeString('en-au', { minute: 'numeric' });
+    const second = +date.toLocaleTimeString('en-au', { second: 'numeric' });
+
+    const percent = (100 * (second + 60 * minute + 60 * 60 * hour)) / (60 * 60 * 24);
+    return percent;
+  }
+
+  const delta = 0.01;
+  const tickWidth = 0.25;
+  let stops = [];
+
+  function addStop(date, startColor, endColor) {
+    if (date) {
+      stops.push({ percent: dateToPercent(date) - delta, color: startColor });
+      stops.push({ percent: dateToPercent(date) + delta, color: endColor });
+    }
+  }
+
+  function addTick(date, tickColor, baseColor) {
+    if (date) {
+      stops.push({
+        percent: dateToPercent(date) - tickWidth - delta,
+        color: baseColor,
+      });
+      stops.push({
+        percent: dateToPercent(date) - tickWidth + delta,
+        color: tickColor,
+      });
+      stops.push({
+        percent: dateToPercent(date) + tickWidth - delta,
+        color: tickColor,
+      });
+      stops.push({
+        percent: dateToPercent(date) + tickWidth + delta,
+        color: baseColor,
+      });
+    }
+  }
+
+  addStop(sunTimes.nightEnd, 'night', 'astronomical');
+  addStop(sunTimes.nauticalDawn, 'astronomical', 'nautical');
+  addStop(sunTimes.dawn, 'nautical', 'civil');
+  addStop(sunTimes.sunrise, 'civil', 'sun');
+  addStop(sunTimes.sunriseEnd, 'sun', 'golden');
+  addStop(sunTimes.goldenHourEnd, 'golden', 'day');
+  addStop(sunTimes.goldenHour, 'day', 'golden');
+  addStop(sunTimes.sunsetStart, 'golden', 'sun');
+  addStop(sunTimes.sunset, 'sun', 'civil');
+  addStop(sunTimes.dusk, 'civil', 'nautical');
+  addStop(sunTimes.nauticalDusk, 'nautical', 'astronomical');
+  addStop(sunTimes.night, 'astronomical', 'night');
+
+  let lightestColour = 'night';
+  if (sunTimes.goldenHourEnd) {
+    lightestColour = 'day';
+  } else if (sunTimes.sunriseEnd) {
+    lightestColour = 'golden';
+  } else if (sunTimes.sunrise) {
+    lightestColour = 'sun';
+  } else if (sunTimes.dawn) {
+    lightestColour = 'civil';
+  } else if (sunTimes.nauticalDawn) {
+    lightestColour = 'nautical';
+  } else if (sunTimes.nightEnd) {
+    lightestColour = 'astronomical';
+  }
+
+  let darkestColour = 'day';
+  if (sunTimes.night) {
+    darkestColour = 'night';
+  } else if (sunTimes.nauticalDusk) {
+    darkestColour = 'astronomical';
+  } else if (sunTimes.dusk) {
+    darkestColour = 'nautical';
+  } else if (sunTimes.sunset) {
+    darkestColour = 'civil';
+  } else if (sunTimes.sunsetStart) {
+    darkestColour = 'sun';
+  } else if (sunTimes.goldenHour) {
+    darkestColour = 'golden';
+  }
+
+  addTick(sunTimes.solarNoon, 'sun', lightestColour);
+  addTick(sunTimes.nadir, 'sun', darkestColour);
+
+  stops.sort((a, b) => {
+    return a['percent'] - b['percent'];
+  });
+
+  let gradient = 'linear-gradient(0.25turn';
+
+  stops.forEach(({ percent, color }) => {
+    gradient += `, var(--${color}) ${percent}%`;
+  });
+
+  gradient += ')';
+
+  console.log(gradient);
+  document.getElementById('day').style.backgroundImage = gradient;
+
+  document.getElementById('pointer').style.left = `${dateToPercent(date)}%`;
 </script>
