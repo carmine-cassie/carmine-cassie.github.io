@@ -180,45 +180,57 @@ if (window.location.hash) {
   const phone_ids = Object.keys(phone_coords);
 
   ////////////////////////////////////////////////////////////////////////////////////
-  // DRAW EXPLORED DOTS
-  // Get a separate set of phone coords that have been explored
-  const explored_coords = phone_ids
-    .filter((id) => {
-      return my_phones.some((i) => {
-        return i == id;
-      });
-    })
-    .map((id) => {
-      return phone_coords[id];
+  // DRAW ADJACENT DOTS
+  // Get a set of phone coords that are unexplored but adjacent to explored
+  let adjacent_coords = [];
+
+  const phone_edges = triangulation['edges'];
+  phone_edges.map(([a, b]) => {
+    const a_explored = my_phones.some((i) => {
+      return i == a;
+    });
+    const b_explored = my_phones.some((i) => {
+      return i == b;
     });
 
+    if (a_explored && !b_explored) {
+      adjacent_coords.push(phone_coords[b]);
+    } else if (!a_explored && b_explored) {
+      adjacent_coords.push(phone_coords[a]);
+    }
+  });
+
+  // remove duplicates
+  adjacent_coords = [...new Set(adjacent_coords)];
+
   // Convert to a Float32Array so we can draw it as a point cloud
-  const e_positions = new Float32Array(explored_coords.length * 3);
-  for (let i = 0; i < explored_coords.length; i++) {
+  const a_positions = new Float32Array(adjacent_coords.length * 3);
+  for (let i = 0; i < adjacent_coords.length; i++) {
     const i3 = i * 3;
 
-    e_positions[i3 + 0] = explored_coords[i][0];
-    e_positions[i3 + 1] = explored_coords[i][1];
-    e_positions[i3 + 2] = 0;
+    a_positions[i3 + 0] = adjacent_coords[i][0];
+    a_positions[i3 + 1] = adjacent_coords[i][1];
+    a_positions[i3 + 2] = 0;
   }
 
   // Write those points into a buffer geometry,
-  const e_geometry = new THREE.BufferGeometry();
-  e_geometry.setAttribute('position', new THREE.BufferAttribute(e_positions, 3));
+  const a_geometry = new THREE.BufferGeometry();
+  a_geometry.setAttribute('position', new THREE.BufferAttribute(a_positions, 3));
 
   // Add a point cloud material
-  const e_material = new THREE.PointsMaterial({
+  const a_material = new THREE.PointsMaterial({
     color: 0xe0e0e0,
-    size: 1.5,
+    size: 2,
   });
 
   // And add it to the scene as a point cloud at Z=3
-  const e_points = new THREE.Points(e_geometry, e_material);
-  e_points.translateZ(3);
-  scene.add(e_points);
+  const a_points = new THREE.Points(a_geometry, a_material);
+  a_points.translateZ(3);
+  scene.add(a_points);
 
   ////////////////////////////////////////////////////////////////////////////////////
   // DRAW UNEXPLORED DOTS
+  // (these will go under the adjacent ones, which is fiiiine)
   // Get a separate set of phone coords that have not been explored
   const unexplored_coords = phone_ids
     .filter((id) => {
