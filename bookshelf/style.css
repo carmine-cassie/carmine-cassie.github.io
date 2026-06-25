@@ -3,6 +3,15 @@
   src: url("/assets/fonts/CozetteVector.otf") format('opentype');
 }
 
+@font-face {
+  font-family: "micro5";
+  src: url("/assets/fonts/micro.5.ttf") format('opentype');
+}
+
+:root {
+    image-rendering: pixelated;
+}
+
 body {
     font-family: cozette;
     font-size: 13px;
@@ -34,6 +43,19 @@ body {
 
 .shelf-bottom {
     background-image: none;
+}
+
+.tiny {
+    width: 200px;
+    padding-left: 1px;
+    padding-right: 1px;
+    font-size: 11px;
+    font-family: 'micro5';
+
+    span {
+        margin-top: -1px;
+        margin-bottom: 1px;
+    }
 }
 
 .small {
