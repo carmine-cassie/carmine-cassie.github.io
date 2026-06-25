@@ -11,6 +11,8 @@
         font-size: 16px;
         text-align: center;
 
+        --bg: #32302f;
+
         --day: #ebdbb2;
         --night: #1d2021;
 
@@ -25,6 +27,32 @@
         --civil: #83a598;
         --nautical: #458588;
         --astronomical: #076678;
+      }
+
+      p {
+        margin: 0;
+      }
+
+      button {
+        font-family: 'kirsch';
+        font-size: 16px;
+        background-color: var(--bg);
+        border: 1px solid var(--sun);
+        color: var(--day);
+        border-radius: 5px;
+        cursor: pointer;
+      }
+
+      input {
+        height: 16px;
+        width: 4.5em;
+        text-align: center;
+        font-size: 16px;
+        font-family: 'kirsch';
+        background-color: var(--bg);
+        border: 1px solid var(--sun);
+        color: var(--day);
+        margin: 5px;
       }
     </style>
   </head>
@@ -87,6 +115,40 @@
         "
       ></div>
     </div>
+
+    <div
+      style="
+        position: fixed;
+        bottom: 5px;
+        right: 5px;
+        border: 1px solid var(--day);
+        background: var(--night);
+        width: fit-content;
+        border-radius: 5px;
+        padding: 5px;
+      "
+    >
+      <details>
+        <summary style="cursor: pointer">Settings</summary>
+        <p>Lat: <input id="lat-input" /></p>
+        <p>Lon: <input id="lon-input" /></p>
+        <button
+          onclick="
+            window.localStorage.setItem(
+              'lat',
+              document.getElementById('lat-input').value,
+            );
+            window.localStorage.setItem(
+              'lon',
+              document.getElementById('lon-input').value,
+            );
+            window.location.reload();
+          "
+        >
+          Submit
+        </button>
+      </details>
+    </div>
   </body>
 </html>
 
@@ -105,14 +167,9 @@
 
   import * as SunCalc from 'https://cdn.jsdelivr.net/npm/suncalc/+esm';
 
-  // TODO let the user freaking change this
-  // Sydney
-  const lat = -33.87;
-  const lon = 151.21;
-
-  // Hobart
-  // const lat = -42.88;
-  // const lon = 147.33;
+  // Load coords, with Sydney as as a default
+  const lat = localStorage.getItem('lat') ?? -33.87;
+  const lon = localStorage.getItem('lon') ?? 151.21;
 
   const sunTimes = SunCalc.getTimes(date, lat, lon);
 
