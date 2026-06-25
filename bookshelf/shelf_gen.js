@@ -9,6 +9,7 @@ for (let i = 0; i < 100; i++) {
 
 console.log(randoms);
 
+const TINY = 200 * 200;
 const SMALL = 250 * 250;
 const MEDIUM = 300 * 300;
 const LARGE = 350 * 350;
@@ -56,6 +57,9 @@ Object.keys(shelves).forEach((key) => {
     }
     if (book.size == 'large') {
       width_coefficient = LARGE;
+    }
+    if (book.size == 'tiny') {
+      width_coefficient = TINY;
     }
 
     height = Math.ceil((book.words * 40) / width_coefficient);

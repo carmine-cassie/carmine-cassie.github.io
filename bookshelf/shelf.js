@@ -27,6 +27,13 @@ const shelves = {
   ],
   'Jun 2026': [
     {
+      // Todo: when i read this one add a tiny font and a tiny book class
+      title: 'Infect Your Friends and Loved Ones',
+      author: 'Torrey Peters',
+      words: 12801,
+      size: 'tiny',
+    },
+    {
       series: 'Arc of a Scythe',
       entry: '3',
       title: 'The Toll',
@@ -291,13 +298,6 @@ const shelves = {
       author: 'Jonathan Sims',
       words: 95600,
       size: 'medium',
-    },
-    {
-      // Todo: when i read this one add a tiny font and a tiny book class
-      title: 'Infect Your Friends and Loved Ones',
-      author: 'Torrey Peters',
-      words: 12801,
-      size: 'small',
     },
   ],
   */
