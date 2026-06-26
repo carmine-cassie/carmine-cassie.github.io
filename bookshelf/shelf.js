@@ -4,18 +4,10 @@
 const shelves = {
   Current: [
     {
-      series: 'Twig',
-      entry: '16',
-      title: 'Head over Heels',
-      author: 'Wildbow',
-      words: 73805,
-      size: 'large',
-    },
-    {
-      title: 'Valuable Humans in Transit and Other Stories',
-      author: 'qntm',
-      words: 22156,
-      size: 'small',
+      title: 'Thirteen Storeys',
+      author: 'Jonathan Sims',
+      words: 110783,
+      size: 'medium',
     },
     {
       series: 'Tanakh',
@@ -27,7 +19,20 @@ const shelves = {
   ],
   'Jun 2026': [
     {
-      // Todo: when i read this one add a tiny font and a tiny book class
+      title: 'Valuable Humans in Transit and Other Stories',
+      author: 'qntm',
+      words: 22156,
+      size: 'small',
+    },
+    {
+      series: 'Twig',
+      entry: '16',
+      title: 'Head over Heels',
+      author: 'Wildbow',
+      words: 73805,
+      size: 'large',
+    },
+    {
       title: 'Infect Your Friends and Loved Ones',
       author: 'Torrey Peters',
       words: 12801,
@@ -285,12 +290,6 @@ const shelves = {
       title: 'Ninth House',
       author: 'Leigh Bardugo',
       words: 141294,
-      size: 'medium',
-    },
-    {
-      title: 'Thirteen Storeys',
-      author: 'Jonathan Sims',
-      words: 110783,
       size: 'medium',
     },
     {
