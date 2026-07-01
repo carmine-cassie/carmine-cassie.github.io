@@ -28,13 +28,218 @@
       <div class="main-paper">
         <h1>What I Did in June</h1>
 
-        <h2>Payphone Explorer</h2>
+        <p>
+          I was surprisingly productive this month! Maybe I just needed some
+          university work to procrastinate? More likely, being at uni gets me out of
+          the house, which gets my brain going. In any case, get hyped to read about
+          all the cool things I did and made this month!
+        </p>
 
-        <h2>Gruvboxxed Sugar-Glider + New Tab Page</h2>
+        <h2>Payphone Explorer</h2>
+        <p>
+          Aaaages back, I experimented with and got a little way into implementing an
+          IRL Fog of War type thing - a map where only the places you've been to are
+          visible, or highlighted, or whatever. This is a thing that exists already,
+          but the app is like $30 and I thought it would be fun to make, so I got a
+          little way into working on it, until the impracticalities of gathering and
+          storing and processing all that GPS data got a little bit beyond what I
+          wanted to put into the project.
+        </p>
+
+        <p>
+          This year, I've been playing a lot of
+          <a href="payphonetag.com">Payphone Tag</a>. In Australia, there are about
+          fourteen thousand payphones, and they're free to use! (For domestic calls.)
+          A guy named Alex set up an automated phone line that you can call from a
+          payphone (and enter your PIN) to <b>claim</b> that payphone - you earn
+          points, climb a leaderboard and get to see your little emoji on the map on
+          the Payphone Tag website.
+        </p>
+
+        <p>
+          It's super fun! I don't get too involved with the hustle and bustle of
+          trying to hold onto my phones - I like exploring places and building an
+          intuition of their street layouts and getting payphones I've never seen
+          before. At time of writing, I've grabbed <b>244</b> different payphones and
+          I remember just about each and every one of them.
+        </p>
+
+        <p>
+          Now, this data of which payphones I've claimed serves just as well as
+          intricate GPS data to track where I've been (since I get them everywhere I
+          go), so I put together a little website (<a href="/payphones/"
+            >Payphone Explorer</a
+          >) that uses my list of explored payphones to reveal a map from beneath a
+          mysterious fog.
+        </p>
+
+        <img
+          class="small-body-image"
+          style="max-height: 300px"
+          src="/blog/26_06_fog.png"
+        />
+
+        <p>
+          I'm not using, like, any specific web tech for map drawing, just three.js.
+          About midway through development I realised with horror that I had to
+          figure out how to actually do a map projection, because,,, I was making a
+          map. (It worked out pretty smoothly, though.) The Payphone Tag API provides
+          a triangulation of all the payphones, so I just draw that as a mesh atop
+          some OSM map tiles, colouring the vertices based on whether those payphones
+          have been explored, and the GPU does all the interpolation super easily. I
+          like that each payphone earns you a sort of soft-edged voronoi cell of map
+          around it.
+        </p>
+
+        <p>
+          Because the exploration data comes from payphones rather than, like, an
+          always-on GPS in your phone, there's, a ritual of exploration that involves
+          activating a physical object, which I think is a really cool spin on the
+          IRL Fog of War idea that I wouldn't have thought of if not for playing
+          Payphone Tag. It's like those map towers in Breath of the Wild,, I think.
+          (I haven't played it.)
+        </p>
+
+        <p>
+          I really like the way that abandoned project and artwork ideas like this
+          sit in your head, waiting for an opportunity to be expressed. I've started
+          a lot of projects in the past, and only this year have I really begun to
+          finish the things I start, but I carry with me a toolbox of previous
+          fascinations.
+        </p>
+
+        <p>
+          The dev of Payphone Tag liked my little project enough he added a "fog"
+          feature to the game, so by the end of the month, my little project is a
+          little less special. I think I'll keep using it, though!
+        </p>
+
+        <h2>Got Gruvboxxy</h2>
+        <p>
+          At the end of last year, I did a simple rice of my new laptop,
+          sugar-glider, but I left my, freaking, terminal and vscode appearances
+          pretty much at their defaults. This month, I did a little extra
+          customisation! I love
+          <a href="https://github.com/morhetz/gruvbox">gruvbox</a>, it's so warm and
+          cozy, so I chucked that onto them. I put
+          <a href="https://github.com/the-moonwitch/Cozette">Cozette</a> (the font
+          you're reading right now!) in my terminal, and
+          <a href="https://font.subf.dev/">Maple Mono</a> in my text editor.
+        </p>
+
+        <p>
+          Then, I wanted to go a little further, so I picked a new wallpaper, a
+          Calvin and Hobbes one, and dithered it to only use the gruvbox colours. I
+          configured Discord and my web browser to be gruvboxed too! Turns out
+          <a href="https://github.com/grassmunk/chicago95">Chicago95</a>, the thing
+          I've left in charge of my DE theme, supports loading Windows Plus! 95
+          themes, so I used
+          <a href="https://tpenguinltg.github.io/winclassic/"> this little tool</a>
+          to make a gruvboxxed one of those. It's all so harmonious now!
+        </p>
+
+        <img
+          class="small-body-image"
+          style="max-height: 300px"
+          src="/blog/26_06_desktop.png"
+        />
+
+        <p class="caption">
+          (My grandparents have a couple Calvin and Hobbes collected editions at
+          their house, and whenever I visited them as a kid, I'd blitz through them,
+          so it inspires very strong nostalgia in me.)
+        </p>
+
+        <p>
+          Although... I've been using <a href="https://github.com/philc/vimium">Vimium</a>, a browser extension
+          that just adds a couple more hotkeys, for surfing the net without needing
+          to reach for a mouse, and it doesn't work on the Firefox default new tab
+          page for, uh, "security reasons". So I made
+          <a href="/newtab">a little new tab page</a>!
+        </p>
+
+        <img
+          class="small-body-image"
+          style="max-height: 300px"
+          src="/blog/26_06_tab.png"
+        />
+
+        <p class="caption">
+          (Forgive me for taking this screenshot at such a late hour.)
+        </p>
+
+        <p>
+          Just a simple little thing, but it's cute and it's gruvbox and it fits with
+          everything else I've got going on! The bar at the bottom is daylight's
+          hours, with the three twilights, golden hour, solar noon and nadir marked.
+          (The circle lens marks the current time.)
+        </p>
+
+        <h2>
+          Wrote a Lyric Game! (<span class="sitelen-pona">lon toki pona</span>)
+        </h2>
+
+        <p>
+          This month was the second annual
+          <span class="sitelen-pona">toki pona</span> game jam, and I made a
+          submission! The theme words were <span class="sitelen-pona">telo</span> and
+          <span class="sitelen-pona">utala</span>, and when I read them, a lyric game
+          entered my mind fully formed, about, like, an eternal battle between land
+          and water, a bit like the free game
+          <a href="https://frizzoid.itch.io/we-love-the-moon">We Love the Moon</a> (which you should read!), or the battle
+          of wits between Morphius and Lucifer in The Sandman.
+        </p>
+
+        <p>
+          I was in Hobart for basically the entire time I was working on the game,
+          visiting cool <span class="sitelen-pona">toki pona</span> people, which
+          lined up quite well - it was great to be able to bounce ideas and phrasings
+          off of them in person. (&nbsp;<span class="sitelen-pona"
+            >ante [alasa tonsi e lanpan ilo]</span
+          >
+          in particular really hyped me up to go for some of my weirder ideas!)
+        </p>
+
+        <p>
+          Despite aiming for something super small in scope (a short text document),
+          I was on holiday, squeezing working on it into free moments, before
+          breakfast, after dinner. I got to experience that classic game jam crunch
+          moment working on my layout before I had to go get my flight back to
+          Sydney!
+        </p>
+
+        <img
+          class="small-body-image"
+          style="max-height: 350px"
+          src="/blog/26_06_spread.png"
+        />
+        <p class="caption">
+          I really like how this spread turned out, with the green spanning across
+          the bottom of the two pages.
+        </p>
+
+        <p>
+          You can check out the game
+          <a href="https://carminecassie.itch.io/esun-ka">here!</a>
+        </p>
+
+        <p>
+          I dunno if anyone will actually play it, given the quite high barrier to
+          entry: both the proficiency requirements (it's even only in
+          <span class="sitelen-pona">sitelen pona</span> lol) and requirement for two
+          players, but I'm nonetheless very proud of it! I've never written a lyric
+          game before! It was also super fun to write it entirely in
+          <span class="sitelen-pona">toki pona</span>, there wasn't like a stage it
+          was dot-pointed in English or anything, and it's cool to be getting more
+          proficient as the year goes on.
+        </p>
+
+        <p>
+          Maybe I gotta make more lyric games, or zines, or something, given how fun
+          this was. I'll keep an eye out to try and notice if inspiration strikes.
+        </p>
 
         <h2>What I Read this Month!</h2>
-        <h3>Reading List Page</h3>
-
         <h3>Twig Arc 15: Bitter Pill</h3>
         <img src="/assets/img/books/twig2.png" class="book-cover" />
         <p>
@@ -103,9 +308,9 @@
         <p>
           This was a super short little thing, small enough I had to add a new font
           to my <a href="/bookshelf/">bookshelf page</a> to fit it! I'm noticing,
-          between this and the short story collection I've been reading, that when a
-          story is short, you barely have time for plot or characters - the canvas is
-          kinda dominated by premise and theme.
+          between this and the short story collection I've been reading (more on that
+          soon), that when a story is short, you barely have time for plot or
+          characters - the canvas is kinda dominated by premise and theme.
         </p>
 
         <p>
@@ -178,7 +383,7 @@
         <h3>Valuable Humans in Transit and Other Stories</h3>
         <img src="/assets/img/books/valuable_humans.png" class="book-cover" />
         <p>
-          This one is a collection of short stories, so like Infect Your Friends and
+          This one is a collection of short stories, so, like Infect Your Friends and
           Loved Ones, it kinda goes crazy on the premises and themes and not much
           else. (Even moreso, as the stories are much shorter, not quite novella.)
           This works out fine, though, because qntm's premises are awesome!
@@ -195,36 +400,24 @@
         </p>
 
         <p>
-          A couple of these stories (notably <b>If You Are Reading This</b>) had,
-          like, a dramatic mic-drop finale sentence clearly intended to be a
-          show-stopper jaw-dropper that kinda, initially bounced off me in a way I
+          A couple of these stories (particularly <b>If You Are Reading This</b>)
+          had, like, a dramatic mic-drop finale sentence clearly intended to be a
+          show-stopper, jaw-dropper that kinda, initially bounced off me in a way I
           wasn't expecting, being used to longer stuff. Turns out these little
           goobers want to eke staying power in your mind by making you think! :p The
-          set-up part of the book isn't clues for a plot twist, it's spinning web of
-          themes, and the payoff is being told that you now have sufficient
+          set-up part of the book isn't clues for a plot twist, it's spinning a web
+          of themes, and the payoff is being told that you now have sufficient
           information to unravel it.
         </p>
 
         <p>Maybe I should have another go at reading Ra...</p>
 
-        <h3>Tanakh: Torah</h3>
-        <img src="/assets/img/books/torah.png" class="book-cover" />
-        <p>
-          It's so interesting be, like, vaguely culturally aware of so many of the
-          stories here, but only now be actually reading them. Like it's interesting
-          to see how things were omitted or changed in the tellings that have reached
-          me via the oral Christian background radiation.
-        </p>
-
-        <p>
-          Like, the Noah's ark section? The wacky pacing and contradictory details
-          from the way it was combined from multiple sources are really interesting
-          things that I never knew about.
-        </p>
-
         <h2>And That's It!</h2>
 
-        <p>Chat to you at the end of July!</p>
+        <p>
+          I'm really glad I had such a good month, eager for the next! Chat to you at
+          the end of July!
+        </p>
 
         <div style="display: flex; justify-content: space-between">
           <a href="/blog/26_05">« Previous Update</a>
