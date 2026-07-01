@@ -1,5 +1,5 @@
 let randoms = [];
-let value = 67.67;
+let value = 4242.67;
 const phi = 1.618;
 const spread = 32;
 for (let i = 0; i < 100; i++) {
@@ -35,7 +35,7 @@ Object.keys(shelves).forEach((key) => {
     if (book.series) {
       spine_text += book.series;
       if (book.entry) {
-        spine_text += ' #' + book.entry;
+        spine_text += ' ' + book.entry;
       }
       if (book.title) {
         spine_text += ': ' + book.title;
