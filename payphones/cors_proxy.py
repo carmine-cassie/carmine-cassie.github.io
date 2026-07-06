@@ -14,10 +14,13 @@ if payphones.status_code == 200:
     payphone_values = json.loads(payphones.content)
     
     for player_id in payphone_values["players"].keys():
-        captures = requests.get(f"https://payphonetag.com/api/player/{player_id}/past-captures")
-        if captures.status_code == 200:
-            with open(f"payphones/past_captures/{player_id}.json", "wb") as file:
-                file.write(captures.content)
+        try:
+            captures = requests.get(f"https://payphonetag.com/api/player/{player_id}/past-captures")
+            if captures.status_code == 200:
+                with open(f"payphones/past_captures/{player_id}.json", "wb") as file:
+                    file.write(captures.content)
+        except:
+            print(f"Couldn't update {player_id}")
 
 triangulation = requests.get("https://payphonetag.com/api/triangulation")
 if triangulation.status_code == 200:
