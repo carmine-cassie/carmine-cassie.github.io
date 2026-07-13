@@ -4,12 +4,10 @@
 const shelves = {
   Current: [
     {
-      series: 'Twig',
-      entry: 'Arc 17',
-      title: 'Gut Feeling',
-      author: 'Wildbow',
-      words: 87287,
-      size: 'large',
+      title: "Howl's Moving Castle",
+      author: 'Diana Wynne Jones',
+      words: 74394,
+      size: 'medium',
     },
     {
       series: 'War and Peace<br>',
@@ -28,6 +26,14 @@ const shelves = {
     },
   ],
   'Jul 2026': [
+    {
+      series: 'Twig',
+      entry: 'Arc 17',
+      title: 'Gut Feeling',
+      author: 'Wildbow',
+      words: 87287,
+      size: 'large',
+    },
     {
       title: 'Thirteen Storeys',
       author: 'Jonathan Sims',
@@ -192,12 +198,6 @@ const shelves = {
       author: 'Robin Hobb',
       words: 332974,
       size: 'large',
-    },
-    {
-      title: "Howl's Moving Castle",
-      author: 'Diana Wynne Jones',
-      words: 74394,
-      size: 'medium',
     },
     {
       title: 'To Sleep in a Sea of Stars',
