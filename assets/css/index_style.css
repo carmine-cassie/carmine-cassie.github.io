@@ -1,0 +1,169 @@
+@font-face {
+  font-family: "atlantis-headline";
+  src: url("/assets/fonts/atlantis.headline-bold.otf") format('truetype');
+}
+
+@font-face {
+  font-family: "cozette";
+  src: url("/assets/fonts/CozetteVector.otf") format('opentype');
+}
+
+@font-face {
+  font-family: "lusi";
+  src: url("/assets/fonts/musi-leko-tan-jan-Lusi.ttf") format('truetype');
+}
+
+:root{
+  background: black;
+  color: white;
+  background-image: url("/assets/img/stars_bg.png");
+  background-attachment: fixed;
+  background-position: center;
+
+  --color-accent-dark: #900;
+  --color-accent-bright: #f66;
+}
+
+* {
+  padding: 0px;
+  margin: 0px;
+}
+
+.phase-container {
+  height: 95px;
+  /* background: pink; */
+  /* border: 1px black solid; */
+
+  /* --index: 0;
+  margin-left: calc(500px * sqrt(1 - (var(--index) * var(--index))) - 50px); */
+
+  width: fit-content;
+
+  display: flex;
+
+  cursor: crosshair;
+
+  a {
+    cursor: pointer;
+  }
+}
+
+h1 {
+  font-family: 'atlantis-headline';
+  font-weight: normal;
+  font-size: 48px;
+  text-align: center;
+  margin-top: 25px;
+
+  text-shadow: var(--color-accent-bright) 3px 3px 0px;
+}
+
+h3 {
+  font-family: 'atlantis-headline';
+  font-weight: normal;
+  font-size: 9px;
+  text-align: center;
+  margin-top: 25px;
+
+  width: fit-content;
+
+  text-shadow: var(--color-accent-bright) 1px 1px 0px;
+}
+
+h2 {
+  font-family: 'atlantis-headline';
+  font-weight: normal;
+  font-size: 32px;
+
+  text-shadow: var(--color-accent-bright) 2px 2px 0px;
+
+}
+
+h2.sitelen-pona {
+  font-family: 'lusi';
+}
+
+p {
+  font-family: cozette;
+  font-size: 13px;
+
+  line-height: 13px;
+
+  margin-bottom: 4px;
+
+  text-shadow: var(--color-accent-bright) 1px 1px 2px;
+
+}
+
+.moon {
+  width: 80px;
+  height: 80px;
+  border-radius: 100%;
+  background: white;
+  margin: 5px;
+
+  /* box-shadow: var(--color-accent-bright) 2px 2px 0px; */
+
+  transform: rotate(-90deg);
+}
+
+.phase-container:hover {
+  margin-top: -2px;
+  margin-bottom: 2px;
+
+  filter: brightness(135%);
+  backdrop-filter: brightness(135%);
+  /* .moon {
+  } */
+}
+
+
+.entry {
+  margin: 0 5px;
+  padding: 0 5px;
+
+  width: 500px;
+
+  /* border: 1px solid white; */
+  background: #0009;
+
+  p {
+    margin-top: -3px;
+  }
+}
+
+a, b{
+  color: var(--color-accent-bright);
+  font-weight: normal;
+}
+
+a:hover {
+  color: white;
+}
+
+.moon-phases {
+  width: fit-content
+}
+
+.blinkies {
+  width: fit-content;
+
+  background: black;
+  border: 3px double var(--color-accent-bright);
+
+  height: fit-content;
+
+  padding: 7px;
+  margin: 20px 0;
+
+  text-align: center;
+
+  border-radius: 3px;
+
+
+}
+
+.page-container {
+  display: flex;
+  justify-content: center;
+}
