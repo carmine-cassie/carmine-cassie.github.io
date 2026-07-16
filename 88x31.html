@@ -1,0 +1,45 @@
+<style>
+  @font-face {
+    font-family: 'atlantis';
+    src: url('/assets/fonts/atlantis.text-regular.otf') format('truetype');
+  }
+
+  * {
+    margin: 0;
+    padding: 0;
+    image-rendering: pixelated;
+  }
+
+  :root {
+    --color-accent-bright: #f66;
+  }
+</style>
+
+<div
+  style="
+    background-image: url(/assets/img/stars_badge.png);
+    overflow: hidden;
+    width: 88px;
+    height: 31px;
+  "
+>
+  <img
+    src="/assets/img/phases/badge.png"
+    style="height: 29px; margin: 1px; position: absolute; left: -7px"
+  />
+  <p
+    style="
+      color: white;
+      font-size: 16px;
+      position: absolute;
+      left: 28px;
+      line-height: 13px;
+      font-family: atlantis;
+      text-align: right;
+      width: fit-content;
+      text-shadow: var(--color-accent-bright) 1px 1px 0;
+    "
+  >
+    carmine<br />-cassie
+  </p>
+</div>
