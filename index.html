@@ -5,237 +5,159 @@
     <meta name="viewport" content="width=device-width" />
     <title>Carmine Cassie</title>
 
-    <link rel="stylesheet" href="/assets/css/style.css" />
+    <link rel="stylesheet" href="/assets/css/index_style.css" />
   </head>
 
   <body>
-    <img
-      src="/assets/img/header.png"
-      style="
-        width: 720px;
-        max-width: 100%;
-        image-rendering: pixelated;
-        margin: auto;
-        display: block;
-      "
-    />
-    <div class="main-window">
-      <div class="window-header">
-        <p>carmine-cassie » home</p>
-        <p>X</p>
+    <h1>carmine-cassie</h1>
+
+    <div class="page-container">
+      <div class="moon-phases">
+        <div
+          class="phase-container"
+          style="margin-left: 33px"
+          onclick="window.location.href = '/projects'"
+        >
+          <div
+            class="moon"
+            style="background-image: url(/assets/img/phases/left_crescent.png)"
+          ></div>
+          <div class="entry">
+            <h2>projects</h2>
+            <p>
+              I have so many projects, and this site is a great way to keep track of
+              them! You can click for a directory, or check out my most recent one:
+            </p>
+            <p>
+              <a href="/esun_ka.pdf">[2026-07-28]: esun ka</a>, a lyric game in toki
+              pona I made for the annual game jam!
+            </p>
+          </div>
+        </div>
+        <div
+          class="phase-container"
+          style="margin-left: 84px"
+          onclick="window.location.href = '/bookshelf'"
+        >
+          <div
+            class="moon"
+            style="background-image: url(/assets/img/phases/left_gibbous.png)"
+          ></div>
+          <div class="entry">
+            <h2>bookshelf</h2>
+            <p>
+              I maintain here a little shelf of what I've been reading on my little
+              retro ereader, you can click to check it out!
+            </p>
+            <p>
+              At the moment, I'm reading: <b>Howl's Moving Castle</b> &
+              <b>War and Peace: Book One</b>.
+            </p>
+          </div>
+        </div>
+        <div
+          class="phase-container"
+          style="margin-left: 100px"
+          onclick="window.location.href = '/blog'"
+        >
+          <div
+            class="moon"
+            style="background-image: url(/assets/img/phases/full.png)"
+          ></div>
+          <div class="entry">
+            <h2>journal</h2>
+            <p>
+              At the end of each month, I do a little write up of all the projects I
+              wrapped up, as well as thoughts on books I finished.
+            </p>
+            <p>
+              Most Recent:
+              <a href="/blog/26_06">[2026-07-01]: What I did in July!</a>
+            </p>
+          </div>
+        </div>
+        <div
+          class="phase-container"
+          style="margin-left: 84px"
+          onclick="window.location.href = '/about'"
+        >
+          <div
+            class="moon"
+            style="background-image: url(/assets/img/phases/right_gibbous.png)"
+          ></div>
+          <div class="entry">
+            <h2>about</h2>
+            <p>What? You want to know about me? Or this site?</p>
+            <p>I mean, I guess I could tell you,</p>
+          </div>
+        </div>
+        <div
+          class="phase-container"
+          style="margin-left: 33px"
+          onclick="window.location.href = '/toki_pona'"
+        >
+          <div
+            class="moon"
+            style="background-image: url(/assets/img/phases/right_crescent.png)"
+          ></div>
+          <div class="entry">
+            <h2>toki-pona</h2>
+            <p>sina toki pona anu wile lukin e toki pona mi la, o luka e ni!</p>
+          </div>
+        </div>
       </div>
+      <div class="blinkies">
+        <!-- <p>Me:</p> -->
+        <!-- [TODO] make a blinkie -->
 
-      <div class="main-paper">
-        <h1>Heya!</h1>
+        <!-- <p>Others:</p> -->
 
-        <p>I'm <b>Cassie</b>, and this is my website!</p>
-
-        <p>
-          The thing about having a website is that you can put <b>things</b> on it,
-          isn't that awesome? On this website, I've put some of the things I've made
-          - check it out:
-        </p>
-
-        <h2>Projects</h2>
-        <ul>
-          <li>
-            <span class="sitelen-pona"><a href="/esun_ka.pdf">esun ka</a></span
-            >, a lyric game in <span class="sitelen-pona">toki pona</span>. (Also on
-            <a href="https://carminecassie.itch.io/esun-ka">itch.io</a>!)
-          </li>
-          <li>
-            A custom <a href="/newtab">new tab page</a> that shows daylight's hours.
-          </li>
-          <li>
-            <a href="/payphones">Payphone Explorer</a>, a fog-of-war view for
-            <a href="https://payphonetag.com">Payphone Tag.</a>
-          </li>
-          <li>
-            <a href="/scipnet/">SCiPNET</a>, a directory listing of SCP articles to
-            keep track of which you've read. (And guide you towards high-rated ones.)
-          </li>
-          <li>
-            <a href="https://youtu.be/UevokBthQes">Hadestown Karaoke Videos</a>
-            - the entire thing, start to finish. Get some friends together, pick a
-            character each and give it a go!
-          </li>
-          <li>
-            A
-            <a href="https://github.com/carmine-cassie/7pp-bot"
-              >dice-rolling discord bot</a
-            >
-            for Jay Dragon's TTRPG <b>Seven-Part-Pact</b>. Also
-            <a href="https://www.thingiverse.com/thing:6744713/files"
-              >physical ones</a
-            >
-            you can 3D print!
-          </li>
-          <li>
-            A TUI app to facilitate
-            <a href="https://github.com/carmine-cassie/live-catan">Live Catan</a>,
-            the best way to play Catan, wherein everybody takes their turns
-            simultaneously and the dice roll themselves every 20 seconds.
-          </li>
-          <li>
-            An online <a href="/clock/">Astronomical Clock</a>, which shows
-            daylight's hours, the moon phase, and a star map. (As of yet it's locked
-            to Sydney, hoping to rewrite it and make it more useful to all!)
-          </li>
-          <li>
-            A cool little
-            <a href="/blackhole">black hole animation</a> pulled off in-browser with
-            very minimal computation.
-          </li>
-          <!-- <li>
-            A tiny <a href="/chords">chord practice tool</a> for generating big lists
-            of chords or intervals to practice playing.
-          </li> -->
-          <!-- <li>
-            <a
-              href="https://drive.google.com/file/d/1B15HANtJHzx6rQLi6k_ICEK5mdk4L_jJ/view"
-              ><span class="sitelen-pona">lipu ma</span></a
-            >, a <span class="sitelen-pona">toki pona</span> world map, to help me
-            remember place names. The names themselves are pretty flawed, but I like
-            the way the map looks - playing with QGIS was super cool!
-          </li> -->
-        </ul>
-        <h2>Blog/Journal</h2>
-        <ul>
-          <li>
-            <a href="/blog/26_06">2026_06</a>: Payphone Explorer, a New Tab page, and
-            a Lyric Game!
-          </li>
-          <!-- <li>
-            <a href="/blog/kon_nimi"
-              ><span class="sitelen-pona">lipu loje pi kon nimi</span></a
-            >: WIP
-          </li> -->
-          <li><a href="/blog/26_05">2026_05</a>: Bookshelf & Lots of Reading!</li>
-          <li><a href="/blog/26_04">2026_04</a>: Kindle & Weather Machine!</li>
-          <li>
-            <a href="/blog/26_03">2026_03</a>: kulupu Oselasija, Sewing, and a Blog
-            Post!
-          </li>
-          <li>
-            <span class="sitelen-pona"
-              ><a href="/blog/nsks">nasin sitelen kalama suwi</a></span
-            >: a cute system for
-            <span class="sitelen-pona">sitelen pona</span> names!
-          </li>
-          <li>
-            <a href="/blog/26_02">2026_02</a>: This Website, Pi-Hole, & SCiPNET!
-          </li>
-          <li>
-            <a href="/blog/26_01">2026_01</a>: Short Film, Karaoke, & a Birthday
-            Adventure!
-          </li>
-        </ul>
-
-        <h2>About Me</h2>
-
-        <p>
-          In an unsurprising feat of selection bias, I think the most interesting
-          things about me are the things I'm interested in. I'm sure they do reflect
-          on me though, so I'll take that as good framing for this section.
-        </p>
-
-        <p>My interests include:</p>
-        <ul>
-          <li>
-            Computer Science: I did a whole dang degree on this! It's very fun to
-            solve problems and learn things and make things. Unfortunately, as I'm
-            leaving university, I'm finding that my entire prospective industry has
-            been swallowed into overexcited AI speculation, which I'm not a huge fan
-            of.
-          </li>
-          <li>
-            VFX, CGI, those art forms that happen via transparent matrix
-            multiplications inside of the 'puter! I love the way my exposure to this
-            stuff has made me think about optics and how light works - light is very
-            gorgeous stuff.
-          </li>
-          <li>
-            Linguistics is good stuff, too. There's a pattern to things I'm
-            interested in, hey: computers, light, language. I like paying attention
-            to some of the things we touch thousands of times a day, and learning
-            about the beautiful and underlooked systems that drive them. It's just so
-            satisfying to know how vowels work, and linguistics fun facts are some of
-            the best.
-          </li>
-          <li>The color red.</li>
-          <li>
-            Reading is quite delightful, I've been finding recently, thanks to my
-            little 15-year-old ereader. You can check out what I've been reading
-            <a href="/bookshelf">here!</a>
-          </li>
-          <li>
-            Been getting into musical theatre recently, too. My top three would
-            probably be Hadestown, Ghost Quartet, and Cabaret. As a result, I sing a
-            lot, which has been really lovely from a body positivity standpoint - I
-            like my voice!
-          </li>
-          <li>
-            Typesetting and bookbinding is fun, sometimes I play with Typst or a bone
-            folder!
-          </li>
-        </ul>
-
-        <h2 class="sitelen-pona">toki pona</h2>
-        <div class="scroll-container">
-          <p class="sitelen-pona">
-            kin la<br />
-            |mi toki pona a<br />
-            |lon linluwi la<br />
-            |||nimi mi li loje [kasi . selo . nasin wawa .]
-          </p>
-          <p class="sitelen-pona">
-            mi open e kama sona mi pi toki pona lon tenpo sike nanpa
-            <span class="latin">MAMW</span><br />
-            |taso open la<br />
-            |||mi toki mute ala lon kulupu pi toki pona
-          </p>
-          <p class="sitelen-pona">
-            mi pali e kulupu pi ma [open seli: jan.] lon ilo [sike. ko:]<br />
-            |sina wile kama lon kulupu ni^ la<br />
-            |||||||o toki a tawa mi
-          </p>
-          <p class="sitelen-pona">o pona</p>
+        <div>
+          <a href="https://ravarcheon.com/">
+            <img
+              src="https://ravarcheon.com/images/88x31/ravarcheon.gif"
+              width="88px"
+              height="31px"
+              style="image-rendering: pixelated"
+            />
+          </a>
         </div>
 
-        <h2 class="sitelen-pona" style="text-align: center">
-          <a href="https://sike.pona.la/jan/loje Kasenwa/prev.html">monsi</a> |
-          <a href="https://sike.pona.la/">sike pona</a> |
-          <a href="https://sike.pona.la/jan/loje Kasenwa/next.html">sinpin</a>
-        </h2>
+        <div>
+          <a href="https://kwellig.garden/">
+            <img
+              src="https://kwellig.garden/88x31.png"
+              width="88px"
+              height="31px"
+              style="image-rendering: pixelated"
+            />
+          </a>
+        </div>
 
-        <h2>Fonts</h2>
-        <p>This site uses four fonts:</p>
-        <ul>
-          <li>
-            For body text:
-            <a href="https://github.com/the-moonwitch/Cozette">Cozette</a>, by
-            samhain, which is licensed with MIT.
-          </li>
-          <li>
-            For headers:
-            <a href="https://fontenddev.com/fonts/kiwi-soda/">Kiwi Soda</a>, by Font
-            End Dev, which is licensed with
-            <a href="http://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>.
-          </li>
-          <li>
-            For <span class="sitelen-pona">sitelen pona</span> headers:
-            <a
-              href="https://wasokeli.github.io/sp-font-maker/musi-leko-tan-jan-Lusi.html"
-              >musi leko</a
-            >, by jan Lusi, which is public domain, as per CC0 1.0.
-          </li>
-          <li>
-            For <span class="sitelen-pona">sitelen pona</span> body text:
-            <a href="https://wasokeli.github.io/sp-font-maker/leko-majuna-sin.html"
-              >leko majuna sin</a
-            >, by waso Keli, which is licensed with OFL-1.1.
-          </li>
-        </ul>
+        <div style="position: relative; width: 88px">
+          <img
+            src="https://sike.pona.la/assets/sike-pona.gif"
+            style="
+              width: 100%;
+              height: auto;
+              image-rendering: pixelated;
+              display: block;
+            "
+            alt="sike pona"
+          />
+          <a
+            href="https://sike.pona.la/jan/loje Kasenwa/prev.html"
+            style="position: absolute; left: 9%; top: 19%; width: 23%; height: 65%"
+          ></a>
+          <a
+            href="https://sike.pona.la/"
+            style="position: absolute; left: 39%; top: 19%; width: 24%; height: 65%"
+          ></a>
+          <a
+            href="https://sike.pona.la/jan/loje Kasenwa/next.html"
+            style="position: absolute; left: 69%; top: 19%; width: 23%; height: 65%"
+          ></a>
+        </div>
       </div>
     </div>
   </body>
