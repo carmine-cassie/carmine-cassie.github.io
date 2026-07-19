@@ -1,36 +1,36 @@
 @font-face {
-  font-family: "fluorine";
-  src: url("/assets/fonts/FluorineMicro.ttf") format('truetype');
+  font-family: 'fluorine';
+  src: url('/assets/fonts/FluorineMicro.ttf') format('truetype');
 }
 
 @font-face {
-  font-family: "kiwisoda";
-  src: url("/assets/fonts/KiwiSoda.ttf") format('truetype');
+  font-family: 'kiwisoda';
+  src: url('/assets/fonts/KiwiSoda.ttf') format('truetype');
 }
 
 @font-face {
-  font-family: "cozette";
-  src: url("/assets/fonts/CozetteVector.otf") format('opentype');
+  font-family: 'cozette';
+  src: url('/assets/fonts/CozetteVector.otf') format('opentype');
 }
 
 @font-face {
-  font-family: "lekomajuna";
-  src: url("/assets/fonts/leko majuna sin.ttf") format('truetype');
+  font-family: 'lekomajuna';
+  src: url('/assets/fonts/leko majuna sin.ttf') format('truetype');
 }
 
 @font-face {
-  font-family: "lusi";
-  src: url("/assets/fonts/musi-leko-tan-jan-Lusi.ttf") format('truetype');
+  font-family: 'lusi';
+  src: url('/assets/fonts/musi-leko-tan-jan-Lusi.ttf') format('truetype');
 }
 
 @font-face {
-  font-family: "disco";
-  src: url("/assets/fonts/DigitalDisco.ttf") format('truetype');
+  font-family: 'disco';
+  src: url('/assets/fonts/DigitalDisco.ttf') format('truetype');
 }
 
 :root {
   --color-bg: #fee;
-  --color-bg-faint: #fee;/*d;*/
+  --color-bg-faint: #fee; /*d;*/
   --color-raised: #dcc;
   --color-fg: #000;
   --color-fg-faint: #000d;
@@ -53,19 +53,18 @@
 
 .window-header {
   font-size: 13px;
-  display:flex;
+  display: flex;
   justify-content: space-between;
   padding: 5px 5px;
   margin-bottom: 5px;
   background-color: var(--color-accent-fg);
   box-shadow:
     -2px -2px #fff,
-    2px 2px #000
-  ;
+    2px 2px #000;
   p {
     margin: 0px;
     a {
-      color: white
+      color: white;
     }
   }
 }
@@ -83,13 +82,14 @@
   }
 }
 
-html, body {
+html,
+body {
   margin: 0;
   height: 100%;
 }
 
 body {
-  background-image: url("/assets/img/stars_bg.png");
+  background-image: url('/assets/img/stars_bg.png');
   background-attachment: fixed;
   background-position: center;
 }
@@ -125,10 +125,10 @@ h2 {
 
   span.sitelen-pona {
     display: inline-block;
-    font-family: "lusi";
+    font-family: 'lusi';
     font-size: 32px;
     line-height: 32px;
-    height:32px;
+    height: 32px;
     vertical-align: middle;
   }
 }
@@ -154,7 +154,7 @@ h3 {
 p {
   margin: 0px;
   margin-bottom: 5px;
-  line-height: calc(16/13);
+  line-height: calc(16 / 13);
   b {
     text-shadow: 1px 1px 1px var(--color-accent-fg-faint);
     font-weight: normal;
@@ -203,7 +203,7 @@ a {
     text-decoration-thickness: 2px;
   }
   ul {
-    list-style-type: "\F199C"
+    list-style-type: '\F199C';
   }
   b {
     text-shadow: 2px 2px var(--color-accent-fg-faint);
@@ -211,16 +211,20 @@ a {
   }
 }
 
-p, li, a {
+p,
+li,
+a {
   span.sitelen-pona {
     display: inline-block;
     line-height: 13px;
-    height:13px;
+    height: 13px;
     vertical-align: middle;
   }
 }
 
-table, th, td {
+table,
+th,
+td {
   border: 1px solid var(--color-fg);
   border-collapse: collapse;
   text-align: center;
@@ -237,12 +241,13 @@ table {
   margin-bottom: 0.25em;
 }
 
-th, td {
+th,
+td {
   padding-left: 3px;
   padding-right: 3px;
 }
 
-input[type="checkbox"] {
+input[type='checkbox'] {
   width: 12px;
   margin: 0px;
 }
@@ -252,9 +257,9 @@ input[type="checkbox"] {
   text-wrap: nowrap;
 }
 
-.code-inline{
+.code-inline {
   background-color: var(--color-raised);
-  border-radius:5px;
+  border-radius: 5px;
   color: var(--color-fg);
   border-color: var(--color-raised);
   border-style: solid;
@@ -262,7 +267,7 @@ input[type="checkbox"] {
 }
 
 code {
-  font-family: "toshibatx";
+  font-family: 'toshibatx';
   border-radius: 4px;
 }
 
@@ -271,26 +276,26 @@ pre code.hljs.compact {
   padding-bottom: 0.5em;
 }
 
-pre code b{
-  font-weight:bold;
+pre code b {
+  font-weight: bold;
 }
 
 hr {
   background-color: var(--color-fg);
-  border-width:0;
-  height:1px;
+  border-width: 0;
+  height: 1px;
 }
 
 p code.hljs {
-  padding:1px 4px 1px 4px;
+  padding: 1px 4px 1px 4px;
 }
 
 li code.hljs {
-  padding:1px 4px 1px 4px;
+  padding: 1px 4px 1px 4px;
 }
 
 ul {
-  list-style-type: "- ";
+  list-style-type: '- ';
   padding-left: 2em;
 }
 
@@ -299,19 +304,23 @@ li {
 }
 
 .hatched {
-  background-image: url("/assets/img/hatch.png");
-  image-rendering: pixelated
-} 
+  background-image: url('/assets/img/hatch.png');
+  image-rendering: pixelated;
+}
 
 .body-image {
   width: 100%;
-  box-shadow: -2px -2px var(--color-accent-bg), 2px 2px var(--color-fg);
+  box-shadow:
+    -2px -2px var(--color-accent-bg),
+    2px 2px var(--color-fg);
   border: 2px solid var(--color-bg);
   margin-bottom: 5px;
 }
 
 .small-body-image {
-  box-shadow: -2px -2px var(--color-accent-bg), 2px 2px var(--color-fg);
+  box-shadow:
+    -2px -2px var(--color-accent-bg),
+    2px 2px var(--color-fg);
   border: 2px solid var(--color-bg);
   margin: auto;
   margin-bottom: 13px;
@@ -321,7 +330,9 @@ li {
 
 .book-cover {
   height: 180px;
-  box-shadow: -2px -2px var(--color-accent-bg), 2px 2px var(--color-fg);
+  box-shadow:
+    -2px -2px var(--color-accent-bg),
+    2px 2px var(--color-fg);
   border: 2px solid var(--color-bg);
   margin: 0px 0px 10px 15px;
   float: right;

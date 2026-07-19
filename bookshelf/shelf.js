@@ -112,7 +112,7 @@ const shelves = {
     },
     {
       series: 'This Used to be <br> About Dungeons',
-      entry: 'Volume 1',
+      title: 'Volume 1',
       author: 'Alexander Wales',
       words: 205235,
       size: 'large',
@@ -209,7 +209,7 @@ const shelves = {
       title: 'The Metropolitan Man',
       author: 'Alexander Wales',
       words: 76905,
-      size: 'medium',
+      size: 'small',
     },
     {
       title:
@@ -253,7 +253,7 @@ const shelves = {
     {
       series: 'Dune',
       entry: '#2',
-      title: 'Dune: Messiah',
+      title: 'Messiah',
       author: 'Frank Herbert',
       words: 75200,
       size: 'medium',
@@ -291,10 +291,10 @@ const shelves = {
       size: 'medium',
     },
     {
-      title: 'Little Blue Encyclopedia',
+      title: 'Little Blue<br>Encyclopedia',
       author: 'Hazel Jane Plante',
       words: 43853,
-      size: 'medium',
+      size: 'small',
     },
     {
       series: 'Alex Stern',
@@ -442,6 +442,13 @@ const shelves = {
       title: 'Girlfriends',
       author: 'Emily Zhou',
       words: 50540,
+      size: 'small',
+    },
+    {
+      series: 'WARHOUND',
+      title: 'Volume One',
+      author: 'Kallidora Rho',
+      words: 138792,
       size: 'medium',
     },
   ],
