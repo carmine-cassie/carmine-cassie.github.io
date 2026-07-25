@@ -4,18 +4,20 @@
 const shelves = {
   Current: [
     {
-      title: "Howl's Moving Castle",
-      author: 'Diana Wynne Jones',
-      words: 74394,
-      size: 'medium',
-    },
-    {
       series: 'War and Peace<br>',
-      entry: 'Book 1',
+      entry: 'Book 2',
       title: '1805',
       author: 'rus: Leo Tolstoy<br>eng: A. + L. Maude',
-      words: 47964,
+      words: 40532,
       size: 'tiny',
+    },
+    {
+      series: 'Twig',
+      entry: 'Arc 18',
+      title: 'Dog Eat Dog',
+      author: 'Wildbow',
+      words: 98018,
+      size: 'large',
     },
     {
       series: 'Tanakh',
@@ -26,6 +28,20 @@ const shelves = {
     },
   ],
   'Jul 2026': [
+    {
+      series: 'War and Peace<br>',
+      entry: 'Book 1',
+      title: '1805',
+      author: 'rus: Leo Tolstoy<br>eng: A. + L. Maude',
+      words: 47964,
+      size: 'tiny',
+    },
+    {
+      title: "Howl's Moving Castle",
+      author: 'Diana Wynne Jones',
+      words: 74394,
+      size: 'medium',
+    },
     {
       series: 'Twig',
       entry: 'Arc 17',
@@ -121,22 +137,6 @@ const shelves = {
   // Books I have on my kindle, so it's easier to add them to this page
   /*
   Kindle: [
-    {
-      series: 'Twig',
-      entry: 'Arc 17',
-      title: 'Gut Feeling',
-      author: 'Wildbow',
-      words: 87287,
-      size: 'large',
-    },
-    {
-      series: 'Twig',
-      entry: 'Arc 18',
-      title: 'Dog Eat Dog',
-      author: 'Wildbow',
-      words: 98018,
-      size: 'large',
-    },
     {
       series: 'Twig',
       entry: 'Arc 19',
@@ -309,14 +309,6 @@ const shelves = {
       author: 'Jonathan Sims',
       words: 95600,
       size: 'medium',
-    },
-    {
-      series: 'War and Peace<br>',
-      entry: 'Book 2',
-      title: '1805',
-      author: 'rus: Leo Tolstoy<br>eng: A. + L. Maude',
-      words: 40532,
-      size: 'tiny',
     },
     {
       series: 'War and Peace<br>',
