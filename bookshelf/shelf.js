@@ -4,6 +4,12 @@
 const shelves = {
   Current: [
     {
+      title: 'jan Osawi pi ma Osawi',
+      author: 'eng: L. Frank Baum<br>tok: jan Ke Tami',
+      words: 49357,
+      size: 'small',
+    },
+    {
       series: 'War and Peace<br>',
       entry: 'Book 2',
       title: '1805',
@@ -229,12 +235,6 @@ const shelves = {
       author: 'qntm',
       words: 100612,
       size: 'medium',
-    },
-    {
-      title: 'jan Osawi pi ma Osawi',
-      author: 'eng: L. Frank Baum<br>tok: jan Ke Tami',
-      words: 49357,
-      size: 'small',
     },
     {
       title: 'Autobiography of an Androgyne',
