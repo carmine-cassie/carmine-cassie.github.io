@@ -36,6 +36,8 @@
         --civil: #83a598;
         --nautical: #458588;
         --astronomical: #076678;
+
+        --gray: #928374;
       }
 
       p {
@@ -101,19 +103,28 @@
     <div
       id="day"
       style="
+        position: relative;
         background-color: var(--night);
         height: 20px;
         width: 75vw;
         margin: 20px;
-        border: 2px ridge #928374;
+        border: 2px ridge var(--gray);
         border-radius: 10px;
         box-shadow: 0px 3px 3px var(--night);
       "
     >
       <div
+        id="top-ticks"
+        style="position: absolute; height: 2px; left: 0; right: 0; top: 0"
+      ></div>
+      <div
+        id="bottom-ticks"
+        style="position: absolute; height: 2px; left: 0; right: 0; bottom: 0"
+      ></div>
+      <div
         id="pointer"
         style="
-          border: 2px inset #928374;
+          border: 2px inset var(--gray);
           box-sizing: border-box;
           position: relative;
           width: 20px;
@@ -197,16 +208,16 @@
 
   const delta = 0.01;
   const tickWidth = 0.25;
-  let stops = [];
+  let day_stops = [];
 
-  function addStop(date, startColor, endColor) {
+  function addStop(stops, date, startColor, endColor) {
     if (date) {
       stops.push({ percent: dateToPercent(date) - delta, color: startColor });
       stops.push({ percent: dateToPercent(date) + delta, color: endColor });
     }
   }
 
-  function addTick(date, tickColor, baseColor) {
+  function addTick(stops, date, tickColor, baseColor) {
     if (date) {
       stops.push({
         percent: dateToPercent(date) - tickWidth - delta,
@@ -227,18 +238,18 @@
     }
   }
 
-  addStop(sunTimes.nightEnd, 'night', 'astronomical');
-  addStop(sunTimes.nauticalDawn, 'astronomical', 'nautical');
-  addStop(sunTimes.dawn, 'nautical', 'civil');
-  addStop(sunTimes.sunrise, 'civil', 'sun');
-  // addStop(sunTimes.sunriseEnd, 'sun', 'golden');
-  addStop(sunTimes.goldenHourEnd, 'golden', 'day');
-  addStop(sunTimes.goldenHour, 'day', 'golden');
-  // addStop(sunTimes.sunsetStart, 'golden', 'sun'  );
-  addStop(sunTimes.sunset, 'sun', 'civil');
-  addStop(sunTimes.dusk, 'civil', 'nautical');
-  addStop(sunTimes.nauticalDusk, 'nautical', 'astronomical');
-  addStop(sunTimes.night, 'astronomical', 'night');
+  addStop(day_stops, sunTimes.nightEnd, 'night', 'astronomical');
+  addStop(day_stops, sunTimes.nauticalDawn, 'astronomical', 'nautical');
+  addStop(day_stops, sunTimes.dawn, 'nautical', 'civil');
+  addStop(day_stops, sunTimes.sunrise, 'civil', 'sun');
+  // addStop(day_stops, sunTimes.sunriseEnd, 'sun', 'golden');
+  addStop(day_stops, sunTimes.goldenHourEnd, 'golden', 'day');
+  addStop(day_stops, sunTimes.goldenHour, 'day', 'golden');
+  // addStop(day_stops, sunTimes.sunsetStart, 'golden', 'sun'  );
+  addStop(day_stops, sunTimes.sunset, 'sun', 'civil');
+  addStop(day_stops, sunTimes.dusk, 'civil', 'nautical');
+  addStop(day_stops, sunTimes.nauticalDusk, 'nautical', 'astronomical');
+  addStop(day_stops, sunTimes.night, 'astronomical', 'night');
 
   let lightestColour = 'night';
   if (sunTimes.goldenHourEnd) {
@@ -270,23 +281,37 @@
     darkestColour = 'golden';
   }
 
-  addTick(sunTimes.solarNoon, 'sun', lightestColour);
-  addTick(sunTimes.nadir, 'sun', darkestColour);
+  addTick(day_stops, sunTimes.solarNoon, 'sun', lightestColour);
+  addTick(day_stops, sunTimes.nadir, 'sun', darkestColour);
 
-  stops.sort((a, b) => {
+  day_stops.sort((a, b) => {
     return a['percent'] - b['percent'];
   });
 
   let gradient = 'linear-gradient(0.25turn';
 
-  stops.forEach(({ percent, color }) => {
+  day_stops.forEach(({ percent, color }) => {
     gradient += `, var(--${color}) ${percent}%`;
   });
 
   gradient += ')';
 
-  console.log(gradient);
   document.getElementById('day').style.backgroundImage = gradient;
 
   document.getElementById('pointer').style.left = `${dateToPercent(date)}%`;
+
+  let hour_gradient = 'linear-gradient(0.25turn';
+  let hour_tick_width = 0.03;
+  for (let hour = 1; hour < 24; hour++) {
+    hour_gradient += `, transparent ${((hour - hour_tick_width) / 24) * 100}%`;
+    hour_gradient += `, var(--day) ${((hour - hour_tick_width + 0.01) / 24) * 100}%`;
+    hour_gradient += `, var(--day) ${((hour - 0.01) / 24) * 100}%`;
+    hour_gradient += `, var(--night) ${((hour + 0.01) / 24) * 100}%`;
+    hour_gradient += `, var(--night) ${((hour + hour_tick_width - 0.01) / 24) * 100}%`;
+    hour_gradient += `, transparent ${((hour + hour_tick_width) / 24) * 100}%`;
+  }
+  hour_gradient += ')';
+
+  document.getElementById('top-ticks').style.backgroundImage = hour_gradient;
+  document.getElementById('bottom-ticks').style.backgroundImage = hour_gradient;
 </script>
