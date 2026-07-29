@@ -1,0 +1,103 @@
+@font-face {
+  font-family: 'atlantis-headline';
+  src: url('/assets/fonts/atlantis.headline-bold.otf') format('truetype');
+}
+
+@font-face {
+  font-family: 'cozette';
+  src: url('/assets/fonts/CozetteVector.otf') format('opentype');
+}
+
+/* all the colours, in a row, for the purposes of dither: */
+/* "#f2af5c #231c54 #e34234 #592222 #f29c50 #a6036d #39ff14 #1f261f #3292ca #323c40 #52498c #1f2026 #000000 #e1e1e1" */
+
+/* didder -i hole.png -o hole_d.png -p "#f2af5c #231c54 #e34234 #592222 #f29c50 #a6036d #39ff14 #1f261f #3292ca #323c40 #52498c #1f2026 #000000 #e1e1e1" -y 1080 -s 20% bayer 16x16 */
+
+:root {
+  --main: #f2af5c;
+  --shadow: #231c54;
+}
+
+* {
+  margin: 0;
+}
+
+.library {
+  --main: #e34234;
+  --shadow: #592222;
+}
+
+.city {
+  --main: #f29c50;
+  --shadow: #a6036d;
+}
+
+.lab {
+  --main: #39ff14;
+  --shadow: #1f261f;
+}
+
+.observatory {
+  --main: #3292ca;
+  --shadow: #323c40;
+}
+
+.forest {
+  --main: #52498c;
+  --shadow: #1f2026;
+}
+
+.void {
+  --main: #000000;
+  --shadow: #e1e1e1;
+}
+
+:root {
+  background-image: url(/assets/img/dithered_star.png);
+  background-position: center;
+  min-height: 100vh;
+  color: white;
+  font-family: 'cozette';
+  font-size: 13px;
+}
+
+h1 {
+  text-align: center;
+  font-family: 'atlantis-headline';
+  font-weight: normal;
+  font-size: 32px;
+}
+
+h1 {
+  color: var(--main);
+  text-shadow: var(--shadow) calc(1em / 16) calc(1em / 16);
+}
+
+li {
+  color: var(--main);
+  text-shadow: var(--shadow) calc(1em / 13) calc(1em / 13);
+}
+
+a {
+  color: var(--main);
+  text-shadow: var(--shadow) calc(1em / 13) calc(1em / 13);
+  text-decoration: underline calc(1em / 13);
+}
+
+li {
+  font-size: 2em;
+}
+
+p {
+  line-height: 13px;
+}
+
+.container {
+  max-width: 100%;
+  width: 44em;
+  border: solid var(--main) 2px;
+  box-shadow: var(--shadow) 4px 4px;
+  margin: 30px auto;
+  padding: 10px 20px;
+  background-color: #000d;
+}
