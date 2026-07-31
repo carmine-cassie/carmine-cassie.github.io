@@ -24,19 +24,140 @@
     <div class="main-window">
       <div class="window-header">
         <p>
-          <a href="/">carmine-cassie</a> » <a href="/blog">blog</a> » 2026_06_update
+          <a href="/">carmine-cassie</a> » <a href="/blog">blog</a> » 2026_07_update
         </p>
         <p><a href="/">X</a></p>
       </div>
 
       <div class="main-paper">
         <h1>What I Did in July</h1>
+        <p>
+          My final term of uni is just about wrapped up this month! (So long as I
+          pass my courses :p) I've got one exam around the end of next month and then
+          I'm,, kinda outta here. Very strange to be at such a transitional period in
+          my life, sort of the last structured chunk of time dedicated to education,
+          and what lies ahead is... the rest of my life!
+        </p>
 
-        <h2>Self Host Kanboard</h2>
+        <p>That said, here's what I got up to, <b>this</b> month!</p>
 
-        <h2>Redid index of this site</h2>
+        <h2>Self-Hosted Kanboard</h2>
+        <p>
+          I've had a lot of to-do lists throughout my life, from Google Docs to
+          desktop sticky notes, bookmarking systems and custom little react apps, but
+          for whatever reason, all of them have eventually fallen out of use. Not
+          having a to-do list is stressful, though, there's so much you're always
+          trying to remember, so many things you should get around to at some point.
+          This month, I decided it was time for a new to-do list!
+        </p>
 
-        <h2>eninepurba arrangement</h2>
+        <p>
+          I like Kanban-style boards, I've always enjoyed having little tickets
+          assigned to me on Jira when working in software, in group projects,
+          internships, and the like. It kind of surprised me to learn that Atlassian
+          has owned Trello since 2017, like, they have both of the big two options!
+          I'm not super eager to create a new account with a big-data company for the
+          sake of a to-do list, though, as I'm after something really simple, and I
+          worry that an app designed as a revenue-generating product would get
+          bloated and extractive year-over-year, as seems to the be the trend these
+          days.
+        </p>
+
+        <p>
+          But I have a little home server on my shelf, and the power of Tailscale's
+          MagicDNS (which is SO COOl, by the way), so I can host my own to-do list!
+          It was super easy to spin up
+          <a href="https://kanboard.org/">Kanboard</a> as a Docker image, so, uh,
+          that's my new to-do list!
+        </p>
+
+        <p>
+          It feels very helpful to capture "I should get around to that" thoughts
+          into a "backlog" column on my board, and then simply close them if I find I
+          lose interest before getting to them. Much less rattling around in my head,
+          as a result, which has been nice!
+        </p>
+
+        <h2>Glammed the Site Index</h2>
+        <p>
+          The front page of this website has been pretty sparse for quite a while. I
+          sort of focused on getting things to an MVP point early on, which was
+          really good - once you <b>have</b> a website, you can <b>put things</b> on
+          it, which is <b>the point</b>. But now that I've settled into a rhythm of
+          monthly blog/journal posts and project landing pages, I can indulge in a
+          little bit of prettying-up!
+        </p>
+
+        <img
+          class="small-body-image"
+          style="max-height: 300px"
+          src="/blog/26_07_front_page.png"
+        />
+
+        <p class="caption">Ta-da! I love the dithered moon theming.</p>
+
+        <p>
+          You can go check it out <a href="/">here</a>, I think it looks quite
+          lovely. Before, I had lots of text all in one page, and I've sort of split
+          those off into subpages, with the index serving as a landing page. (Though
+          those subpages are perhaps a bit sparse and in need of some love, as a
+          result.)
+        </p>
+
+        <p>
+          The clicking on each section is a little janky - I want you to be able
+          access the subpages by clicking anywhere in the corresponding div, while
+          allowing you to click individual links within that div, so I'm using an
+          onClick window.location, which means you can't open in new tab, or right
+          click, and things like that. If you've a suggestion to improve it, please
+          let me know!
+        </p>
+
+        <h2>eninepurba Piano Transcriptions</h2>
+        <p>
+          This month I played <a href="https://001b.ravarcheon.com/">eninepurba</a>,
+          which was a treat. It's so richly-detailed and intricate, and the
+          <a href="https://001b.ravarcheon.com/help">hint page</a> (which I found out
+          about <b>very</b> late) helps smooth over the friction of the delightfully
+          evil puzzle design. I very much enjoyed making notes on it in Obsidian (my
+          first time using it), as I ended up with a node-graph-map of its twisting
+          hyperlinked domains. It's full of neographies and ciphers and gorgeously
+          rendered (and dithered!) backgrounds, and notably, background music!
+        </p>
+
+        <p>
+          Parts of the game's music were kind of soaked in a strange
+          too-recent-to-be-nostalgia feeling for me, because I'd heard snippets of it
+          before, when its
+          <a href="https://ravarcheon.com/">delightfully crazed creator</a>'s slipped
+          some of its themes into her piano-playing at my place. I asked if she had
+          some of the the piano-rolls she recorded, what, three years ago, and if she
+          could pretty-please send them over to me. She did (yay!), and I transcribed
+          two of them with MuseScore so I could learn to play them myself!
+        </p>
+
+        <div style="display: flex; justify-content: center; gap: 8px">
+          <img
+            class="small-body-image"
+            style="max-height: 325px; margin-left: 0; margin-right: 0"
+            src="/blog/26_07_sheet_1.png"
+          />
+          <img
+            class="small-body-image"
+            style="max-height: 325px; margin-left: 0; margin-right: 0"
+            src="/blog/26_07_sheet_2.png"
+          />
+        </div>
+
+        <p class="caption">One of the two pieces I transcribed! I'm a big fan :p</p>
+
+        <p>
+          They've been very fun to learn - they're borne from improv, so they have a
+          very loose and playful vibe to play, compared to some of the other, more
+          methodical stuff I've been learning. I also put together a quick
+          <a href="/sheet_music/">landing page</a> for them on this site, which you
+          can check out, if you like!
+        </p>
 
         <h2>What I Read this Month!</h2>
 
@@ -58,7 +179,7 @@
           weave together into a bigger picture. I love Sims' particular fascination
           with peoples' way of life, the start of each story where you settle into
           the narrator's niche in the world is a joy to read. I also liked the way
-          that I'd recognise background characters as obvious protagonists of other
+          that I'd spot background characters as obvious protagonists of other
           stories in the anthology, particular the way that once I was halfway
           through the book, I'd start recognising more characters than not.
         </p>
@@ -73,7 +194,7 @@
             cohesive theme</span
           >. Also loved the growing sense of dread throughout most of the stories,
           like in the first chapter, when she kept mentioning
-          <span class="spoiler">her calloused, soil-stained hands</span> I got so
+          <span class="spoiler">her calloused, soil-stained hands</span>, I got so
           freaked out!
         </p>
 
@@ -91,7 +212,7 @@
           be pretty spoilery, hey!
           <span class="spoiler"
             >The, uh, arc of this arc feels like an inversion of Arc 15 in a lot of
-            ways. Where that one led with a rambunctious fun time before tumbling
+            ways. Where that arc led with a rambunctious fun time before tumbling
             down when Jessie drops a memory, here we're overwhelmed on the return of
             The Lambs by how bad of a shape they're in. Only at the very end when Sy
             kisses Jessie do we feel like anything might be alright.</span
@@ -129,7 +250,7 @@
             Jessie</span
           >, and then literally in the next chapter I read,
           <span class="spoiler">Helen gets riddled with bullets</span>! I ate my
-          words <b>immediately</b>, dude.
+          words <b>immediately</b>, dude. Good stuff.
         </p>
 
         <h3>Howl's Moving Castle</h3>
@@ -140,7 +261,7 @@
           the slightly distinct imagery of the book while the events were so
           familiar. Once the plot started to divert a bit from the path of my
           nostalgia, though, I started seeing Calcifer as blue, and Michael as
-          gangly, and Howl as a Welsh rogue.
+          gangly, and Howl as a right Welsh rogue.
         </p>
 
         <p>
@@ -159,14 +280,14 @@
           (and hews close to) book eight of this vast work, and so my pre-existing
           attachment to the characters and writing (of the Maudes' translation, in
           particular) has kept me eager to give this book a try. It's a big big book,
-          with 365 (mostly short) chapters, and I'm reading it a chapter a day with
+          with 365 (mostly short) chapters, and I'm reading it a-chapter-a-day with
           some friends (<a href="https://akesisuno.neocities.org/">akesi Samanta</a>
           and <a href="https://sybilancer.github.io/">ijo Sipu</a>), discussing as we
           go, which has thus far proved quite fun!
         </p>
 
         <p>
-          So far I'm loving the contradiction at the core of what's going on - these
+          So far, I'm loving the contradiction at the core of what's going on - these
           Russian aristocrats professing their love for French culture while they're
           at war with Napoleon. They profess a love for the freshly-toppled French
           culture, hey. Chandeliers and caviar, baby.
@@ -180,24 +301,15 @@
           with them!
         </p>
 
-        <h3>Tanakh: Torah</h3>
-        <img src="/assets/img/books/torah.png" class="book-cover" />
-        <p>
-          It's so interesting be, like, vaguely culturally aware of so many of the
-          stories here, but only now be actually reading them. Like it's interesting
-          to see how things were omitted or changed in the tellings that have reached
-          me via the oral Christian background radiation.
-        </p>
-
-        <p>
-          Like, the Noah's ark section? The wacky pacing and contradictory details
-          from the way it was combined from multiple sources are really interesting
-          things that I never knew about.
-        </p>
-
         <h2>And That's It!</h2>
 
-        <p>Chat to you at the end of July!</p>
+        <p>
+          Like I seem to say every month, I've got one or three cool things close to
+          the end of the pipeline, so hopefully they'll be complete enough to talk
+          about next month.
+        </p>
+
+        <p>Chat to you at the end of August!</p>
 
         <div style="display: flex; justify-content: space-between">
           <a href="/blog/26_06">« Previous Update</a>
