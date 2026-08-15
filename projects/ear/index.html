@@ -1,0 +1,161 @@
+<!doctype html>
+<html>
+  <head>
+    <script src="http://unpkg.com/tone"></script>
+  </head>
+  <script>
+    const drone = new Tone.Synth().toDestination();
+    drone.portamento = 0.25;
+    drone.volume.value = -6;
+
+    // Just a little vibrato so the beats are less predictable
+    const vibrato = new Tone.Vibrato(2, 0.005).toDestination();
+    drone.connect(vibrato);
+
+    const note = new Tone.Synth().toDestination();
+    note.volume.value = -6;
+    // [TODO] maybe give the note synth a little effect so we can distinguish it from the drone when they play the same note
+
+    let ratios = {};
+    for (let interval = -12; interval <= 12; interval++) {
+      ratios[interval] = Tone.intervalToFrequencyRatio(interval + 24);
+    }
+
+    let name_synths = [];
+    ['1', 'f2', '2', 'f3', '3', '4', 's4', '5', 'f6', '6', 'f7', '7'].forEach(
+      (name) => {
+        let synth = new Tone.Player(`${name}.ogg`).toDestination();
+        synth.volume.value = -18;
+        synth.volume.fadeIn = 0.1;
+        synth.volume.fadeOut = 0.5;
+
+        let chorus = new Tone.Chorus().toDestination().start();
+        synth.connect(chorus);
+
+        name_synths.push(synth);
+      },
+    );
+
+    // Flag so we know when to quit our infinite loop
+    let playing = false;
+
+    // Kinda klunky but what can you do
+    let drone_notes = [
+      'F1',
+      'F#1',
+      'G1',
+      'G#1',
+      'A1',
+      'A#1',
+      'B1',
+      'C2',
+      'C#2',
+      'D2',
+      'D#2',
+      'E2',
+    ];
+
+    async function start() {
+      playing = true;
+      // Little infinite loop - we'll have to rely on a flag to escape
+      while (true) {
+        // Pick a random drone note
+        let drone_frequency = Tone.Frequency(
+          drone_notes[Math.floor(Math.random() * 12)],
+        );
+        drone.triggerAttack(drone_frequency);
+
+        {
+          // Play a little 1, 4, 5, 1 sequence
+          // It's a 1s pause, 4 0.75s notes, then a 1s pause
+          // Total 5000ms
+          let now = Tone.now() + 1.5;
+          note.triggerAttackRelease(
+            drone_frequency * ratios[0 - 12],
+            0.75,
+            now + 0.75 * 0,
+          );
+          note.triggerAttackRelease(
+            drone_frequency * ratios[5 - 12],
+            0.75,
+            now + 0.75 * 1,
+          );
+          note.triggerAttackRelease(
+            drone_frequency * ratios[7 - 12],
+            0.75,
+            now + 0.75 * 2,
+          );
+          note.triggerAttackRelease(
+            drone_frequency * ratios[0 - 12],
+            0.75,
+            now + 0.75 * 3,
+          );
+          await new Promise((resolve) => setTimeout(resolve, 7000));
+        }
+
+        // Default value for the "last note"
+        let value = -13;
+        for (let i = 0; i < 10; i++) {
+          {
+            if (!playing) {
+              return;
+            }
+
+            // Little shenaniganery to not repeat notes
+            let rand = value;
+            while (rand == value) {
+              rand = Math.floor(Math.random() * 25) - 12;
+            }
+            value = rand;
+
+            let now = Tone.now();
+            note.triggerAttackRelease(drone_frequency * ratios[value], 2.5, now);
+            note.triggerAttackRelease(drone_frequency * ratios[value], 2.5, now + 4);
+
+            await new Promise((resolve) => setTimeout(resolve, 3000));
+            if (!playing) {
+              return;
+            }
+            name_synths[(value + 24) % 12].start();
+            await new Promise((resolve) => setTimeout(resolve, 4500));
+          }
+        }
+
+        if (!playing) {
+          return;
+        }
+      }
+    }
+
+    // This is janky but like whatever
+    function stop() {
+      drone.triggerRelease();
+      note.triggerRelease();
+      playing = false;
+    }
+  </script>
+  <body>
+    <button onclick="start()">Start</button>
+    <button onclick="stop()">Stop</button>
+  </body>
+</html>
+
+<!--
+Okay so here's the process
+
+make a little dict of frequency ratios, from -12 to 12
+(limit it by which ones we want to do)
+
+pick a tonic/key center, somewhere from like F1 to E2, store this as a number
+
+play the 1, 4, 5, 1
+
+in a loop, some number of times:
+- pick a note (TODO a sequence)
+- play it some number of times, for some duration, with a little gap between
+- say its name, as a scale degree
+- play it again
+
+then go back and pick a new tonic
+
+-->
