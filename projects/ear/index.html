@@ -2,18 +2,98 @@
 <html>
   <head>
     <script src="https://unpkg.com/tone"></script>
+    <meta charset="utf-8" />
+    <style>
+      @font-face {
+        font-family: 'cozette';
+        src: url('/assets/fonts/CozetteVector.otf') format('truetype');
+      }
+
+      :root {
+        background-color: #32302f;
+        color: #ebdbb2;
+        font-family: 'cozette';
+        font-size: 13px;
+        text-align: center;
+      }
+
+      h1 {
+        font-weight: normal;
+        font-size: 3rem;
+        margin-bottom: -6px;
+      }
+
+      p {
+        margin: 0.5em 0;
+      }
+
+      table,
+      tr,
+      td {
+        border: 2px solid #ebdbb2;
+        text-align: center;
+        border-collapse: collapse;
+      }
+
+      td {
+        width: 40px;
+      }
+
+      td {
+        padding: 5px;
+      }
+
+      table {
+        margin: 0 auto;
+      }
+
+      button {
+        background-color: #32302f;
+        color: #ebdbb2;
+        border: 1px solid #fe8019;
+        border-radius: 2px;
+        cursor: pointer;
+        font-family: 'cozette';
+        font-size: 13px;
+      }
+
+      button:hover {
+        background-color: #ebdbb2;
+        color: #32302f;
+      }
+
+      input[type='checkbox'] {
+        appearance: none;
+        margin: -2px;
+        width: 12px;
+        height: 12px;
+        background-color: #32302f;
+        color: #ebdbb2;
+        border: 1px solid #fe8019;
+        border-radius: 2px;
+        cursor: pointer;
+      }
+
+      input[type='checkbox']:checked {
+        background-color: #ebdbb2;
+      }
+
+      a {
+        color: #fe8019;
+      }
+    </style>
   </head>
   <script>
     const drone = new Tone.Synth().toDestination();
     drone.portamento = 0.25;
-    drone.volume.value = -6;
+    drone.volume.value = -3;
 
     // Just a little vibrato so the beats are less predictable
     const vibrato = new Tone.Vibrato(2, 0.005).toDestination();
     drone.connect(vibrato);
 
     const note = new Tone.Synth().toDestination();
-    note.volume.value = -6;
+    note.volume.value = -3;
     // [TODO] maybe give the note synth a little effect so we can distinguish it from the drone when they play the same note
 
     let ratios = {};
@@ -25,7 +105,7 @@
     ['1', 'f2', '2', 'f3', '3', '4', 's4', '5', 'f6', '6', 'f7', '7'].forEach(
       (name) => {
         let synth = new Tone.Player(`${name}.ogg`).toDestination();
-        synth.volume.value = -18;
+        synth.volume.value = -12;
         synth.volume.fadeIn = 0.1;
         synth.volume.fadeOut = 0.5;
 
@@ -56,6 +136,19 @@
     ];
 
     async function start() {
+      allowed_intervals = [];
+      ['1', 'f2', '2', 'f3', '3', '4', 's4', '5', 'f6', '6', 'f7', '7'].forEach(
+        (name, index) => {
+          if (document.getElementById(name).checked) {
+            allowed_intervals.push(index);
+          }
+        },
+      );
+
+      if (allowed_intervals.length == 0) {
+        return;
+      }
+
       playing = true;
       // Little infinite loop - we'll have to rely on a flag to escape
       while (true) {
@@ -101,9 +194,9 @@
               return;
             }
 
-            // Little shenaniganery to not repeat notes
+            // Shuffle until we don't repeat a note and pick only legal notes
             let rand = value;
-            while (rand == value) {
+            while (rand == value || !allowed_intervals.includes((rand + 24) % 12)) {
               rand = Math.floor(Math.random() * 25) - 12;
             }
             value = rand;
@@ -135,8 +228,69 @@
     }
   </script>
   <body>
-    <button onclick="start()">Start</button>
-    <button onclick="stop()">Stop</button>
+    <div style="max-width: 40em; margin: 0 auto">
+      <h1>Ear Trainer</h1>
+      <p>
+        I wanted a scale degree ear trainer, but couldn't find a free one I liked,
+        and I figured it would be easy enough to whip one up to suit my needs!
+      </p>
+
+      <p>
+        Voice sounds by the lovely <a href="https://ravarcheon.com/">Ravarcheon</a>.
+      </p>
+
+      <p>
+        Random order suggestion, maybe good, maybe bad:<br />1 -> 3 -> 5 -> 2 -> 6 ->
+        7 -> 4 -> ♯4 -> ♭3 -> ♭6 -> ♭7 -> ♭2
+      </p>
+
+      <table>
+        <tr>
+          <td>Major</td>
+          <td>Minor</td>
+          <td>Other</td>
+        </tr>
+        <tr>
+          <td colspan="2">1 <input id="1" type="checkbox" /></td>
+        </tr>
+        <tr>
+          <td colspan="2">2 <input id="2" type="checkbox" /></td>
+          <td>♭2 <input id="f2" type="checkbox" /></td>
+        </tr>
+        <tr>
+          <td>3 <input id="3" type="checkbox" /></td>
+          <td>♭3 <input id="f3" type="checkbox" /></td>
+        </tr>
+        <tr>
+          <td colspan="2">4 <input id="4" type="checkbox" /></td>
+          <td>♯4 <input id="s4" type="checkbox" /></td>
+        </tr>
+        <tr>
+          <td colspan="2">5 <input id="5" type="checkbox" /></td>
+        </tr>
+        <tr>
+          <td>6 <input id="6" type="checkbox" /></td>
+          <td>♭6 <input id="f6" type="checkbox" /></td>
+        </tr>
+        <tr>
+          <td>7 <input id="7" type="checkbox" /></td>
+          <td>♭7 <input id="f7" type="checkbox" /></td>
+        </tr>
+      </table>
+
+      <!-- TODO support multi-note melodies -->
+      <!-- TODO let user change things like how many notes in each key -->
+
+      <p>
+        <button onclick="start()">Start</button>
+        <button onclick="stop()">Stop</button>
+      </p>
+
+      <p>
+        You gotta stop and start to refresh which notes are included. Also probably
+        don't hit start multiple times.
+      </p>
+    </div>
   </body>
 </html>
 
