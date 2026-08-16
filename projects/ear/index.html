@@ -2,6 +2,7 @@
 <html>
   <head>
     <script src="https://unpkg.com/tone"></script>
+    <meta name="viewport" content="width=device-width" />
     <meta charset="utf-8" />
     <style>
       @font-face {
@@ -43,10 +44,6 @@
         padding: 5px;
       }
 
-      table {
-        margin: 0 auto;
-      }
-
       button {
         background-color: #32302f;
         color: #ebdbb2;
@@ -78,22 +75,40 @@
         background-color: #ebdbb2;
       }
 
+      input[type='number'] {
+        appearance: none;
+        background-color: #32302f;
+        color: #ebdbb2;
+        border: 1px solid #fe8019;
+        border-radius: 2px;
+        cursor: pointer;
+        font-family: 'cozette';
+        font-size: 13px;
+        width: 40px;
+        color-scheme: dark;
+      }
+
       a {
         color: #fe8019;
       }
     </style>
   </head>
   <script>
+    // Experiment with improving performance, to no avail
+    // Tone.setContext(
+    //   new Tone.Context({ clockSource: 'timeout', latencyHint: 'playback' }),
+    // );
+
     const drone = new Tone.Synth().toDestination();
     drone.portamento = 0.25;
-    drone.volume.value = -3;
+    drone.volume.value = -4;
 
     // Just a little vibrato so the beats are less predictable
     const vibrato = new Tone.Vibrato(2, 0.005).toDestination();
     drone.connect(vibrato);
 
     const note = new Tone.Synth().toDestination();
-    note.volume.value = -3;
+    note.volume.value = -4;
     // [TODO] maybe give the note synth a little effect so we can distinguish it from the drone when they play the same note
 
     let ratios = {};
@@ -194,23 +209,58 @@
               return;
             }
 
-            // Shuffle until we don't repeat a note and pick only legal notes
-            let rand = value;
-            while (rand == value || !allowed_intervals.includes((rand + 24) % 12)) {
-              rand = Math.floor(Math.random() * 25) - 12;
-            }
-            value = rand;
+            let melody = [];
 
-            let now = Tone.now();
-            note.triggerAttackRelease(drone_frequency * ratios[value], 2.5, now);
-            note.triggerAttackRelease(drone_frequency * ratios[value], 2.5, now + 4);
-
-            await new Promise((resolve) => setTimeout(resolve, 3000));
-            if (!playing) {
-              return;
+            for (let j = 0; j < document.getElementById('melody_notes').value; j++) {
+              // Shuffle until we don't repeat a note and pick only legal notes
+              let rand = value;
+              while (
+                value == rand ||
+                !allowed_intervals.includes((rand + 24) % 12)
+              ) {
+                rand = Math.floor(Math.random() * 25) - 12;
+              }
+              value = rand;
+              melody.push(value);
             }
-            name_synths[(value + 24) % 12].start();
-            await new Promise((resolve) => setTimeout(resolve, 4500));
+
+            for (let j = 0; j < document.getElementById('melody_notes').value; j++) {
+              if (!playing) {
+                return;
+              }
+              let now = Tone.now();
+              note.triggerAttackRelease(
+                drone_frequency * ratios[melody[j]],
+                2.5,
+                now,
+              );
+
+              await new Promise((resolve) => setTimeout(resolve, 3000));
+            }
+
+            await new Promise((resolve) => setTimeout(resolve, 1000));
+
+            note.volume.value -= 3;
+
+            for (let j = 0; j < document.getElementById('melody_notes').value; j++) {
+              if (!playing) {
+                note.volume.value += 3;
+                return;
+              }
+              let now = Tone.now();
+              name_synths[(melody[j] + 24) % 12].start();
+              note.triggerAttackRelease(
+                drone_frequency * ratios[melody[j]],
+                2,
+                now + 0.5,
+              );
+
+              await new Promise((resolve) => setTimeout(resolve, 3000));
+            }
+
+            note.volume.value += 3;
+
+            await new Promise((resolve) => setTimeout(resolve, 1000));
           }
         }
 
@@ -228,7 +278,7 @@
     }
   </script>
   <body>
-    <div style="max-width: 40em; margin: 0 auto">
+    <div style="max-width: 40em; margin: 0 auto; flex-wrap: wrap">
       <h1>Ear Trainer</h1>
       <p>
         I wanted a scale degree ear trainer, but couldn't find a free one I liked,
@@ -240,55 +290,74 @@
       </p>
 
       <p>
-        Random order suggestion, maybe good, maybe bad:<br />1 -> 3 -> 5 -> 2 -> 6 ->
-        7 -> 4 -> ♯4 -> ♭3 -> ♭6 -> ♭7 -> ♭2
+        Random order suggestion, maybe good, maybe bad:<br />1 -> 5 -> 3 -> 2 -> 4 ->
+        6 -> 7 -> ♯4 -> ♭7 -> ♭3 -> ♭6 -> ♭2
       </p>
 
-      <table>
-        <tr>
-          <td>Major</td>
-          <td>Minor</td>
-          <td>Other</td>
-        </tr>
-        <tr>
-          <td colspan="2">1 <input id="1" type="checkbox" /></td>
-        </tr>
-        <tr>
-          <td colspan="2">2 <input id="2" type="checkbox" /></td>
-          <td>♭2 <input id="f2" type="checkbox" /></td>
-        </tr>
-        <tr>
-          <td>3 <input id="3" type="checkbox" /></td>
-          <td>♭3 <input id="f3" type="checkbox" /></td>
-        </tr>
-        <tr>
-          <td colspan="2">4 <input id="4" type="checkbox" /></td>
-          <td>♯4 <input id="s4" type="checkbox" /></td>
-        </tr>
-        <tr>
-          <td colspan="2">5 <input id="5" type="checkbox" /></td>
-        </tr>
-        <tr>
-          <td>6 <input id="6" type="checkbox" /></td>
-          <td>♭6 <input id="f6" type="checkbox" /></td>
-        </tr>
-        <tr>
-          <td>7 <input id="7" type="checkbox" /></td>
-          <td>♭7 <input id="f7" type="checkbox" /></td>
-        </tr>
-      </table>
+      <div style="display: flex; gap: 20px; justify-content: center">
+        <table>
+          <tr>
+            <td>Major</td>
+            <td>Minor</td>
+            <td>Other</td>
+          </tr>
+          <tr>
+            <td colspan="2">1 <input id="1" type="checkbox" /></td>
+          </tr>
+          <tr>
+            <td colspan="2">2 <input id="2" type="checkbox" /></td>
+            <td>♭2 <input id="f2" type="checkbox" /></td>
+          </tr>
+          <tr>
+            <td>3 <input id="3" type="checkbox" /></td>
+            <td>♭3 <input id="f3" type="checkbox" /></td>
+          </tr>
+          <tr>
+            <td colspan="2">4 <input id="4" type="checkbox" /></td>
+            <td>♯4 <input id="s4" type="checkbox" /></td>
+          </tr>
+          <tr>
+            <td colspan="2">5 <input id="5" type="checkbox" /></td>
+          </tr>
+          <tr>
+            <td>6 <input id="6" type="checkbox" /></td>
+            <td>♭6 <input id="f6" type="checkbox" /></td>
+          </tr>
+          <tr>
+            <td>7 <input id="7" type="checkbox" /></td>
+            <td>♭7 <input id="f7" type="checkbox" /></td>
+          </tr>
+        </table>
+
+        <div>
+          <p>
+            Melody Notes:<br /><input
+              type="number"
+              value="1"
+              min="1"
+              id="melody_notes"
+            />
+          </p>
+          <br />
+          <p>
+            <button onclick="start()">Start</button>
+            <button onclick="stop()">Stop</button>
+          </p>
+        </div>
+      </div>
 
       <!-- TODO support multi-note melodies -->
       <!-- TODO let user change things like how many notes in each key -->
 
       <p>
-        <button onclick="start()">Start</button>
-        <button onclick="stop()">Stop</button>
+        You gotta stop and start to refresh which notes are included. Also probably
+        don't hit start multiple times.
       </p>
 
       <p>
-        You gotta stop and start to refresh which notes are included. Also probably
-        don't hit start multiple times.
+        I find it unusably crackly on mobile - maybe something to do with the
+        <a href="https://tonejs.github.io/">Tone.js</a>
+        library? idk I couldn't figure it out, lmk if you have any suggestions.
       </p>
     </div>
   </body>
