@@ -231,14 +231,12 @@
               let now = Tone.now();
               note.triggerAttackRelease(
                 drone_frequency * ratios[melody[j]],
-                2.5,
+                2.25,
                 now,
               );
 
-              await new Promise((resolve) => setTimeout(resolve, 3000));
+              await new Promise((resolve) => setTimeout(resolve, 2750));
             }
-
-            await new Promise((resolve) => setTimeout(resolve, 500));
 
             note.volume.value -= 3;
 
