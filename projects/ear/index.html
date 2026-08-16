@@ -238,7 +238,7 @@
               await new Promise((resolve) => setTimeout(resolve, 3000));
             }
 
-            await new Promise((resolve) => setTimeout(resolve, 1000));
+            await new Promise((resolve) => setTimeout(resolve, 500));
 
             note.volume.value -= 3;
 
@@ -252,10 +252,10 @@
               note.triggerAttackRelease(
                 drone_frequency * ratios[melody[j]],
                 2,
-                now + 0.5,
+                now + 1,
               );
 
-              await new Promise((resolve) => setTimeout(resolve, 3000));
+              await new Promise((resolve) => setTimeout(resolve, 3500));
             }
 
             note.volume.value += 3;
