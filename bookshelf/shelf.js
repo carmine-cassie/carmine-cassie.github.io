@@ -25,10 +25,10 @@ const shelves = {
     },
     {
       series: 'Tanakh',
-      title: 'Torah',
+      title: 'Torah/Genesis',
       author: 'RJPS',
-      words: 150152,
-      size: 'large',
+      words: 37208,
+      size: 'small',
     },
   ],
   'Aug 2026': [
@@ -444,6 +444,34 @@ const shelves = {
       author: 'Kallidora Rho',
       words: 138792,
       size: 'medium',
+    },
+    {
+      series: 'Tanakh',
+      title: 'Torah/Exodus',
+      author: 'RJPS',
+      words: 31150,
+      size: 'small',
+    },
+    {
+      series: 'Tanakh',
+      title: 'Torah/Leviticus',
+      author: 'RJPS',
+      words: 23508,
+      size: 'small',
+    },
+    {
+      series: 'Tanakh',
+      title: 'Torah/Numbers',
+      author: 'RJPS',
+      words: 30302,
+      size: 'small',
+    },
+    {
+      series: 'Tanakh',
+      title: 'Torah/Deuteronomy',
+      author: 'RJPS',
+      words: 27910,
+      size: 'small',
     },
   ],
   */
