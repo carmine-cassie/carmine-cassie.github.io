@@ -4,6 +4,12 @@
 const shelves = {
   Current: [
     {
+      title: 'Girlfriends',
+      author: 'Emily Zhou',
+      words: 50540,
+      size: 'small',
+    },
+    {
       title: 'jan Osawi pi ma Osawi',
       author: 'eng: L. Frank Baum<br>tok: jan Ke Tami',
       words: 49357,
@@ -18,18 +24,20 @@ const shelves = {
       size: 'tiny',
     },
     {
+      series: 'Tanakh',
+      title: 'Torah',
+      author: 'RJPS',
+      words: 150152,
+      size: 'large',
+    },
+  ],
+  'Aug 2026': [
+    {
       series: 'Twig',
       entry: 'Arc 18',
       title: 'Dog Eat Dog',
       author: 'Wildbow',
       words: 98018,
-      size: 'large',
-    },
-    {
-      series: 'Tanakh',
-      title: 'Torah',
-      author: 'RJPS',
-      words: 150152,
       size: 'large',
     },
   ],
@@ -429,12 +437,6 @@ const shelves = {
       author: 'rus: Leo Tolstoy<br>eng: A. + L. Maude',
       words: 17560,
       size: 'tiny',
-    },
-    {
-      title: 'Girlfriends',
-      author: 'Emily Zhou',
-      words: 50540,
-      size: 'small',
     },
     {
       series: 'WARHOUND',
