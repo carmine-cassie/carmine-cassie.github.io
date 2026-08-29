@@ -1,0 +1,94 @@
+<!doctype html>
+
+<html>
+  <head>
+    <style>
+      @font-face {
+        font-family: 'disco';
+        src: url('/assets/fonts/DigitalDisco.ttf') format('truetype');
+      }
+      .cipher {
+        font-family: 'disco';
+        font-size: 32px;
+      }
+
+      .key {
+        div {
+          div {
+            font-size: 32px;
+            width: fit-content;
+            width: 100px;
+          }
+        }
+      }
+    </style>
+    <style id="scripted-style"></style>
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Cipher Practice</title>
+  </head>
+  <body>
+    <div style="display: flex; justify-content: center; gap: 20px">
+      <div style="max-width: 700px; border: 2px solid black; padding: 20px">
+        <p>
+          Oh yeah, baby, it's the <b>cipher practice tool</b>! Enter the name of a
+          font on your computer and click randomise to get given a quote!
+        </p>
+        <p id="cipher" class="cipher" style="border: 1px solid black; padding: 8px">
+          Enter a font to get started!
+        </p>
+
+        <p>Cipher font name: <input id="font-name" /></p>
+        <p><button onclick="randomise()">Generate!</button></p>
+      </div>
+
+      <div
+        class="key"
+        style="max-width: 400px; border: 2px solid black; padding: 20px"
+      >
+        <p>Key:</p>
+        <div style="display: flex; flex-wrap: wrap">
+          <div>A: <span class="cipher">A</span></div>
+          <div>B: <span class="cipher">B</span></div>
+          <div>C: <span class="cipher">C</span></div>
+          <div>D: <span class="cipher">D</span></div>
+          <div>E: <span class="cipher">E</span></div>
+          <div>F: <span class="cipher">F</span></div>
+          <div>G: <span class="cipher">G</span></div>
+          <div>H: <span class="cipher">H</span></div>
+          <div>I: <span class="cipher">I</span></div>
+          <div>J: <span class="cipher">J</span></div>
+          <div>K: <span class="cipher">K</span></div>
+          <div>L: <span class="cipher">L</span></div>
+          <div>M: <span class="cipher">M</span></div>
+          <div>N: <span class="cipher">N</span></div>
+          <div>O: <span class="cipher">O</span></div>
+          <div>P: <span class="cipher">P</span></div>
+          <div>Q: <span class="cipher">Q</span></div>
+          <div>R: <span class="cipher">R</span></div>
+          <div>S: <span class="cipher">S</span></div>
+          <div>T: <span class="cipher">T</span></div>
+          <div>U: <span class="cipher">U</span></div>
+          <div>V: <span class="cipher">V</span></div>
+          <div>W: <span class="cipher">W</span></div>
+          <div>X: <span class="cipher">X</span></div>
+          <div>Y: <span class="cipher">Y</span></div>
+          <div>Z: <span class="cipher">Z</span></div>
+        </div>
+      </div>
+    </div>
+
+    <script src="quotes.js"></script>
+    <script>
+      function randomise() {
+        document.getElementById('cipher').innerText =
+          quotes[Math.floor(Math.random() * quotes.length)];
+        document.getElementById('scripted-style').innerHTML = `.cipher {
+        font-family: '${document.getElementById('font-name').value}', 'disco';
+        font-size: 32px;
+      }`;
+      }
+    </script>
+  </body>
+</html>
