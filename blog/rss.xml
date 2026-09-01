@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0">
+
+<channel>
+  <title>carmine-cassie</title>
+  <link>https://www.carminecassie.com/blog</link>
+  <description>Carmine Cassie's blog.</description>
+  
+  <item>
+    <title>What I did in August</title>
+    <link>https://carminecassie.com/blog/26_08</link>
+    <description>Secret Keeper, an Ear Trainer, and
+            finishing Uni!</description>
+  </item>
+  <item>
+    <title>What I did in July</title>
+    <link>https://carminecassie.com/blog/26_07</link>
+    <description>Kanboard, Index Revamp, and Piano
+            Transcriptions!</description>
+  </item>
+  <item>
+    <title>What I did in June</title>
+    <link>https://carminecassie.com/blog/26_06</link>
+    <description>Payphone Explorer, a New Tab page, and
+            a Lyric Game!</description>
+  </item>
+  <item>
+    <title>What I did in May</title>
+    <link>https://carminecassie.com/blog/26_05</link>
+    <description>Bookshelf & Lots of Reading!</description>
+  </item>
+  <item>
+    <title>What I did in April</title>
+    <link>https://carminecassie.com/blog/26_04</link>
+    <description>Kindle & Weather Machine!</description>
+  </item>
+  <item>
+    <title>What I did in March</title>
+    <link>https://carminecassie.com/blog/26_03</link>
+    <description>kulupu Oselasija, Sewing, and a Blog
+            Post!</description>
+  </item>
+  <item>
+    <title>nasin sitelen kalama suwi</title>
+    <link>https://carminecassie.com/blog/nsks</link>
+    <description>a cute system for sitelen pona names!</description>
+  </item>
+  <item>
+    <title>What I did in February</title>
+    <link>https://carminecassie.com/blog/26_02</link>
+    <description>This Website, Pi-Hole, & SCiPNET!</description>
+  </item>
+  <item>
+    <title>What I did in January</title>
+    <link>https://carminecassie.com/blog/26_01</link>
+    <description>Short Film, Karaoke, & a Birthday
+            Adventure!</description>
+  </item>
+</channel>
+
+</rss>

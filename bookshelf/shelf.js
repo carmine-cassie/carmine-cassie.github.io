@@ -4,24 +4,18 @@
 const shelves = {
   Current: [
     {
-      title: 'Girlfriends',
-      author: 'Emily Zhou',
-      words: 50540,
-      size: 'small',
+      series: 'Twig',
+      entry: 'Arc 19',
+      title: 'Root and Branch',
+      author: 'Wildbow',
+      words: 86578,
+      size: 'large',
     },
     {
       title: 'jan Osawi pi ma Osawi',
       author: 'eng: L. Frank Baum<br>tok: jan Ke Tami',
       words: 49357,
       size: 'small',
-    },
-    {
-      series: 'War and Peace<br>',
-      entry: 'Book 2',
-      title: '1805',
-      author: 'rus: Leo Tolstoy<br>eng: A. + L. Maude',
-      words: 40532,
-      size: 'tiny',
     },
     {
       series: 'Tanakh',
@@ -32,6 +26,20 @@ const shelves = {
     },
   ],
   'Aug 2026': [
+    {
+      title: 'Girlfriends',
+      author: 'Emily Zhou',
+      words: 50540,
+      size: 'small',
+    },
+    {
+      series: 'War and Peace<br>',
+      entry: 'Book 2',
+      title: '1805',
+      author: 'rus: Leo Tolstoy<br>eng: A. + L. Maude',
+      words: 40532,
+      size: 'tiny',
+    },
     {
       series: 'Twig',
       entry: 'Arc 18',
@@ -151,14 +159,6 @@ const shelves = {
   // Books I have on my kindle, so it's easier to add them to this page
   /*
   Kindle: [
-    {
-      series: 'Twig',
-      entry: 'Arc 19',
-      title: 'Root and Branch',
-      author: 'Wildbow',
-      words: 86578,
-      size: 'large',
-    },
     {
       series: 'Twig',
       entry: 'Arc 20',
