@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Carmine Cassie</title>
+
+    <link rel="stylesheet" href="/assets/css/style.css" />
+  </head>
+
+  <body>
+    <a href="/">
+      <img
+        src="/assets/img/header.png"
+        style="
+          width: 720px;
+          max-width: 100%;
+          image-rendering: pixelated;
+          margin: auto;
+          display: block;
+        "
+      />
+    </a>
+    <div class="main-window">
+      <div class="window-header">
+        <p><a href="/">carmine-cassie</a> » sankey</p>
+        <p><a href="/">X</a></p>
+      </div>
+
+      <div class="main-paper">
+        <h1>Sankey</h1>
+        <p>
+          I love seeing those Sankey diagrams online that summarise a long job
+          search, and it turns out they're very easy to make with
+          <a href="https://mermaid.js.org">mermaid.js</a>, so I threw one together,
+          and will update as my search for full-time work out of university
+          continues.
+        </p>
+        <p>
+          I enjoy the concept that the worse the job search goes, the prettier a
+          graph I'll get to look at, as consolation!
+        </p>
+        <pre class="mermaid">
+sankey
+
+Applied,Aptitude Test,1
+Applied,Awaiting Response,3
+</pre
+        >
+      </div>
+    </div>
+
+    <script type="module">
+      import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@12/dist/mermaid.esm.min.mjs';
+      mermaid.initialize({ startOnLoad: true });
+    </script>
+  </body>
+</html>
