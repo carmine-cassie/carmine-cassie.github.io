@@ -28,7 +28,7 @@
       </div>
 
       <div class="main-paper">
-        <h1>Sankey</h1>
+        <h1>Job Hunt</h1>
         <p>
           I love seeing those Sankey diagrams online that summarise a long job
           search, and it turns out they're very easy to make with
@@ -41,10 +41,16 @@
           graph I'll get to look at, as consolation!
         </p>
         <pre class="mermaid">
+---
+config:
+  sankey:
+    nodeAlignment: left
+---
 sankey
 
-Applied,Aptitude Test,1
 Applied,Awaiting Response,3
+Applied,Aptitude Test,1
+Aptitude Test,Technical Assessment,1
 </pre
         >
       </div>
