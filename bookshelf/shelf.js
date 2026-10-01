@@ -5,17 +5,11 @@ const shelves = {
   Current: [
     {
       series: 'Twig',
-      entry: 'Arc 19',
-      title: 'Root and Branch',
+      entry: 'Arc 20',
+      title: 'Crown of Thorns',
       author: 'Wildbow',
-      words: 86578,
+      words: 102321,
       size: 'large',
-    },
-    {
-      title: 'jan Osawi pi ma Osawi',
-      author: 'eng: L. Frank Baum<br>tok: jan Ke Tami',
-      words: 49357,
-      size: 'small',
     },
     {
       series: 'Tanakh',
@@ -23,6 +17,16 @@ const shelves = {
       author: 'RJPS',
       words: 37208,
       size: 'small',
+    },
+  ],
+  'Sep 2026': [
+    {
+      series: 'Twig',
+      entry: 'Arc 19',
+      title: 'Root and Branch',
+      author: 'Wildbow',
+      words: 86578,
+      size: 'large',
     },
   ],
   'Aug 2026': [
@@ -159,14 +163,6 @@ const shelves = {
   // Books I have on my kindle, so it's easier to add them to this page
   /*
   Kindle: [
-    {
-      series: 'Twig',
-      entry: 'Arc 20',
-      title: 'Crown of Thorns',
-      author: 'Wildbow',
-      words: 102321,
-      size: 'large',
-    },
     {
       series: 'Twig',
       entry: 'Arc e',
@@ -471,6 +467,12 @@ const shelves = {
       title: 'Torah/Deuteronomy',
       author: 'RJPS',
       words: 27910,
+      size: 'small',
+    },
+    {
+      title: 'jan Osawi pi ma Osawi',
+      author: 'eng: L. Frank Baum<br>tok: jan Ke Tami',
+      words: 49357,
       size: 'small',
     },
   ],
