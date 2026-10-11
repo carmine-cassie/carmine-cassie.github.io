@@ -4,19 +4,29 @@
 const shelves = {
   Current: [
     {
+      series: 'Tanakh',
+      title: 'Torah/Genesis',
+      author: 'RJPS',
+      words: 37208,
+      size: 'small',
+    },
+  ],
+  'Oct 2026': [
+    {
+      series: 'Twig',
+      entry: 'Arc e',
+      title: 'Forest for the Trees',
+      author: 'Wildbow',
+      words: 22512,
+      size: 'small',
+    },
+    {
       series: 'Twig',
       entry: 'Arc 20',
       title: 'Crown of Thorns',
       author: 'Wildbow',
       words: 102321,
       size: 'large',
-    },
-    {
-      series: 'Tanakh',
-      title: 'Torah/Genesis',
-      author: 'RJPS',
-      words: 37208,
-      size: 'small',
     },
   ],
   'Sep 2026': [
@@ -161,16 +171,8 @@ const shelves = {
     },
   ],
   // Books I have on my kindle, so it's easier to add them to this page
-  /*
+  // /*
   Kindle: [
-    {
-      series: 'Twig',
-      entry: 'Arc e',
-      title: 'Forest for the Trees',
-      author: 'Wildbow',
-      words: 22512,
-      size: 'small',
-    },
     {
       series: 'This Used to be <br> About Dungeons',
       entry: 'Volume 2',
@@ -475,6 +477,12 @@ const shelves = {
       words: 49357,
       size: 'small',
     },
+    {
+      title: 'Finnegans Wake',
+      author: 'James Joyce',
+      words: 235616,
+      size: 'large',
+    },
   ],
-  */
+  // */
 };
