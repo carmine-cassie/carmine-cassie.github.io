@@ -4,6 +4,13 @@
 const shelves = {
   Current: [
     {
+      series: 'This Used to be <br> About Dungeons',
+      entry: 'Volume 2',
+      author: 'Alexander Wales',
+      words: 181201,
+      size: 'large',
+    },
+    {
       series: 'Tanakh',
       title: 'Torah/Genesis',
       author: 'RJPS',
@@ -171,15 +178,8 @@ const shelves = {
     },
   ],
   // Books I have on my kindle, so it's easier to add them to this page
-  // /*
+  /*
   Kindle: [
-    {
-      series: 'This Used to be <br> About Dungeons',
-      entry: 'Volume 2',
-      author: 'Alexander Wales',
-      words: 181201,
-      size: 'large',
-    },
     {
       series: 'This Used to be <br> About Dungeons',
       entry: 'Volume 3',
@@ -484,5 +484,5 @@ const shelves = {
       size: 'large',
     },
   ],
-  // */
+  */
 };
