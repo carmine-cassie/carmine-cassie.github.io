@@ -1,162 +1,167 @@
 @font-face {
-  font-family: "cozette";
-  src: url("/assets/fonts/CozetteVector.otf") format('opentype');
+  font-family: 'cozette';
+  src: url('/assets/fonts/CozetteVector.otf') format('opentype');
 }
 
 @font-face {
-  font-family: "micro5";
-  src: url("/assets/fonts/micro.5.ttf") format('opentype');
+  font-family: 'micro5';
+  src: url('/assets/fonts/micro.5.ttf') format('opentype');
 }
 
 :root {
-    image-rendering: pixelated;
+  image-rendering: pixelated;
 }
 
 body {
-    font-family: cozette;
-    font-size: 13px;
-    margin: 0px;
+  font-family: cozette;
+  font-size: 13px;
+  margin: 0px;
 
-    background-image: url('books.png');
-    background-position: center top;
+  background-image: url('books.png');
+  background-position: center top;
 }
 
 .book {
-    border: 1px black solid;
-    background-color: white;
-    width: fit-content;
-    margin-bottom: -1px;
+  border: 1px black solid;
+  background-color: white;
+  width: fit-content;
+  margin-bottom: -1px;
 
-    line-height: 13px;
+  line-height: 13px;
 
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 
-    margin-left: auto;
-    margin-right: auto;
+  margin-left: auto;
+  margin-right: auto;
 
-    position: relative;
+  position: relative;
 
-    background-image: url('gradient.png');
-    background-repeat: repeat-x;
-    background-position: bottom;
+  background-image: url('gradient.png');
+  background-repeat: repeat-x;
+  background-position: bottom;
 }
 
 .shelf-bottom {
-    background-image: none;
+  background-image: none;
 }
 
 .tiny {
-    width: 200px;
-    padding-left: 3px;
-    padding-right: 3px;
-    font-size: 11px;
-    font-family: 'micro5';
+  width: 200px;
+  padding-left: 3px;
+  padding-right: 3px;
+  font-size: 11px;
+  font-family: 'micro5';
 
-    line-height: 7px;
+  line-height: 7px;
 
-    span {
-        margin-top: -1px;
-        margin-bottom: 1px;
-    }
+  span {
+    margin-top: -1px;
+    margin-bottom: 1px;
+  }
 
-    .title {
-        text-align: left;
-    }
+  .title {
+    text-align: left;
+  }
 }
 
 .small {
-    width: 250px;
-    padding-left: 3px;
-    padding-right: 3px;
+  width: 250px;
+  padding-left: 3px;
+  padding-right: 3px;
 }
 
 .medium {
-    width: 294;
-    padding-left: 6px;
-    padding-right: 6px;
+  width: 294;
+  padding-left: 6px;
+  padding-right: 6px;
 }
 
 .large {
-    width: 326px;
-    padding-left: 15px;
-    padding-right: 15px;
+  width: 326px;
+  padding-left: 15px;
+  padding-right: 15px;
 }
 
 .spine {
-    margin-top: -1px;
-    white-space: nowrap;
+  margin-top: -1px;
+  white-space: nowrap;
 }
 
 .title {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: center;
 }
 
 .shelf {
-    width: 420px;
+  width: 420px;
 }
 
 h2 {
-    font-size: 39px;
-    margin-bottom: 6px;
-    text-align: center;
-    font-weight: normal;
+  font-size: 39px;
+  margin-bottom: 6px;
+  text-align: center;
+  font-weight: normal;
 }
 
 .separate {
-    margin: 10px;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    align-items: flex-end;
+  margin: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-end;
 }
 
 .stacked {
-    margin: 10px auto;
-    width: 600px;
+  margin: 10px auto;
+  width: 600px;
 }
 
 .stacked .shelf h2 {
-    position: absolute;
-    margin: 0px;
-    margin-left: 410px;
-    width: 170px;
-    text-align: left;
-    margin-top: -0.15em;
+  position: absolute;
+  margin: 0px;
+  margin-left: 410px;
+  width: 170px;
+  text-align: left;
+  margin-top: -0.15em;
 }
 
 h1 {
-    font-size: 52px;
-    text-align: center;
-    font-weight: normal;
-    margin-top: -15px;
-    margin-bottom: -5px;
+  font-size: 52px;
+  text-align: center;
+  font-weight: normal;
+  margin-top: -15px;
+  margin-bottom: -5px;
 }
 
 h2 {
-    font-size: 39px;
-    text-align: center;
-    font-weight: normal;
-    margin-top: -10px;
-    margin-bottom: 0px;
+  font-size: 39px;
+  text-align: center;
+  font-weight: normal;
+  margin-top: -10px;
+  margin-bottom: 0px;
 }
 
-p, ul {
-    margin: 5px 50px;
-    font-size: 13px;
+p,
+ul {
+  margin: 5px 50px;
+  font-size: 13px;
+}
+
+ul {
+  padding-left: 29px;
 }
 
 hr {
-    border: none;
-    height: 1px;
-    background-color: #222;
-    margin: 10px 0px;
+  border: none;
+  height: 1px;
+  background-color: #222;
+  margin: 10px 0px;
 }
 
 b {
-    font-weight: normal;
-    text-shadow: 1px 1px 1px #0005;
+  font-weight: normal;
+  text-shadow: 1px 1px 1px #0005;
 }
