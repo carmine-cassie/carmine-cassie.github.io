@@ -4,13 +4,6 @@
 const shelves = {
   Current: [
     {
-      series: 'This Used to be <br> About Dungeons',
-      entry: 'Volume 2',
-      author: 'Alexander Wales',
-      words: 181201,
-      size: 'large',
-    },
-    {
       series: 'Tanakh',
       title: 'Torah/Genesis',
       author: 'RJPS',
@@ -19,6 +12,13 @@ const shelves = {
     },
   ],
   'Oct 2026': [
+    {
+      series: 'This Used to be <br> About Dungeons',
+      entry: 'Volume 2',
+      author: 'Alexander Wales',
+      words: 181201,
+      size: 'large',
+    },
     {
       series: 'Twig',
       entry: 'Arc e',

@@ -3,6 +3,27 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
     <link rel="stylesheet" href="style.css" />
+
+    <style>
+      .section {
+        display: flex;
+        margin: 10px;
+        gap: 10px;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+
+      .section-title {
+        text-align: center;
+        margin-bottom: -8px;
+        margin-top: 13px;
+        font-size: 2em;
+      }
+
+      img {
+        box-shadow: 3px 3px #222a;
+      }
+    </style>
   </head>
 
   <body>
@@ -17,31 +38,34 @@
     >
       <p><a href="/bookshelf/">« Back to Bookshelf</a></p>
       <p>
-        All my dithered book covers. Arranged roughly by series, with more recently
-        read stuff vaguely closer to the top. I wanted to have them all in one place!
+        All my dithered book covers! Grouped roughly by series/author, most recently
+        read first. Ungrouped things all at the bottom.
       </p>
-      <div
-        style="
-          display: flex;
-          margin: 5px;
-          gap: 5px;
-          justify-content: center;
-          flex-wrap: wrap;
-        "
-      >
-        <img src="/assets/img/books/warandpeace.png" />
+      <p class="section-title">- This Used to be About Dungeons -</p>
+      <div class="section">
+        <img src="/assets/img/books/dungeons1.png" />
+        <img src="/assets/img/books/dungeons2.png" />
+      </div>
+      <p class="section-title">- Wildbow -</p>
+      <div class="section">
         <img src="/assets/img/books/twig2.png" />
+      </div>
+      <p class="section-title">- Arc of a Scythe -</p>
+      <div class="section">
+        <img src="/assets/img/books/scythe.png" />
+        <img src="/assets/img/books/thunderhead.png" />
+        <img src="/assets/img/books/the_toll.png" />
+      </div>
+      <p class="section-title">- Other -</p>
+      <div class="section">
+        <!-- <img src="/assets/img/books/tanakh.png" /> -->
+        <!-- <img src="/assets/img/books/warandpeace.png" /> -->
         <img src="/assets/img/books/girlfriends.png" />
         <img src="/assets/img/books/howl1.png" />
         <img src="/assets/img/books/storeys.png" />
         <img src="/assets/img/books/infect.png" />
         <img src="/assets/img/books/valuable_humans.png" />
-        <img src="/assets/img/books/scythe.png" />
-        <img src="/assets/img/books/thunderhead.png" />
-        <img src="/assets/img/books/the_toll.png" />
-        <img src="/assets/img/books/tanakh.png" />
         <img src="/assets/img/books/disaster.png" />
-        <img src="/assets/img/books/dungeons1.png" />
       </div>
     </div>
   </body>
