@@ -4,6 +4,12 @@
 const shelves = {
   Current: [
     {
+      title: 'When Women Were Dragons',
+      author: 'Kelly Barnhill',
+      words: 117388,
+      size: 'medium',
+    },
+    {
       series: 'Tanakh',
       title: 'Torah/Genesis',
       author: 'RJPS',
@@ -243,12 +249,6 @@ const shelves = {
       size: 'medium',
     },
     {
-      title: 'Autobiography of an Androgyne',
-      author: 'Jennie June',
-      words: 80789,
-      size: 'medium',
-    },
-    {
       series: 'Dune',
       entry: '#1',
       title: 'Dune',
@@ -301,14 +301,6 @@ const shelves = {
       author: 'Hazel Jane Plante',
       words: 43853,
       size: 'small',
-    },
-    {
-      series: 'Alex Stern',
-      entry: '#1',
-      title: 'Ninth House',
-      author: 'Leigh Bardugo',
-      words: 141294,
-      size: 'medium',
     },
     {
       title: 'Family Business',
@@ -481,6 +473,49 @@ const shelves = {
       title: 'Finnegans Wake',
       author: 'James Joyce',
       words: 235616,
+      size: 'large',
+    },
+    {
+      title: 'The Burn Line',
+      author: 'Jonathan Sims',
+      words: 103582,
+      size: 'medium',
+    },
+    {
+      title: 'A Short History of Nearly Everything',
+      author: 'Bill Bryson',
+      words: 209347,
+      size: 'large',
+    },
+    {
+      title: 'Dracula',
+      author: 'Bram Stoker',
+      words: 163821,
+      size: 'medium',
+    },
+    {
+      title: "Foucault's Pendulum",
+      author: 'ita: Umberto Eco<br>eng: William Weaver',
+      words: 212063,
+      size: 'large',
+    },
+    {
+      series: 'The Hainish Cycle',
+      title: '<br>The Left Hand of Darkness',
+      author: 'Ursula K. Le Guin',
+      words: 83797,
+      size: 'medium',
+    },
+    {
+      title: 'The Secret History',
+      author: 'Donna Tartt',
+      words: 203481,
+      size: 'large',
+    },
+    {
+      title: 'Watership Down',
+      author: 'Richard Adams',
+      words: 162841,
       size: 'large',
     },
   ],
