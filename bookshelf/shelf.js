@@ -184,7 +184,7 @@ const shelves = {
     },
   ],
   // Books I have on my kindle, so it's easier to add them to this page
-  /*
+  // /*
   Kindle: [
     {
       series: 'This Used to be <br> About Dungeons',
@@ -519,5 +519,5 @@ const shelves = {
       size: 'large',
     },
   ],
-  */
+  // */
 };
