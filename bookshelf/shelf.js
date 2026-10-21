@@ -4,9 +4,9 @@
 const shelves = {
   Current: [
     {
-      title: 'When Women Were Dragons',
-      author: 'Kelly Barnhill',
-      words: 117388,
+      title: 'The Burn Line',
+      author: 'Jonathan Sims',
+      words: 103582,
       size: 'medium',
     },
     {
@@ -18,6 +18,12 @@ const shelves = {
     },
   ],
   'Oct 2026': [
+    {
+      title: 'When Women Were Dragons',
+      author: 'Kelly Barnhill',
+      words: 117388,
+      size: 'medium',
+    },
     {
       series: 'This Used to be <br> About Dungeons',
       entry: 'Volume 2',
@@ -184,7 +190,7 @@ const shelves = {
     },
   ],
   // Books I have on my kindle, so it's easier to add them to this page
-  // /*
+  /*
   Kindle: [
     {
       series: 'This Used to be <br> About Dungeons',
@@ -476,12 +482,6 @@ const shelves = {
       size: 'large',
     },
     {
-      title: 'The Burn Line',
-      author: 'Jonathan Sims',
-      words: 103582,
-      size: 'medium',
-    },
-    {
       title: 'A Short History of Nearly Everything',
       author: 'Bill Bryson',
       words: 209347,
@@ -519,5 +519,5 @@ const shelves = {
       size: 'large',
     },
   ],
-  // */
+  */
 };
