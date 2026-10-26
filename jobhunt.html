@@ -40,6 +40,11 @@
           I enjoy the concept that the worse the job search goes, the prettier a
           graph I'll get to look at, as consolation!
         </p>
+        <style>
+          text {
+            font-size: 10px;
+          }
+        </style>
         <pre class="mermaid">
 ---
 config:
@@ -48,15 +53,39 @@ config:
 ---
 sankey
 
-Applied,Rejected,2
-Applied,No Response,4
+Applied,Rejected,3
 Applied,Aptitude Test,4
-Aptitude Test,No Response,3
-Aptitude Test,Technical Assessment,1
-Technical Assessment,Technical Interview,1
-Technical Interview,No Response,1
+Aptitude Test,Talent Pool,1
+Applied,No Response,3
+Aptitude Test,No Response,2
+Aptitude Test,Tech Ass.,1
+Tech Ass.,Tech Int.,1
+Tech Int.,Tech Int. #2,1
+Tech Int. #2,No Response,1
+
 </pre
         >
+
+        <p>
+          Also, I thought it could be interesting to track the total amount of time
+          spent on Aptitude Tests (basically personality quizzes and minigames),
+          assessments (take-home exams), and interviews.
+        </p>
+
+        <table>
+          <tr>
+            <th style="width: 70px">Aptitude</th>
+            <th style="width: 70px">Assessments</th>
+            <th style="width: 70px">Interviews</th>
+            <th style="width: 70px">Total</th>
+          </tr>
+          <tr>
+            <td>2hr</td>
+            <td>2hr 45min</td>
+            <td>1hr 30min</td>
+            <td>6hr 15min</td>
+          </tr>
+        </table>
       </div>
     </div>
 
