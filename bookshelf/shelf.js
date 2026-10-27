@@ -4,9 +4,16 @@
 const shelves = {
   Current: [
     {
-      title: 'The Burn Line',
-      author: 'Jonathan Sims',
-      words: 103582,
+      title: 'The Secret History',
+      author: 'Donna Tartt',
+      words: 203481,
+      size: 'large',
+    },
+    {
+      series: 'WARHOUND',
+      title: 'Volume One',
+      author: 'Kallidora Rho',
+      words: 138792,
       size: 'medium',
     },
     {
@@ -315,6 +322,12 @@ const shelves = {
       size: 'medium',
     },
     {
+      title: 'The Burn Line',
+      author: 'Jonathan Sims',
+      words: 103582,
+      size: 'medium',
+    },
+    {
       series: 'War and Peace<br>',
       entry: 'Book 3',
       title: '1805',
@@ -434,13 +447,7 @@ const shelves = {
       words: 17560,
       size: 'tiny',
     },
-    {
-      series: 'WARHOUND',
-      title: 'Volume One',
-      author: 'Kallidora Rho',
-      words: 138792,
-      size: 'medium',
-    },
+    
     {
       series: 'Tanakh',
       title: 'Torah/Exodus',
@@ -505,12 +512,6 @@ const shelves = {
       author: 'Ursula K. Le Guin',
       words: 83797,
       size: 'medium',
-    },
-    {
-      title: 'The Secret History',
-      author: 'Donna Tartt',
-      words: 203481,
-      size: 'large',
     },
     {
       title: 'Watership Down',
