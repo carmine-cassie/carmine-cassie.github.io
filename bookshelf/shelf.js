@@ -6,7 +6,7 @@ const shelves = {
     {
       title: 'The Secret History',
       author: 'Donna Tartt',
-      words: 203481,
+      words: 201348,
       size: 'large',
     },
     {
