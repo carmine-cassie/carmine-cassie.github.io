@@ -519,6 +519,13 @@ const shelves = {
       words: 162841,
       size: 'large',
     },
+
+    {
+      title: 'Claw',
+      author: 'Wildbow',
+      words: 302993,
+      size: 'large',
+    },
   ],
   */
 };
