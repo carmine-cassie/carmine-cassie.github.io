@@ -10,13 +10,6 @@ const shelves = {
       size: 'large',
     },
     {
-      series: 'WARHOUND',
-      title: 'Volume One',
-      author: 'Kallidora Rho',
-      words: 138792,
-      size: 'medium',
-    },
-    {
       series: 'Tanakh',
       title: 'Torah/Genesis',
       author: 'RJPS',
@@ -447,7 +440,7 @@ const shelves = {
       words: 17560,
       size: 'tiny',
     },
-    
+
     {
       series: 'Tanakh',
       title: 'Torah/Exodus',
@@ -525,6 +518,42 @@ const shelves = {
       author: 'Wildbow',
       words: 302993,
       size: 'large',
+    },
+    {
+      title: 'La Eta Princo',
+      author: 'fra: A. de Saint-Exupéry, epo: P. Delaire',
+      words: 13091,
+      size: 'tiny',
+    },
+    {
+      title: 'La Hobito',
+      author: 'eng: J. R. R. Tolkien<br>epo: William Auld ',
+      words: 83226,
+      size: 'small',
+    },
+    {
+      title: "La Mastro de l' Ringoj",
+      author: 'eng: J. R. R. Tolkien<br>epo: William Auld',
+      words: 424017,
+      size: 'large',
+    },
+    {
+      title: 'Jonathan Strange & Mr Norrell',
+      author: 'Susanna Clarke',
+      words: 335794,
+      size: 'large',
+    },
+    {
+      title: 'Piranesi',
+      author: 'Susanna Clarke',
+      words: 62078,
+      size: 'small',
+    },
+    {
+      title: 'Invisible Cities',
+      author: 'ita: Italo Calvino<br>eng: William Weaver',
+      words: 26688,
+      size: 'tiny',
     },
   ],
   */
