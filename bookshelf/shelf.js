@@ -4,10 +4,10 @@
 const shelves = {
   Current: [
     {
-      title: 'The Secret History',
-      author: 'Donna Tartt',
-      words: 201348,
-      size: 'large',
+      title: 'Piranesi',
+      author: 'Susanna Clarke',
+      words: 62078,
+      size: 'small',
     },
     {
       series: 'Tanakh',
@@ -15,6 +15,14 @@ const shelves = {
       author: 'RJPS',
       words: 37208,
       size: 'small',
+    },
+  ],
+  'Nov 2026': [
+    {
+      title: 'The Secret History',
+      author: 'Donna Tartt',
+      words: 201348,
+      size: 'large',
     },
   ],
   'Oct 2026': [
@@ -542,12 +550,6 @@ const shelves = {
       author: 'Susanna Clarke',
       words: 335794,
       size: 'large',
-    },
-    {
-      title: 'Piranesi',
-      author: 'Susanna Clarke',
-      words: 62078,
-      size: 'small',
     },
     {
       title: 'Invisible Cities',
