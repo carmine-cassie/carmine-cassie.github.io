@@ -4,10 +4,10 @@
 const shelves = {
   Current: [
     {
-      title: 'Piranesi',
-      author: 'Susanna Clarke',
-      words: 62078,
-      size: 'small',
+      title: 'Invisible Cities',
+      author: 'ita: Italo Calvino<br>eng: William Weaver',
+      words: 26688,
+      size: 'tiny',
     },
     {
       series: 'Tanakh',
@@ -18,6 +18,12 @@ const shelves = {
     },
   ],
   'Nov 2026': [
+    {
+      title: 'Piranesi',
+      author: 'Susanna Clarke',
+      words: 62078,
+      size: 'small',
+    },
     {
       title: 'The Secret History',
       author: 'Donna Tartt',
@@ -34,7 +40,7 @@ const shelves = {
     },
     {
       series: 'This Used to be <br> About Dungeons',
-      entry: 'Volume 2',
+      title: 'Volume 2',
       author: 'Alexander Wales',
       words: 181201,
       size: 'large',
@@ -490,12 +496,6 @@ const shelves = {
       size: 'large',
     },
     {
-      title: 'A Short History of Nearly Everything',
-      author: 'Bill Bryson',
-      words: 209347,
-      size: 'large',
-    },
-    {
       title: 'Dracula',
       author: 'Bram Stoker',
       words: 163821,
@@ -535,7 +535,7 @@ const shelves = {
     },
     {
       title: 'La Hobito',
-      author: 'eng: J. R. R. Tolkien<br>epo: William Auld ',
+      author: 'eng: J. R. R. Tolkien<br>epo: SOMEONE',
       words: 83226,
       size: 'small',
     },
@@ -550,12 +550,6 @@ const shelves = {
       author: 'Susanna Clarke',
       words: 335794,
       size: 'large',
-    },
-    {
-      title: 'Invisible Cities',
-      author: 'ita: Italo Calvino<br>eng: William Weaver',
-      words: 26688,
-      size: 'tiny',
     },
   ],
   */
