@@ -1,0 +1,128 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <style>
+      @font-face {
+        font-family: 'nasin-nanpa';
+        src: url('/assets/fonts/nasin-nanpa-5.0.0-beta.3.otf') format('opentype');
+      }
+
+      @font-face {
+        font-family: 'luka Eko';
+        src: url('/assets/fonts/luka-Eko.ttf') format('opentype');
+      }
+
+
+      :root {
+        background-color: #378cfe;
+        background-image: url('telo.png');
+        background-size: 300px;
+        background-position: center;
+      }
+
+      * {
+        margin: 0;
+      }
+
+      .postcard {
+        background-color: white;
+        background-image: url('paper.jpg');
+        background-position: center;
+        background-size: cover;
+        width: 200px;
+        min-height: 100px;
+        height: fit-content;
+        padding: 10px;
+        box-shadow: 7px 7px #31059499;
+
+        img {
+          height: 100px;
+          float: right;
+          margin-left: 10px;
+          box-shadow: 0px 0px 1px 1px #0002;
+        }
+
+        p {
+          margin-top: 10px;
+          font-family: 'luka Eko';
+          font-size: 40px;
+          line-height: 38px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <h1
+      style="
+        text-align: center;
+        font-family: 'nasin-nanpa';
+        color: white;
+        text-shadow:
+          1px 1px #f6b748,
+          2px 2px #f6b748,
+          3px 3px #f6b748,
+          4px 4px #f6b748,
+          5px 5px #f6b748;
+        font-size: 60px;
+        margin-top: 25px;
+      "
+    >
+      &nbsp;ijo&pona pi ma [open seli: jan.]&nbsp;
+    </h1>
+    <div
+      style="
+        display: flex;
+        gap: 25px;
+        flex-wrap: wrap;
+        margin: 10px auto;
+        max-width: 900px;
+        justify-content: center;
+        align-items: center;
+      "
+    >
+      <div class="postcard" style="width: 200px; transform: rotate(-2deg)">
+        <img src="tas.png" />
+        <p>ante mute soweli jan jan</p>
+      </div>
+
+      <div class="postcard" style="width: 285px; transform: rotate(2deg)">
+        <img src="nsw.png" />
+        <p>
+          loje kasi kasi la kala suwi jan waso jan jan soweli jan pipi jan jan waso
+          mun
+        </p>
+      </div>
+
+      <div class="postcard" style="width: 200px; transform: rotate(-2deg)">
+        <img src="vic.png" />
+        <p>insa jan jan soweli jan</p>
+      </div>
+
+      <div class="postcard" style="width: 200px; transform: rotate(2deg)">
+        <img src="sa.png" />
+        <p>akesi kiwen jan jan</p>
+      </div>
+
+      <div class="postcard" style="width: 200px; transform: rotate(-2deg)">
+        <img src="qld.png" />
+        <p>kala kala akesi jan jan</p>
+      </div>
+
+      <div class="postcard" style="width: 160px; transform: rotate(2deg)">
+        <img src="act.png" />
+        <p>pan toki soweli</p>
+      </div>
+
+      <!-- <div class="postcard" style="width: 200px; transform: rotate(-2deg)">
+      <img src="wa.png" />
+      <p></p>
+    </div>
+
+    <div class="postcard" style="width: 200px; transform: rotate(-2deg)">
+      <img src="nt.png" />
+      <p></p>
+    </div> -->
+    </div>
+  </body>
+</html>
